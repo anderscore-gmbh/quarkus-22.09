@@ -1,0 +1,110 @@
+:chapter: Einführung in Quarkus
+:speaker: {revealjs_speaker}
+:jobtitle: {revealjs_speaker_jobtitle}
+:date: {revealjs_date}
+:promoter: {revealjs_promoter}
+:imagesdir: images
+:space:
+
+[.center.text-center]
+== Einführung in Quarkus
+
+[.margin-bottom-default]
+
+image:quarkus.jpg[height=500, width=900, pdfwidth=60%]
+
+image:anderscore/anderScore_white.jpg[height=150, pdfwidth=70%]
+
+[.social-media]
+--
+image:social/twitter.png[height=30, pdfwidth=5%]
+@anderScoreGmbH
+image:social/facebook.png[height=30, pdfwidth=5%]
+anderScore.company
+image:social/meetup.svg[height=30, pdfwidth=5%]
+Java_Meetup_anderscore
+--
+
+ifdef::backend-pdf[]
+<<<
+endif::[]
+
+[.columns]
+== Vorstellung
+
+image::anderscore/dkraemer.jpg[height=600, pdfwidth=40%]
+
+--
+*Daniel Krämer*
+
+* Software-Entwickler & Architekt
+* Integration und Migration
+* Web Engineering
+* Testautomatisierung
+* Trainings, Vorträge, Artikel
+* image:social/github.png[height=30, width=30] dkraemer-anderscore
+--
+
+[.columns.text-center]
+== Unternehmen
+
+--
+* Standort: Köln (mit Rheinblick...)
+* Individuelle Softwareentwicklung
+* Consulting und Festpreis
+* Gesamter Application Life Cycle
+* Konferenzen und Artikel
+* Öffentliche Trainings
+
+image:anderscore/anderScore_white.jpg[height=100, pdfwidth=40%]
+--
+
+--
+* Technologien
+** JEE, Spring
+** Wicket, Angular
+** Docker, Kubernetes, Apache Kafka
+** ...
+* Goldschmiede@anderScore
+
+image:anderscore/goldschmiede-neu-dia.png[height=100, pdfwidth=40%]
+--
+
+
+[.columns.text-center]
+== Links
+
+--
+* Quarkus Dokumentation: https://quarkus.io
+* Docker Dokumentation: https://docs.docker.com
+* Folien + Demo: ???
+--
+
+ifdef::backend-revealjs[]
+[.columns.text-center]
+== Fragen?
+
+--
+image:question.jpg[pdfwidth=50%, width=750,height=750]
+--
+endif::[]
+
+<<<
+
+[.text-center]
+== Ende
+
+[.heading.margin-bottom-wide]
+Vielen Dank!
+
+image::anderscore/anderScore_white.jpg[heigth=400, width=900, pdfwidth=60%]
+
+[.social-media]
+--
+image:social/twitter.png[height=30, pdfwidth=5%]
+@anderScoreGmbH
+image:social/facebook.png[height=30, pdfwidth=5%]
+anderScore.company
+image:social/meetup.svg[height=30, pdfwidth=5%]
+Java_Meetup_anderscore
+--

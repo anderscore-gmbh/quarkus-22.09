@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.anderscore.presentation</groupId>
+        <artifactId>revealjs-pom</artifactId>
+        <version>3.0.0</version>
+    </parent>
+
+    <groupId>com.anderscore</groupId>
+    <artifactId>quarkus-presentation</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <presentation.title>Einführung in Quarkus</presentation.title>
+        <presentation.speaker>Daniel Krämer</presentation.speaker>
+        <presentation.speaker.jobtitle>Senior Software Engineer</presentation.speaker.jobtitle>
+        <presentation.date>21.08.2020</presentation.date>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.anderscore.tools</groupId>
+                <artifactId>revealjs-server-maven-plugin</artifactId>
+                <configuration>
+                    <attributes>
+                        <demo>${basedir}/../demo</demo>
+                    </attributes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>generate-slides</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <attributes>
+                                <demo>${basedir}/../demo</demo>
+                            </attributes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+
+
+    </build>
+
+    <profiles>
+        <profile>
+            <id>pdf-custom</id>
+            <activation>
+                <property>
+                    <name>pdf-custom</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctor-maven-plugin</artifactId>
+                        <version>${asciidoctor-maven-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>generate-pdf-doc</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>process-asciidoc</goal>
+                                </goals>
+                                <configuration>
+                                    <backend>pdf</backend>
+                                    <sourceHighlighter>coderay</sourceHighlighter>
+                                    <attributes>
+                                        <icons>font</icons>
+                                        <basedir>${basedir}</basedir>
+                                        <demo>${basedir}/../demo</demo>
+                                        <imagesdir>images</imagesdir>
+                                        <sourcedir>${basedir}/src/main/java</sourcedir>
+                                        <resourcedir>${basedir}/src/main/resources</resourcedir>
+
+                                        <revealjs_title>${presentation.title}</revealjs_title>
+                                        <revealjs_speaker>${presentation.speaker}</revealjs_speaker>
+                                        <revealjs_company>${presentation.company}</revealjs_company>
+                                        <project-version>${project.version}</project-version>
+                                        <plantuml-config>
+                                            ${project.build.directory}/theme/template/source/plantuml-config.txt
+                                        </plantuml-config>
+
+                                        <pdf-stylesdir>${project.build.directory}/theme/themes</pdf-stylesdir>
+                                        <pdf-fontsdir>${project.build.directory}/theme/fonts</pdf-fontsdir>
+                                        <pdf-style>anderScore</pdf-style>
+                                        <idprefix/>
+                                        <idseparator>-</idseparator>
+                                        <allow-uri-read>true</allow-uri-read>
+                                    </attributes>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>
