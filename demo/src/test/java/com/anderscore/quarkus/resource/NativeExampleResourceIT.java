@@ -1,4 +1,4 @@
-package com.anderscore;
+package com.anderscore.quarkus.resource;
 
 import io.quarkus.test.junit.NativeImageTest;
 
