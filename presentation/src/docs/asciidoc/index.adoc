@@ -11,31 +11,28 @@
 
 [.margin-bottom-default]
 
-image:quarkus.jpg[height=500, width=900, pdfwidth=60%]
+image:teaser.jpg[height=500, width=900]
 
-image:anderscore/anderScore_white.jpg[height=150, pdfwidth=70%]
+image:anderscore/anderScore_white.jpg[height=150]
 
 [.social-media]
 --
-image:social/twitter.png[height=30, pdfwidth=5%]
+image:social/twitter.png[height=30]
 @anderScoreGmbH
-image:social/facebook.png[height=30, pdfwidth=5%]
+image:social/facebook.png[height=30]
 anderScore.company
-image:social/meetup.svg[height=30, pdfwidth=5%]
+image:social/meetup.svg[height=30]
 Java_Meetup_anderscore
 --
-
-ifdef::backend-pdf[]
-<<<
-endif::[]
 
 [.columns]
 == Vorstellung
 
-image::anderscore/dkraemer.jpg[height=600, pdfwidth=40%]
+image::anderscore/dkraemer.jpg[height=600]
 
 --
-*Daniel Krämer*
+[.heading]
+Daniel Krämer
 
 * Software-Entwickler & Architekt
 * Integration und Migration
@@ -56,7 +53,7 @@ image::anderscore/dkraemer.jpg[height=600, pdfwidth=40%]
 * Konferenzen und Artikel
 * Öffentliche Trainings
 
-image:anderscore/anderScore_white.jpg[height=100, pdfwidth=40%]
+image:anderscore/anderScore_white.jpg[height=100]
 --
 
 --
@@ -67,29 +64,326 @@ image:anderscore/anderScore_white.jpg[height=100, pdfwidth=40%]
 ** ...
 * Goldschmiede@anderScore
 
-image:anderscore/goldschmiede-neu-dia.png[height=100, pdfwidth=40%]
+image:anderscore/goldschmiede-neu-dia.png[height=100]
 --
 
+[.columns]
+== Was ist Quarkus?
+
+image::quarkus.jpg[width=400]
+
+--
+* Java/Kotlin/Scala App Framework
+* JakartaEE + MicroProfile
+* OpenJDK/HotSpot und GraalVM
+* Entwickelt von Red Hat
+* Nachfolger von Thorntail
+* Konkurrent von Spring Boot
+* Aktuelle Version: 1.7.0 (August 2020)
+--
+
+== Philosophie
+
+* Cloud Native, Container First
+* Imperative und reaktive Programmierung
+* Erweiterbarkeit
+* "Freude für Entwickler"
+
+[.columns]
+== Exkurs: MicroProfile
+
+--
+image::microprofile.png[width=700]
+* Sammlung von Spezifikationen
+* Fokus auf Microservices
+--
+
+--
+image::MicroProfile3.3.png[width=900]
+--
+
+[.columns.text-center]
+== Exkurs: MicroProfile
+
+--
+[.margin-bottom-wide]
+image::quarkus.jpg[width=200]
+
+[.margin-bottom-wide]
+image::thorntail.png[width=250]
+
+[.margin-bottom-wide]
+image::openliberty.png[width=250]
+--
+
+--
+[.margin-bottom-wide]
+image::payara.jpeg[width=250]
+
+[.margin-bottom-wide]
+image::helidon.png[width=250]
+
+[.margin-bottom-wide]
+image::kumuluz.png[width=250]
+--
+
+== Exkurs: GraalVM
+
+image::graalvm.svg[width=800]
+
+* Alternative zu OpenJDK/HotSpot
+* Truffle Framework: Unterstützung anderer Sprachen über AST
+* Native Image: Erweiterung für ahead-of-time Compilation
+* Graal Compiler, SubstrateVM
+* Entwickelt in Java
+* Produktiv seit 2019
+* Community Edition vs. Enterprise Edition
+
+== Exkurs: GraalVM
+
+image::graalvm_architecture.jpg[width=1400]
+
+== Exkurs: GraalVM
+
+[.heading]
+Verwendung
+
+[source, bash]
+----
+native-image -jar my-app.jar
+./my-app
+----
+
+== Exkurs: GraalVM
+
+[.heading]
+Vorteile
+
+* Reduzierte Startup Time
+* Geringerer Speicherverbrauch
+* Polyglotte Anwendungen
+
+== Exkurs: GraalVM
+
+[.heading]
+Eingeschränkt
+
+* Reflection (@RegisterForReflection)
+* JDK DynamicProxy
+* Resources
+* JNI
+* Statische Initialisierung (durch Heap Snapshots)
+
+== Exkurs: GraalVM
+
+[.heading]
+Nicht unterstützt
+
+* Dynamisches Class Loading (z.B. JRebel)
+* Manipulationen des Bytecodes (z.B. Lombok, Profiler)
+* Java Debugger (nur GDB)
+* InvokeDynamic, MethodHandles
+
+== Container First
+
+[.heading]
+Ziele
+
+* Skalierbarkeit in der Cloud
+* Kurze Startup Time
+* Geringer Speicherverbrauch
+
+== Container First
+
+[.heading]
+Realisierung
+
+* Quarkus Maven Plugin
+** Erstellung von Container Images (Docker, Podman)
+** Optimierung für OpenJDK/HotSpot und GraalVM (native)
+* Build Time Metadata Processing
+** Höhere Build Time, verbesserte Runtime
+** Vermeidung von Reflection und Lazy Initialization
+** Aufzeichnung des Bootstrapping Prozesses
+** Vorgenerierung von Bytecode
+** Reduktion verbleibender Bootstrapper Klassen
+
+== Quarkus Extensions
+
+* Integration von Libraries und Frameworks
+* Maven Dependencies
+* Versionen
+* Konfigurationen
+* Optimiert für Quarkus (HotSpot / SubstrateVM)
+* Vergleichbar mit Spring Boot Startern
+
+----
+mvn quarkus:list-extensions
+----
+
+== Quarkus Extensions
+
+image::quarkus_extensions.png[width=800]
+
+== ArC
+
+* Problem: CDI 2.0 (Weld) nutzt Reflection
+* ArC: Built Time CDI
+* Statische Verwendungsanalyse
+* "Hardcoding" der Metadaten
+* Eingeschränkungen bei BeanManager
+
+== ArC
+
+[.heading]
+Nicht unterstützt
+
+* @Interceptor
+* @Decorator
+* @ConversationScoped
+* Passivation
+* Portable Extensions
+* beans.xml
+
+== Bootstrapping
+
+[.heading]
+quarkus-maven-plugin
+
+[source, bash]
+----
+mvn quarkus:create \
+-DprojectGroupId=com.anderscore \
+-DprojectArtifactId=quarkus-demo \
+-DclassName="com.anderscore.quarkus.resource.TaskResource" \
+-Dpath="/tasks"
+----
+
+[source]
+----
+[io.quarkus] (main) Installed features: [
+cdi,
+resteasy
+]
+----
+
+[source, bash]
+----
+mvn quarkus:add-extensions –Dextensions=quarkus-hibernate-orm,quarkus-jdbc-h2]
+----
+
+[.text-center]
+== Bootstrapping
+
+https://code.quarkus.io
+
+image::quarkus_starter.png[width=1400]
+
+== Bootstrapping
+
+[.heading]
+Projektstruktur
+
+....
+.
+├── src
+│   └── main
+|       ├── docker
+|       |   └── Dockerfile.jvm
+|       |   └── Dockerfile.native
+|       |   └── Dockerfile.fast-jar
+|       ├── java
+|       |   └── de.anderscore.quarkus.resource
+|       |       └── TaskResource.java
+│       └── resources
+|           └── application.properties
+└── pom.xml
+....
+
+== Bootstrapping
+
+[.heading]
+Build
+
+[source, bash]
+----
+./mvnw package -Pnative
+----
+
+target/quarkus-demo-1.0-SNAPSHOT.jar:: Klassen und Ressourcen (thin jar)
+target/quarkus-demo-1.0-SNAPSHOT-runner.jar :: Runner (executable jar)
+target/lib/:: Dependencies
+
+== Bootstrapping
+
+[.heading]
+HotSpot
+
+[source, bash]
+----
+java -jar quarkus-demo-1.0-SNAPSHOT-runner.jar
+----
+
+[.heading]
+SubstrateVM (native)
+
+[source, bash]
+----
+./quarkus-demo-1.0-SNAPSHOT-runner
+----
+
+== Development Mode
+
+* Live Reload (Hot Deployment)
+** bei Änderungen
+** mit jedem HTTP Request
+
+* Inhalte
+** Klassen
+** Resourcen
+** Konfigurationen
+
+* Debugger Port: 5005
+
+[source, bash]
+----
+./mvnw compile quarkus:dev
+----
+
+== Native Executables
+
+* SubstrateVM ermöglicht native Images
+* Deutliche Reduktion der Startup Time
+* Erstellung auch ohne lokale GraalVM
+
+[source, bash]
+----
+./mvnw package -Pnative -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true
+----
+
+[.text-center]
+== Live Demo
+
+[.heading]
+Zeit für eine Live Demo!
 
 [.columns.text-center]
 == Links
 
 --
-* Quarkus Dokumentation: https://quarkus.io
-* Docker Dokumentation: https://docs.docker.com
-* Folien + Demo: ???
+* Quarkus: https://quarkus.io
+* MicroProfile: https://microprofile.io
+* GraalVM: https://www.graalvm.org
+* Docker: https://docs.docker.com
+* Folien + Demo: https://github.com/goldschmiede/2020-08-21-Quarkus
 --
 
-ifdef::backend-revealjs[]
 [.columns.text-center]
 == Fragen?
 
 --
-image:question.jpg[pdfwidth=50%, width=750,height=750]
+image:question.jpg[width=750,height=750]
 --
-endif::[]
-
-<<<
 
 [.text-center]
 == Ende
