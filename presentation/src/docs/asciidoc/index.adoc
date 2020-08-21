@@ -68,6 +68,20 @@ image:anderscore/goldschmiede-neu-dia.png[height=100]
 --
 
 [.columns]
+== Unternehmen
+
+image::anderscore/wanted.jpg[height=600]
+
+--
+[.heading]
+Wen oder was suchen wir?
+
+* Junior und Senior Entwickler
+* Partnerschaften für Projekte
+* Entwicklungsprojekte
+--
+
+[.columns]
 == Was ist Quarkus?
 
 image::quarkus.jpg[width=400]
@@ -259,14 +273,6 @@ mvn quarkus:create \
 -Dpath="/tasks"
 ----
 
-[source]
-----
-[io.quarkus] (main) Installed features: [
-cdi,
-resteasy
-]
-----
-
 [source, bash]
 ----
 mvn quarkus:add-extensions –Dextensions=quarkus-hibernate-orm,quarkus-jdbc-h2]
@@ -330,6 +336,13 @@ SubstrateVM (native)
 [source, bash]
 ----
 ./quarkus-demo-1.0-SNAPSHOT-runner
+----
+
+[source]
+----
+[io.quarkus] (main) Installed features: [agroal, cdi, hibernate-orm,
+jdbc-h2,mutiny, narayana-jta,resteasy, resteasy-jsonb, smallrye-context-propagation,
+smallrye-health, smallrye-metrics, smallrye-openapi]
 ----
 
 == Development Mode
