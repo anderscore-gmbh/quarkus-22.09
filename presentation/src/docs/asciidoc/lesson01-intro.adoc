@@ -1,0 +1,501 @@
+== Was ist Quarkus?
+
+image::quarkus.jpg[width=400]
+
+--
+* Java/Kotlin/Scala App Framework
+* JakartaEE + MicroProfile
+* OpenJDK/HotSpot und GraalVM
+* Entwickelt von Red Hat
+* Nachfolger von Thorntail
+* Konkurrent von Spring Boot
+--
+
+
+== Quarkus Releases
+[cols="1,^,20"]
+|===
+|Datum|Version|Neuigkeit
+|12/2018|0.0.1| Erster Github Tag
+|03/2019||Introducing Quarkus: a next-generation Kubernetes native Java framework
+|11/2019|1.0|Erstes Release
+|12/2019|1.1|Template engine, YAML configuration
+|01/2020|1.2|GraalVM 19.3.1 support, Metrics, Cache extension
+|03/2020|1.3|New class loader infrastructure, GraalVM 20
+|04/2020|1.4|Command mode, HTTP 2, New FaaS framework, Mocking
+|06/2020|1.5|fast-jar packaging format, Picocli, gRPC, GraphQL
+|07/2020|1.6|AppCDS, Google Cloud Functions, GraalVM 20.1.0
+|08/2020|1.7|Elasticsearch and Redis clients, Reactive routes and Funqy improvements
+|09/2020|1.8|Multiple Persistence Units, Micrometer, jbang, GraalVM 20.2
+|10/2020|1.8.3|Aktuelles Release
+
+
+
+//|03/2004|1.0|Offizielle 1.0 Freigabe
+//|10/2006|2.0|XML-Namespaces, Autowiring
+//|11/2007|2.5|SE6 + EE 5, Annotationen
+//|12/2009|3.0|EL, Java-Config, REST
+//|12/2013|4.0|Lambda-Ausdrücke
+//|09/2017|5.0|Reactive Streams, WebFlux, Kotlin
+//|05/2019|5.1.7|Java 11, Detailverbesserungen
+//|07/2019|5.2|Kotlin 1.3, JUnit 5.4, Erweiterungen (Reactive, Kotlin)
+//|09/2020|5.2.9|Aktuelles Release
+|===
+
+== Introducing Quarkus: A next-generation Kubernetes native Java framework
+
+[.heading]
+Philosophie
+[.margin-bottom-wide]
+* Cloud Native, Container First
+* Imperative und reaktive Programmierung
+* Erweiterbarkeit
+* "Freude für Entwickler"
+
+
+https://developers.redhat.com/blog/2019/03/07/quarkus-next-generation-kubernetes-native-java-framework/
+
+== Guide: Getting started
+
+[.heading]
+System-Voraussetzungen
+[.margin-bottom-wide]
+. JDK  11+, Optional: GraalVM (JDK 8 ist deprecated)
+. Apache Maven, Alternativ: Gradle
+
+[.heading]
+IDE Unterstützung
+
+* Eclipse: Teil der JBoss Tools: https://tools.jboss.org/ & Code Ready Studio (Redhat Support)
+* IntelliJ
+** Quarkus Tools (Redhat): https://plugins.jetbrains.com/plugin/13234-quarkus-tools
+** Quarkus (Ultimate Edition): https://www.jetbrains.com/help/idea/quarkus.html
+* Quarkus Tools for Microsoft Visual Studio Code
+**  https://marketplace.visualstudio.com/items?itemName=redhat.vscode-quarkus
+
+_Die Beispiele verwenden IntelliJ/Quarkus Tools. Sie sind jedoch frei in der Wahl Ihrer IDE._
+
+== Guide: Getting started
+
+[.heading]
+Hello Quarkus: "2. Architecture"
+
+image::getting-started-architecture.png[width=1400]
+
+https://quarkus.io/guides/getting-started
+
+== Guide: Getting started
+
+[.heading]
+Hello Quarkus
+
+Projekt generieren
+----
+$ mvn io.quarkus:quarkus-maven-plugin:1.8.3.Final:create \
+  -DprojectGroupId=net.gfu.quarkus \
+  -DprojectArtifactId=hello \
+  -DclassName="net.gfu.quarkus.hello.GreetingResource" \
+  -Dpath="/hello"
+----
+{nbsp}
+In Verzeichnis wechseln und Server starten
+----
+$ cd hello
+$ ./mvnw compile quarkus:dev
+----
+{nbsp}
+Server testen
+----
+$ curl -w "\n" http://localhost:8080/hello
+hello
+----
+
+https://quarkus.io/guides/getting-started
+
+== Guide: Getting started
+
+[.heading]
+Artefakte
+
+. src/main/docker
+    * *Dockerfile.jvm* - Container mit OpenJDK
+    * *Dockerfile.fast-jar* - _fast-jar_-Variante, Container mit OpenJDK
+    * *Dockerfile.native* - Container mit _ahead-of-time-compilation_ native image (GraalVM)
+. src/main/java/net.gfu.quarkus.hello.*GreetingResource.java* - Java Implementation
+. src/main/resources/META-INF
+    * *application.properties* - Zentrale Konfiguration
+    * resources/*index.html* - Freundliche Index-Seite
+. src/test/java/net.gfu.quarkus.hello
+    * *GreetingResourceTest* - Einfacher Integrationstest (REST-assured)
+    * *NativeGreetingResourceIT* - Integrationstest im _ahead-of-time-compilation_ Setup
+. *pom.xml* - Maven Konfiguration - Quarkus Version z.T. abweichend vom ArcheType
+
+== Guide: Getting started - Projekt erweitern
+[.heading]
+Business Service definieren und injizieren (CDI)
+[source,java]
+.GreetingService.java
+----
+include::sources/lessen01-intro-business-service.java[]
+----
+[source,java]
+.GreetingResource.java (ergänzen)
+----
+include::sources/lessen01-intro-extend-resouce.java[]
+----
+
+== Guide: Getting started
+
+[.heading]
+Erweitertes Projekt testen
+[source,bash]
+.Shell #1
+----
+$ ./mvnw compile quarkus:dev
+# ... Weitere Maven Ausgaben
+Listening for transport dt_socket at address: 5005
+__  ____  __  _____   ___  __ ____  ______
+ --/ __ \/ / / / _ | / _ \/ //_/ / / / __/
+ -/ /_/ / /_/ / __ |/ , _/ ,< / /_/ /\ \
+--\___\_\____/_/ |_/_/|_/_/|_|\____/___/
+2020-10-12 18:15:46,445 INFO  [io.quarkus] (Quarkus Main Thread) hello 1.0-SNAPSHOT on JVM (powered by Quarkus 1.9.0.CR1) started in 1.219s. Listening on: http://0.0.0.0:8080
+2020-10-12 18:15:46,458 INFO  [io.quarkus] (Quarkus Main Thread) Profile dev activated. Live Coding activated.
+2020-10-12 18:15:46,458 INFO  [io.quarkus] (Quarkus Main Thread) Installed features: [cdi, resteasy]
+----
+
+.Shell #2
+----
+$ curl -w "\n" http://localhost:8080/hello/greeting/GfU
+hello GfU
+----
+
+== Aufgabe 1.1 - Quarkus Echo
+
+[.heading]
+Aufgabe 1.1 - Quarkus Echo
+
+Erzeugen Sie neues Quarkus Projekt und definieren Sie eine Resource echo mit folgender Ausgabe:
+----
+$ curl -w "\n" http://localhost:8080/echo/Quarkus4711
+Quarkus4711
+----
+
+{nbsp} +
+
+Hinweise:
+
+. Neben dem Maven-Archetype können Sie auch https://code.quarkus.io zum Erzeugen eines Projekts verwenden
+. Nutzen Sie erneut einen Business-Service und CDI
+. Eine Beispiellösung finden Sie unter solutions/lesson01-intro
+
+== Exkurs: MicroProfile
+
+--
+image::microprofile.png[width=700]
+* Sammlung von Spezifikationen
+* Fokus auf Microservices
+--
+
+--
+image::MicroProfile3.3.png[width=900]
+--
+
+[.columns.text-center]
+== Exkurs: MicroProfile
+
+--
+[.margin-bottom-wide]
+image::quarkus.jpg[width=200]
+
+[.margin-bottom-wide]
+image::thorntail.png[width=250]
+
+[.margin-bottom-wide]
+image::openliberty.png[width=250]
+--
+
+--
+[.margin-bottom-wide]
+image::payara.jpeg[width=250]
+
+[.margin-bottom-wide]
+image::helidon.png[width=250]
+
+[.margin-bottom-wide]
+image::kumuluz.png[width=250]
+--
+
+== Exkurs: GraalVM
+
+image::graalvm.svg[width=800]
+
+* Alternative zu OpenJDK/HotSpot
+* Truffle Framework: Unterstützung anderer Sprachen über AST
+* Native Image: Erweiterung für ahead-of-time Compilation
+* Graal Compiler, SubstrateVM
+* Entwickelt in Java
+* Produktiv seit 2019
+* Community Edition vs. Enterprise Edition
+
+== Exkurs: GraalVM
+
+image::graalvm_architecture.jpg[width=1400]
+
+== Exkurs: GraalVM
+
+[.heading]
+Verwendung
+
+[source, bash]
+----
+native-image -jar my-app.jar
+./my-app
+----
+
+== Exkurs: GraalVM
+
+[.heading]
+Vorteile
+
+* Reduzierte Startup Time
+* Geringerer Speicherverbrauch
+* Polyglotte Anwendungen
+
+== Exkurs: GraalVM
+
+[.heading]
+Eingeschränkt
+
+* Reflection (@RegisterForReflection)
+* JDK DynamicProxy
+* Resources
+* JNI
+* Statische Initialisierung (durch Heap Snapshots)
+
+== Exkurs: GraalVM
+
+[.heading]
+Nicht unterstützt
+
+* Dynamisches Class Loading (z.B. JRebel)
+* Manipulationen des Bytecodes (z.B. Lombok, Profiler)
+* Java Debugger (nur GDB)
+* InvokeDynamic, MethodHandles
+
+== Container First
+
+[.heading]
+Ziele
+
+* Skalierbarkeit in der Cloud
+* Kurze Startup Time
+* Geringer Speicherverbrauch
+
+== Container First
+
+[.heading]
+Realisierung
+
+* Quarkus Maven Plugin
+** Erstellung von Container Images (Docker, Podman)
+** Optimierung für OpenJDK/HotSpot und GraalVM (native)
+* Build Time Metadata Processing
+** Höhere Build Time, verbesserte Runtime
+** Vermeidung von Reflection und Lazy Initialization
+** Aufzeichnung des Bootstrapping Prozesses
+** Vorgenerierung von Bytecode
+** Reduktion verbleibender Bootstrapper Klassen
+
+== Quarkus Extensions
+
+* Integration von Libraries und Frameworks
+* Maven Dependencies
+* Versionen
+* Konfigurationen
+* Optimiert für Quarkus (HotSpot / SubstrateVM)
+* Vergleichbar mit Spring Boot Startern
+
+----
+mvn quarkus:list-extensions
+----
+
+== Quarkus Extensions
+
+image::quarkus_extensions.png[width=800]
+
+== ArC
+
+* Problem: CDI 2.0 (Weld) nutzt Reflection
+* ArC: Built Time CDI
+* Statische Verwendungsanalyse
+* "Hardcoding" der Metadaten
+* Eingeschränkungen bei BeanManager
+
+== ArC
+
+[.heading]
+Nicht unterstützt
+
+* @Interceptor
+* @Decorator
+* @ConversationScoped
+* Passivation
+* Portable Extensions
+* beans.xml
+
+== Bootstrapping
+
+[.heading]
+quarkus-maven-plugin
+
+[source, bash]
+----
+mvn quarkus:create \
+-DprojectGroupId=com.anderscore \
+-DprojectArtifactId=quarkus-demo \
+-DclassName="com.anderscore.quarkus.resource.TaskResource" \
+-Dpath="/tasks"
+----
+
+[source, bash]
+----
+mvn quarkus:add-extensions –Dextensions=quarkus-hibernate-orm,quarkus-jdbc-h2]
+----
+
+[.text-center]
+== Bootstrapping
+
+https://code.quarkus.io
+
+image::quarkus_starter.png[width=1400]
+
+== Bootstrapping
+
+[.heading]
+Projektstruktur
+
+....
+.
+├── src
+│   └── main
+|       ├── docker
+|       |   └── Dockerfile.jvm
+|       |   └── Dockerfile.native
+|       |   └── Dockerfile.fast-jar
+|       ├── java
+|       |   └── de.anderscore.quarkus.resource
+|       |       └── TaskResource.java
+│       └── resources
+|           └── application.properties
+└── pom.xml
+....
+
+== Bootstrapping
+
+[.heading]
+Build
+
+[source, bash]
+----
+./mvnw package -Pnative
+----
+
+target/quarkus-demo-1.0-SNAPSHOT.jar:: Klassen und Ressourcen (thin jar)
+target/quarkus-demo-1.0-SNAPSHOT-runner.jar :: Runner (executable jar)
+target/lib/:: Dependencies
+
+== Bootstrapping
+
+[.heading]
+HotSpot
+
+[source, bash]
+----
+java -jar quarkus-demo-1.0-SNAPSHOT-runner.jar
+----
+
+[.heading]
+SubstrateVM (native)
+
+[source, bash]
+----
+./quarkus-demo-1.0-SNAPSHOT-runner
+----
+
+[source]
+----
+[io.quarkus] (main) Installed features: [agroal, cdi, hibernate-orm,
+jdbc-h2,mutiny, narayana-jta,resteasy, resteasy-jsonb, smallrye-context-propagation,
+smallrye-health, smallrye-metrics, smallrye-openapi]
+----
+
+== Development Mode
+
+* Live Reload (Hot Deployment)
+** bei Änderungen
+** mit jedem HTTP Request
+
+* Inhalte
+** Klassen
+** Resourcen
+** Konfigurationen
+
+* Debugger Port: 5005
+
+[source, bash]
+----
+./mvnw compile quarkus:dev
+----
+
+== Native Executables
+
+* SubstrateVM ermöglicht native Images
+* Deutliche Reduktion der Startup Time
+* Erstellung auch ohne lokale GraalVM
+
+[source, bash]
+----
+./mvnw package -Pnative -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true
+----
+
+[.text-center]
+== Live Demo
+
+[.heading]
+Zeit für eine Live Demo!
+
+[.columns.text-center]
+== Links
+
+--
+* Quarkus: https://quarkus.io
+* MicroProfile: https://microprofile.io
+* GraalVM: https://www.graalvm.org
+* Docker: https://docs.docker.com
+* Folien + Demo: https://github.com/goldschmiede/2020-08-21-Quarkus
+--
+
+[.columns.text-center]
+== Fragen?
+
+--
+image:question.jpg[width=750,height=750]
+--
+
+[.text-center]
+== Ende
+
+[.heading.margin-bottom-wide]
+Vielen Dank!
+
+image::anderscore/anderScore_white.jpg[heigth=400, width=900, pdfwidth=60%]
+
+[.social-media]
+--
+image:social/twitter.png[height=30, pdfwidth=5%]
+@anderScoreGmbH
+image:social/facebook.png[height=30, pdfwidth=5%]
+anderScore.company
+image:social/meetup.svg[height=30, pdfwidth=5%]
+Java_Meetup_anderscore
+--

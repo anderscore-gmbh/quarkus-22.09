@@ -1,0 +1,128 @@
+:imagesdir: images
+
+[state=no-title-footer]
+== Jakarta EE Microservices mit Quarkus & MicroProfile
+
+[.center]
+19.10. - 21.10.20 +
+[.center]
+Jan Lühr
+
+image::anderscore/GFU.svg[height=300]
+
+[.columns]
+== Vorstellung
+
+--
+[.heading]
+Jan Lühr (B.Sc. Computer Science)
+
+* Fokus
+** IT-Trainer
+** Pragmatic Architect
+** Software Development
+** Build- and Deployment Engineering
+** Network- and Security-Techniques
+** Trainings, Artikel, Vorträge
+** Java, JavaScript, Ruby, …
+
+
+--
+
+image::anderscore/user-jluehr.png[pdfwidth=7cm]
+
+[.columns.text-center]
+== Unternehmen
+
+--
+* Standort: Köln (mit Rheinblick...)
+* Individuelle Softwareentwicklung
+* Consulting und Festpreis
+* Gesamter Application Life Cycle
+* Konferenzen und Artikel
+* Öffentliche Trainings
+
+image:anderscore/anderScore_white.jpg[height=100]
+--
+
+
+== Inhalt und Ziel
+
+Workshop::
+* Einführung in grundlegende Microservice (µService), Microprofile und Quarkus-Konzepte
+* Überwindung von Einstiegshürden
+* Funktionen und Features werden mit Aufgaben erarbeitet
+
+Zielgruppe::
+* Software-Entwickler (d/m/w), die µServices mit Quarkus entwickeln möchte
+
+Voraussetzungen::
+
+* Gute Java Kenntnisse
+* Sicherheit im Umgang mit einer IDE (hier: IntelliJ Community Edition)
+* Basiswissen zu HTTP, SQL, Transaktionen, JUnit
+* Erfahrung mit Maven
+
+== Zeitplan
+
+|===
+|Beginn|09:00 Uhr
+|Kaffeepause|ca. 10:30 Uhr
+|Mittagspause|12:00 bis 13:00 Uhr
+|Ende|16:00 Uhr
+|===
+
+== Remote Training
+
+* Video-Konferenz über BigBlueButton (BBB)
+** Bildschirmfreigabe / Folien: Jetzt testen :-)
+** Breakout Rooms für Übungen
+** Lautsprecher + Mikrophon benötigt, Kamera empfehlenswert
+* Entwicklung: Lokal
+** Praktische Übungen
+** Aufschaltung über BBB möglich
+* Material auf GitHub
+
+=== Vereinbarungen
+
+* Pausen
+** Gemeinsam zu vorgegebenen Zeiten
+** Individuell während der Übungen
+* Erreichbarkeit Dozent
+** BigBlueButton (Chat, Mikrophon)
+** E-Mail
+** Handy
+** Kamera aus: gerade nicht anwesend bzw. ansprechbar
+* Regeln
+** Mikrophon möglichst aus (Hintergrundgeräusche)
+** Bei Fragen: "Hand heben" oder Chat
+** Wenn Übung fertig, selbst in Hauptsession zurückkehren
+
+== Material
+
+* Quarkus Guides +
+https://quarkus.io/guides/
+
+* Quarkus Cheatsheet(s) +
+https://lordofthejars.github.io/quarkus-cheat-sheet/
+
+* GitHub QuarkusIO +
+https://github.com/quarkusio/quarkus
+
+[.columns]
+== Vorstellung
+
+--
+[.heading]
+Jetzt sind Sie dran!
+
+* Name
+* Vorwissen
+* Erwartungen
+* Themenwünsche
+--
+
+image::anybody.jpg[float=right, pdfwidth=4cm]
+
+
+link:index.html#/_agenda[-> Zurück zur Übersicht]

@@ -10,15 +10,18 @@
         <version>3.0.0</version>
     </parent>
 
-    <groupId>com.anderscore</groupId>
-    <artifactId>quarkus-presentation</artifactId>
+    <groupId>com.anderscore.presentation</groupId>
+    <artifactId>quarkus-training</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <presentation.title>Einführung in Quarkus</presentation.title>
-        <presentation.speaker>Daniel Krämer</presentation.speaker>
+        <presentation.title>Jakarta EE Microservices mit Quarkus &amp; MicroProfile</presentation.title>
+        <presentation.speaker>Jan Lühr</presentation.speaker>
         <presentation.speaker.jobtitle>Senior Software Engineer</presentation.speaker.jobtitle>
-        <presentation.date>21.08.2020</presentation.date>
+        <presentation.date>19.10. - 21.10.2020</presentation.date>
+        <!--values: gfu,individual Defines which schedule will be used for the training -->
+        <presentation.promoter>gfu</presentation.promoter>
+
     </properties>
 
     <build>
