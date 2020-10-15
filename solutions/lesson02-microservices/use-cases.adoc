@@ -1,0 +1,31 @@
+= Aufgabe Domain Driven Design
+
+Für den großen Parkhausbetreiber „JustParkIt“ soll ein System zur Ausgabe, Nutzung, Abrechnung und Rücknahme von Tickets und Dauerparkausweisen umgesetzt werden.
+Im Rahmen der Anforderungserhebung wurden bereits einige User Stories ermittelt.
+
+== Aufgabenstellung ==
+
+. Gruppieren Sie die User Stories nach fachlichen Domänen und benennen Sie die so entstandenen Bounded Contexts.
+. Identifizieren Sie die jeweils beteiligten Akteure sowie Abhängigkeiten zwischen den Kontexten.
+. Modellieren Sie einen Dauerparkausweis in den einzelnen Kontexten. Wo gibt es Gemeinsamkeiten, wo zeigen sich Unterschiede?
+. Entwickeln Sie eine Context Map und benennen Sie die Beziehungen (-> Patterns) zwischen den Kontexten.
+
+
+== Use-Cases
+
+* *US-01*: Als Kunde möchte ich mir an der Schranke ein Ticket ziehen, um ins Parkhaus einfahren zu können.
+* *US-02*: Als Kunde möchte ich an der Schranke meinen gültigen Dauerparkausweis nutzen, um ins Parkhaus einfahren zu können.
+* *US-03*: Als Parkhausbetreiber möchte ich eine Übersicht aller aktuell gültigen Dauerparkausweise pro Parkhaus online erhalten, um bei Bedarf weitere Ausweise nachbestellen zu können.
+* *US-04*: Als Kunde möchte ich mein bezahltes Ticket an der Schranke zurückgeben, um aus dem Parkhaus herausfahren zu können.
+* *US-05*: Als Kunde möchte ich an der Schranke meinen Dauerparkausweis nutzen, um aus dem Parkhaus herausfahren zu können.
+* *US-06*: Als Parkhausbetreiber möchte ich einen Dauerparkausweis sperren können, um säumigen Zahlern den Zugang zu den Parkhäusern zu verwehren.
+* *US-07*: Als Kunde mit Dauerparkausweis möchte ich die im aktuellen Monat angefallenen Kosten online einsehen, um eine Übersicht über meine Ausgaben zu erhalten.
+* *US-08*: Als Parkhausbetreiber möchte ich elektronische Zahlungen am Automaten an einen Zahlungsdienstleister weiterleiten, damit sich dieser um die Abwicklung kümmert.
+* *US-09*: Als Pförtner möchte ich die Schranke mit einem auf dem Dauerparkausweis aufgedruckten Code öffnen können, falls der Chip auf dem Ausweis selbst nicht mehr lesbar ist.
+* *US-10*: Als Kunde möchte ich einen Dauerparkausweis online für ein weiteres Parkhaus des Betreibers freischalten, um dort künftig mein Auto abstellen zu können.
+* *US-11*: Als Parkhausbetreiber möchte ich online eine Statistik über die durchschnittliche Parkdauer an einem Standort erhalten, um meine Angebote besser zuschneiden zu können.
+* *US-12*: Als Kunde möchte ich ein Ticket am Automaten bar bezahlen können, um anschließend aus dem Parkhaus herausfahren zu können.
+* *US-13*: Als Kunde möchte ich ein Ticket am Automaten mit Kreditkarte bezahlen können, um anschließend aus dem Parkhaus herausfahren zu können.
+* *US-14*: Als Kunde möchte ich die verschlossene Eingangstür zum Parkhaus mit meinem Ticket oder Dauerparkausweis öffnen können.
+* *US-15*: Als Kunde möchte ich meinen Dauerparkausweis monatlich per Kreditkarte bezahlen, um nicht in Verzug zu geraten.
+* *US-16*: Als Kunde möchte ich die hinterlegte E-Mail-Adresse zu meinem Dauerparkausweis ändern, um zeitnah über neue AGB benachrichtigt zu werden.

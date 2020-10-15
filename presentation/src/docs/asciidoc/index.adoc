@@ -39,7 +39,8 @@ Java_Meetup_anderscore
 
 link:greeting.html[Begrüßung]
 
-. link:lesson01-intro.html[Einführung und Grundlagen]
+. link:lesson01-intro.html[Einführung]
+. link:lesson02-microservices.html[µService Grundlagen]
 . µServices mit MicroProfile
     (REST / JAX-RS,
     CDI,

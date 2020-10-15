@@ -1,0 +1,550 @@
+[state=no-title-footer]
+== Lektion 2 - µServices
+
+[.text-center]
+Wofür ist Quarkus gedacht? +
+Was sind die Anforderung an das Quarkus Framework?
+"top-down" Vorgehen
+
+== Formen der Modularisierung
+
+[.columns]
+--
+* *Technisch*
+** Klasse, Package
+** Modul/Library
+** Deployment Unit
+--
+
+--
+* *Fachlich*
+** Konzept
+** Produkt
+--
+
+--
+* *Organisatorisch*
+** Team
+** Abteilung
+--
+
+== Modularisierung
+
+[.heading]
+Warum modularisieren wir?
+
+* Beherrschung der Komplexität
+* Parallelsierung der Entwicklung
+* Auffindbarkeit von Code
+* Erleichterung der Wartung
+
+[.columns]
+== Monolith
+
+--
+* Schwergewichtiges Software-Artefakt
+* Hohe Anzahl fachlicher Komponenten
+* Einheitliche technische Basis
+* Eine Deployment Unit
+* Ein Prozess zur Laufzeit (teilweise)
+* *Nicht* grundsätzlich ein Anti-Pattern!
+--
+
+image::lesson02/Monolith1.jpg[pdfwidth=35%,height=400]
+
+[.columns]
+== Probleme eines Monolithen
+
+--
+* Hohe (technische) Kopplung zwischen Komponenten
+* Lange Build Cycles
+* Einzelne Bestandteile nicht unabhängig skalierbar
+* Verzögerte Auslieferung neuer Features
+* Hoher Wartungsaufwand
+* Mangel an Agilität und Innovation
+--
+
+image::lesson02/Monolith2.png[pdfwidth=35%,height=600]
+
+== Conway's Law
+
+[quote, "Melvin Edward Conway, 1968", How do committees invent? ]
+____
+Organizations which design systems […] are constrained to produce designs which are *copies of the communication structures* of these organizations.
+____
+
+{nbsp} +
+
+_Hinweis: Beobachtung, nicht soziologisch fundiert; mil. Hintergund_
+
+== Conway's Law
+
+* Barrieren in der Kommunikation -> Brüche in der Software
+* Klassische Aufteilung
+** Fachseite
+** Entwickler
+** Datenbankspezialisten
+** Ops
+* Konsequenzen
+** Unrealistische Anforderungen
+** Keine Kontrolle über Daten
+** Wenig Details zu Fehlern
+
+== Wohin geht die Reise?
+
+image::lesson02/Microservices1.png[pdfwidth=60%,height=800]
+
+== Microservices
+
+[quote, wikipedia.de]
+____
+Microservices sind ein *Architekturmuster* der Informationstechnik, bei dem komplexe Anwendungssoftware aus
+*unabhängigen Prozessen* komponiert wird, die untereinander mit *sprachunabhängigen Programmierschnittstellen* kommunizieren.
+Die Dienste sind weitgehend *entkoppelt* und erledigen eine *kleine Aufgabe*. So ermöglichen sie einen *modularen Aufbau* von
+Anwendungssoftware.
+____
+
+== Microservices
+
+image::lesson02/Microservices2.png[pdfwidth=35%,height=600]
+
+== Merkmale
+
+*Ein Microservice...*
+
+* ...läuft in einem *eigenen Prozess* (ggf. mehrere Instanzen).
+* ...wird über das *Netzwerk* angesprochen.
+* ...kann *unabhängig* deployed, erweitert oder skaliert werden.
+* ...repräsentiert einen *Bounded Context* der Fachdomäne,
+ alternativ einen *Business-Process*
+* ...ist nicht an die *Technologie* anderer Services gebunden.
+* ...wird nur von *einem Team* entwickelt.
+* ...hat ein *unabhängiges Datenmodell*.
+
+== Aufbau
+
+image::lesson02/microservice_anatomy.png[pdfwidth=60%,height=800]
+
+== Kommunikation
+
+image::lesson02/kommunikation_right.png[pdfwidth=60%,height=600]
+
+== Kommunikation
+
+image::lesson02/kommunikation_false.png[pdfwidth=60%,height=600]
+
+== Herausforderungen
+
+* Verteiltes System
+** Orchestrierung
+** Resilienz
+** Konsistenz
+** Debugging
+** Monitoring und Logging
+* Netzwerk
+** Performance
+** Zuverlässigkeit
+* Potentieller "Technologiezoo"
+
+[.columns]
+[.columns]
+== Self Contained System
+
+--
+* Eigenständige Anwendung
+** GUI
+** Datenmodell
+** Logik
+** Persistenz
+* Lose Kopplung an andere Systeme
+** Integration bevorzugt über UI
+** Datenaustausch nur über APIs
+** Möglichst asynchrone Kommunikation
+* Entwicklung durch *ein* Team
+* Single Responsibility Prinzip
+* Kann aus Microservices bestehen
+--
+
+image::lesson02/SCS.png[pdfwidth=60%,height=500]
+
+== Architektur
+
+[.heading]
+Makro-Architektur
+
+* Wie viele Services brauchen wir?
+* Wie groß darf ein Service sein?
+* Wie schneiden wir die Services?
+* Wie sollen die Schnittstellen aussehen?
+* Welche Technologiestacks erlauben wir?
+* Wie setzen wir Authentifikation, Monitoring und Logging um?
+
+== Architektur
+
+[.heading]
+Mikro-Architektur
+
+* Wie sollte ein Service aufgebaut sein?
+* Welche Technologien nutzen wir im Detail?
+* Wie setzen wir Autorisierung um?
+
+== Domain Driven Design
+
+
+[.heading]
+Wie klein (oder groß) soll ein µService sein?
+
+* [x] Wie schneiden wir die Services?
+* [x] Wie sollte ein Service aufgebaut sein?
+* [x] Wie groß sollte ein Service sein?
+* [x] Wie viele Services brauchen wir?
+
+
+[.columns]
+== Domain Driven Design
+
+--
+* Herangehensweise zur *fachlichen* Strukturierung einer Anwendung
+* Domänenmodell
+** Ubiquitious Language
+** Ausgangsbasis der Entwicklung
+** Klassifizierung enthaltener Elemente
+--
+
+image::lesson02/DDD.jpg[pdfwidth=60%,height=500]
+Siehe auch:
+
+* https://www.heise.de/developer/artikel/Der-perfekte-Microservice-3091905.html
+* https://www.heise.de/developer/artikel/Microservices-Warum-ein-Domain-Model-in-die-verkehrte-Richtung-fuehren-kann-4142695.html
+
+
+== Domain Driven Design: Elemente
+
+image::lesson02/DDDElemente.png[height=600]
+
+== Domain Driven Design: Bounded Context
+
+* Grenze innerhalb einer Domäne
+** Fachlichkeit
+** Datenmodell
+** Konsistenz
+** Organisation
+
+* Identifizierung
+** Clustering von Anforderungen (z.B. Use Cases)
+** Bestimmung von Abhängigkeiten
+
+== Domain Driven Design: Stategic Design
+
+[.heading]
+Kommunikationsbeziehungen und Machtverhältnisse zwischen Bounded Contexts
+
+* *Separate Ways:* Keine Integration
+* *Open Host Service:* Einseitige Bereitstellung von Schnittstellen
+* *Conformist:* Übernahme des fremden Modells
+* *Anti-Corruption Layer:* Adapter zu fremdem Modell
+* *Customer-Supplier:* Gleichberechtigte Aushandlung der Schnittstellen
+* *Shared Kernel:* Gemeinsame Verwendung eines Teilmodells
+
+== Domain Driven Design: Context Map
+
+[.heading]
+Visualisierung der Beziehungen
+
+image::lesson02/ContextMap.png[height=400]
+
+== Domain Driven Design: Übung
+
+Für den großen Parkhausbetreiber „JustParkIt“ soll ein System zur Ausgabe, Nutzung, Abrechnung und Rücknahme von Tickets und Dauerparkausweisen umgesetzt werden.
+Im Rahmen der Anforderungserhebung wurden bereits einige User Stories ermittelt.
+
+*Aufgaben:*
+
+. Gruppieren Sie die User Stories nach fachlichen Domänen und benennen Sie die so entstandenen Bounded Contexts.
+. Identifizieren Sie die jeweils beteiligten Akteure sowie Abhängigkeiten zwischen den Kontexten.
+. Modellieren Sie einen Dauerparkausweis in den einzelnen Kontexten. Wo gibt es Gemeinsamkeiten, wo zeigen sich Unterschiede?
+. Entwickeln Sie eine Context Map und benennen Sie die Beziehungen (-> Patterns) zwischen den Kontexten.
+
+== Domain Driven Design: Übung
+
+* *US-01*: Als Kunde möchte ich mir an der Schranke ein Ticket ziehen, um ins Parkhaus einfahren zu können.
+* *US-02*: Als Kunde möchte ich an der Schranke meinen gültigen Dauerparkausweis nutzen, um ins Parkhaus einfahren zu können.
+* *US-03*: Als Parkhausbetreiber möchte ich eine Übersicht aller aktuell gültigen Dauerparkausweise pro Parkhaus online erhalten, um bei Bedarf weitere Ausweise nachbestellen zu können.
+* *US-04*: Als Kunde möchte ich mein bezahltes Ticket an der Schranke zurückgeben, um aus dem Parkhaus herausfahren zu können.
+* *US-05*: Als Kunde möchte ich an der Schranke meinen Dauerparkausweis nutzen, um aus dem Parkhaus herausfahren zu können.
+
+== Domain Driven Design: Übung
+
+* *US-06*: Als Parkhausbetreiber möchte ich einen Dauerparkausweis sperren können, um säumigen Zahlern den Zugang zu den Parkhäusern zu verwehren.
+* *US-07*: Als Kunde mit Dauerparkausweis möchte ich die im aktuellen Monat angefallenen Kosten online einsehen, um eine Übersicht über meine Ausgaben zu erhalten.
+* *US-08*: Als Parkhausbetreiber möchte ich elektronische Zahlungen am Automaten an einen Zahlungsdienstleister weiterleiten, damit sich dieser um die Abwicklung kümmert.
+* *US-09*: Als Pförtner möchte ich die Schranke mit einem auf dem Dauerparkausweis aufgedruckten Code öffnen können, falls der Chip auf dem Ausweis selbst nicht mehr lesbar ist.
+* *US-10*: Als Kunde möchte ich einen Dauerparkausweis online für ein weiteres Parkhaus des Betreibers freischalten, um dort künftig mein Auto abstellen zu können.
+
+== Domain Driven Design: Übung
+
+* *US-11*: Als Parkhausbetreiber möchte ich online eine Statistik über die durchschnittliche Parkdauer an einem Standort erhalten, um meine Angebote besser zuschneiden zu können.
+* *US-12*: Als Kunde möchte ich ein Ticket am Automaten bar bezahlen können, um anschließend aus dem Parkhaus herausfahren zu können.
+* *US-13*: Als Kunde möchte ich ein Ticket am Automaten mit Kreditkarte bezahlen können, um anschließend aus dem Parkhaus herausfahren zu können.
+* *US-14*: Als Kunde möchte ich die verschlossene Eingangstür zum Parkhaus mit meinem Ticket oder Dauerparkausweis öffnen können.
+* *US-15*: Als Kunde möchte ich meinen Dauerparkausweis monatlich per Kreditkarte bezahlen, um nicht in Verzug zu geraten.
+* *US-16*: Als Kunde möchte ich die hinterlegte eMail-Adresse zu meinem Dauerparkausweis ändern, um zeitnah über neue AGB benachrichtigt zu werden.
+
+== API Design
+
+* [x] Wie sollen die Schnittstellen aussehen?
+
+[.columns]
+== API Design: Einflussfaktoren
+
+--
+* *Öffentlich vs. intern*
+** Änderbarkeit
+** Technologien
+
+* *Generisch vs. client-spezifisch*
+** Wartungsaufwand
+** Verständlichkeit
+** Information Hiding
+--
+
+--
+* *Fein- vs. grobgranular*
+** Datenmenge
+** Anzahl Calls
+** Kaskadierung
+
+* *Blocking vs. non-blocking*
+** Technologien
+** Prozessablauf
+--
+
+== API Design: Prinzipien
+
+* Domänenorientierung
+* Lose Kopplung
+* Idempotenz
+* Abwärtskompatibilität oder Versionierung
+
+[.columns]
+== API Design: Technologien
+
+--
+* *REST*
+** Representational State Transfer
+** Architekturstil
+** Ressourcenorientiert
+** Hypermedia
+** OpenAPI
+--
+
+--
+* *SOAP*
+** Ursprünglich: Simple Object Access Protocol
+** Nachrichtenformat (XML)
+** Dokumenten- und funktionsorientiert
+** WS-* Erweiterungen
+** WSDL
+--
+
+[.columns]
+== API Design: Technologien
+
+--
+* *Binäres RPC*
+** Funktionsorientiert
+** Hohe Performance
+** Technologien: gRPC, Apache Thrift
+--
+
+--
+* *Messaging*
+** Austausch von Nachrichten über Broker
+** Lose Kopplung
+** Technologien: Apache ActiveMQ, Apache Kafka
+--
+
+== API Design: Microservice API Patterns
+
+[quote, microservice-api-patterns.org]
+____
+Our Microservice API Patterns (MAP) distill *proven solutions* to *recurring service interface design and specification problems*
+such as finding well-fitting service granularities, promoting independence among services, or managing the evolution of a microservice API.
+____
+
+== API Design: Microservice API Patterns
+
+* https://microservice-api-patterns.org
+* Aktuell in Entwicklung befindlich
+
+* Fragestellungen
+** Wie viele Schnittstellen sollten als API verfügbar sein?
+** Wie kann eine möglichst lose Kopplung erreicht werden?
+** Welche Daten sollten ausgetauscht werden und wie oft?
+** Wie sollten Nachrichten aussehen?
+
+== API Design: Microservice API Patterns
+
+image::lesson02/MAP.png[height=900]
+
+== API Design: API Description (Foundation)
+
+* Kontext
+** Bereitstellung einer neuen API
+** Verwendung nicht allgemein bekannt
+
+* Problem
+** Wie kann die Nutzung der API explizit dokumentiert werden?
+** Wie kann die Dokumentation mit anderen Spezifikationen verbunden werden?
+
+* Lösung
+** Bereitstellung einer strukturierten API Beschreibung
+** Umsetzung: OpenAPI (REST), JSON API (REST), WSDL (SOAP)
+
+== API Design: Pagination (Structure)
+
+* Kontext
+** Bei Abruf eines Service werden viele Daten übermittelt
+** Client benötigt nur einen Teil davon
+
+* Problem
+** Wie kann der Abruf so eingeschränkt werden, dass der Client nur einen Teil der Daten erhält?
+
+* Lösung
+** Auslieferung der Daten in Chunks
+** Übermittlung eines Links zu weiteren Daten
+** Umsetzung: Hypermedia (REST)
+
+== API Design: API Key (Quality)
+
+* Kontext
+** Service wird per Aufruf bezahlt
+** Verwendung eines Service muss einem Benutzer zugeordnet werden können
+** Einsatz eines Auth Frameworks zu umständlich
+
+* Problem
+** Wie kann ein Service Benutzer erkennen?
+
+* Lösung
+** Übermittlung eines API Keys (Token) durch den Benutzer
+** Umsetzung: HTTP Header, Cookie, Query Parameter
+
+== API Design: Version Identifier (Evolution)
+
+* Kontext
+** API erfährt Breaking Changes
+** Alte Clients müssen weiterhin unterstützt werden
+
+* Problem
+** Wie können alte und neue API zeitgleich existieren?
+
+* Lösung
+** Versionierung der API
+** Umsetzung: URI, Payload
+
+== API Design: OpenAPI
+
+* Spezifikation zur Beschreibung von REST APIs
+* Vorläufer: Swagger
+* Contract First vs. Code First
+* YAML oder JSON
+* Java Annotations
+
+== API Design: OpenAPI
+
+[.heading]
+YAML
+
+[source,yaml]
+----
+include::sources/rest-resource.yaml[]
+----
+
+== API Design: OpenAPI
+
+[.heading]
+Annotations
+
+[source,java]
+----
+include::sources/SampleResource.java[]
+----
+
+== Der Weg zur Makro-Architektur
+
+. Fachlicher Schnitt der Microservices nach Domain Driven Design
+* Ermittlung der Bounded Contexts
+* Ableiten der Context Map
+. Bestimmung der Qualitätsanforderungen und Einflussfaktoren
+. Auswahl geeigneter Technologien
+. Definition der APIs
+* Orientierung an Use Cases und DDD Services
+* Verwendung von Patterns
+. Dokumentation
+
+// == Übung
+
+//. Implementieren Sie den `AbrechnungService`:
+// * Erstellen Sie einen REST Microservice
+// * Stellen Sie eine API bereit, mit der ein Parkticket vom Automaten als bezahlt deklariert werden kann.
+// * Sehen Sie eine API vor, mit welcher sich die erfolgte Bezahlung eines Tickets überprüfen lässt.
+//. Erstellen Sie den `ZugangskontrollService`
+//* Generieren Sie einen weiteren Microservice.
+//* Bieten Sie der Schranke eine API zum Prüfen eines Tickets an. Das Ergebnis kann "EXIT GRANTED" oder "EXIT DENIED" lauten.
+//* Fragen Sie zur Ermittlung des Ergebnisses die Bezahlung beim `AbrechnungService` ab.
+//* Was passiert, wenn der `AbrechnungService` nicht verfügbar ist? Wie gehen Sie damit um?
+//. Testen Sie ihre Anwendung mit cURL oder SoapUI.
+//. Bonus: Dokumentieren Sie die APIs mit OpenAPI.
+//. Bonus: Implementieren Sie auch den Rest der Parkhausanwendung!
+
+//== Übung
+
+//[.heading]
+//Context Map
+
+//image::lesson02/ContextMapParkhaus.png[height=400]
+
+== Microservices im Unternehmenseinsatz: Gesamtarchitektur
+
+* Stack
+** MicroProfile (z.B. Quarkus) Spring Boot
+** REST + OAuth oder Apache Kafka
+* Resilienz
+** Circuit Breaker
+** Client-side Load Balancing
+* Paketierung und Deployment
+** Executable jar
+** Docker
+** Kubernetes oder Docker Swarm
+* Zentrales Monitoring und Logging
+** Prometheus, Grafana
+** ElasticSearch, LogStash, Kibana
+
+== Rahmenbedingungen für Quarkus: The Twelve-Factor App
+
+1. *Codebase*: Eine im Versionsmanagementsystem verwaltete Codebase, viele Deployments
+2. *Dependencies*: Abhängigkeiten explizit deklarieren und isolieren
+3. *Config*: Die Konfiguration in Umgebungsvariablen ablegen
+4. *Backing services*:  Unterstützende Dienste als angehängte Ressourcen behandeln
+5. *Build, release, run*: Build- und Run-Phase strikt trennen
+6. *Processes*: Die App als einen oder mehrere Prozesse ausführen
+7. *Port binding*: Dienste durch das Binden von Ports exportieren
+8. *Concurrency*:  Mit dem Prozess-Modell skalieren
+9. *Disposability*: Robuster mit schnellem Start und problemlosen Stopp
+10. *Dev/prod parity*:  Entwicklung, Staging und Produktion so ähnlich wie möglich halten
+11. *Logs*:  Logs als Strom von Ereignissen behandeln
+12. *Admin processes*: Admin/Management-Aufgaben als einmalige Vorgänge behandeln
+
+Siehe auch: https://12factor.net/
+
+== Zusammenfassung Microservices
+
+* Form der Modularisierung
+*  Herausforderungen eines verteilten Systems!
+* Schnitt mittels Domain Driven Design
+* Abgrenzung mittels Bounded Contexts und Context Map
+* Vielseitige Integrationsmöglichkeiten
+* Microservice API Patterns
+
+
+// include::closing.adoc[]

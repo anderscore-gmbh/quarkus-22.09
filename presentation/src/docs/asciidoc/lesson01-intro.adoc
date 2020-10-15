@@ -1,3 +1,6 @@
+[state=no-title-footer]
+== Lektion 1 - Einführung
+
 == Was ist Quarkus?
 
 image::quarkus.jpg[width=400]
@@ -187,6 +190,9 @@ Hinweise:
 . Neben dem Maven-Archetype können Sie auch https://code.quarkus.io zum Erzeugen eines Projekts verwenden
 . Nutzen Sie erneut einen Business-Service und CDI
 . Eine Beispiellösung finden Sie unter solutions/lesson01-intro
+. Auf https://quarkus.io/guides/getting-started gibt es eine weitere Anleitung für ein reaktives Projekt. Was sind die Unterschiede?
+
+
 
 == Exkurs: MicroProfile
 
