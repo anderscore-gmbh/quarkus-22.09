@@ -192,6 +192,7 @@ Hinweise:
 . Eine Beispiellösung finden Sie unter solutions/lesson01-intro
 . Auf https://quarkus.io/guides/getting-started gibt es eine weitere Anleitung für ein reaktives Projekt. Was sind die Unterschiede?
 
+link:lesson02-microservices.html[-> Weiter zu µServices]
 
 
 == Exkurs: MicroProfile

@@ -1,0 +1,273 @@
+== REST Grundlagen
+
+* Steht für *Representational State Transfer*
+* Begriff: Doktorarbeit von Roy Fielding aus dem Jahr 2000
+* Technologie für Maschine zu Maschine Kommunikation
+* Fußt auf den Prinzipien des Web (Web für Maschinen)
+* Eine REST-API muss 5 Bedingungen erfüllen
+
+=== 1. Client-Server
+
+* Strikte Trennung der Systeme
+* Verbindung kann unterbrochen sein
+
+=== 2. Zustandslos
+
+* Keine Sitzungsinformation auf dem Server +
+(Andernfalls nur REST-artig)
+* Zustand (Sitzung) wird auf Client vorgehalten
+* Nachrichten sind selbstbeschreibend
+* Jede Anfrage muss alle notwendigen Informationen enthalten,
+damit der Server diese verarbeiten kann (inkl. Sitzungsinformationen)
+* Jede Antwort muss alle Informationen enthalten, die der Client
+benötigt, um die Sitzung zu aktualisieren
+
+=== 3. Cachbar
+
+* Antworten müssen Informationen enthalten,
+ob und wie lange gecached werden kann
+* Client kann nicht davon Ausgehen, dass Antwort direkt vom Server kommt
+
+=== 4. Schichtenarchitektur
+
+* Zwischen Client und Server kann diverse Middleware liegen
+* => Erhöht Skalierbarkeit und Ausfallsicherheit
+
+=== 5. Einheitliche Schnittstelle
+
+* Einhaltung der HTTP-Spezifikation
+* Ein Vertrag für alle Belange
+
+{empty} +
+
+Richtlinien der einheitlichen Schnittstelle:
+
+. Ressourcen basiert (URIs zur Identifizierung, repräsentationsunabhängig)
+. Bearbeitung der Ressourcen über deren Repräsentation
+. Selbstbeschreibende Nachrichten (jede Nachricht enthält explizt alles, was zu
+deren Verarbeitung notwendig ist, z. B. Typ, Cachbarkeit)
+. _Hypermedia as the Engine of Application State_ (HATEOS)
+
+=== HATEOAS
+
+* Client-Request enthält alle notwendigen Zustandsinformationen, die der Server benötigt,
+um den Request zu bearbeiten. Der Server weiß (speichert) nichts zu dem Client.
+* Der Server muss in seiner Antwort jeglichen Zustand an den Client übertragen, der
+für den nächsten Schritt notwendig ist.
+* Der Client übertägt die Zustandsinformation in Form von URLs, Request-Parametern,
+Request-Headern und dem Request-Inhalt (Body). Der Server überträgt Zustand mittels
+dem Inhalt der Antwort (Body), den Headern und dem Response-Code.
+* Daneben versteht man unter HATEOAS auch, dass Antworten im Inhalt oder im Header (_Location_, _Link_)
+die Links zu den zurückgegeben Objekten und ggf. zu weiterführenden Objekten enthalten.
+
+=== 6. Ausführbarer Code auf Anforderung (optional)
+
+Server kann Funktionalität auf den Client übertragen (z. B. JavaScript-Code)
+
+=== Resourcen basiert
+
+* Resourcen (Dinge) werden über URIs identifiziert +
+(es kann mehrere URIs geben, die auf die gleiche Ressource zeigen)
+* Resourcen sind unabhängig von deren Repräsenation (verschiedene Repräsenationen möglich)
+* Aktionen werden über HTTP-Verben (GET, POST, PUT, DELETE) angegeben
+* Repräsenationen (JSON, XML, HTML, PDF, etc.) werden über den Content-Type (MIME) angegeben
+* => URLs werden zum Adressieren von Ressourcen verwendet
+
+{empty} +
+
+[width=50%]
+|===
+|REST URLs|SOAP-RPC URLs
+
+|Dinge|Aktionen
+|Substantive|Verben
+|===
+
+=== Repräsentationen
+
+* Die Repräsentationen sind das, was tatsächlich zwischen Client und Server übertragen wird
+* Sie geben den Ressourcen Zustand (oder einen Teil davon) wieder
+* Umfassen neben Nutzdaten auch Metadaten (Typinformationen)
+* Typischerweise JSON oder XML, kann aber beliebiges Format sein (z. B. PDF, HTML, ...)
+
+=== Vorteile
+
+* Skalierbarkeit
+* Einfachheit
+* Wartbarkeit
+* Sichtbarkeit
+* Portierbarkeit
+* Zuverlässigkeit
+
+https://www.restapitutorial.com/lessons/whatisrest.html[
+-> www.restapitutorial.com: What is REST?]
+
+=== HTTP Verben
+
+[cols="h,2,4"]
+|===
+|GET
+|idempotent und sicher
+|Eine (Menge von) Ressource(n) über ihre URI abrufen
+
+|POST
+|
+|Erstellt eine Ressource
+
+|PUT
+|idempotent
+|Eine (Menge von) Ressource(n) anhand ihrer URI ändern (vollständig ersetzen)
+
+|PATCH
+|
+|Eine Ressource ändern (nur einzelne Attribute)
+
+|DELETE
+|idempotent
+|Entfernt eine Ressource anhand ihrer URI
+|===
+
+https://www.restapitutorial.com/lessons/httpmethods.html[
+-> HTTP-Methods für REST] +
+https://www.tutorialspoint.com/http/http_methods.htm[
+-> HTTP-Methods allgemein]
+
+[NOTE.speaker]
+--
+* *Sicher* heißt: Die Operation ändert nichts.
+* *GET* Parameter können für Filter verwendet werden.
+* *PUT* kann auch zum Anlegen verwendet werden, wenn der Identifier (die URI) bereits vorher bekannt ist.
+Die URI muss die zu ändernde(n) Resource(n) eindeutig identifizieren (nicht der Nachrichteninhalt).
+* *POST* kann für alle anderen Operationen verwendet werden, die zu keiner der genannten Kategorieen passt.
+* *DELETE* ist zwar idempotnent, kann aber dennoch verschiedene Resposes liefern: 204 (wurde gelöscht)
+und 404 (nicht mehr vorhanden)
+--
+
+=== Richtlinien für REST-URIs
+
+* IDs sind immer Bestandteil der URL (Parameter nur zum Filtern)
+* Nur Substantive (Verben sind ein _Bad Smell_)
+* Plural
+* Nur Kleinbuchstaben und '-' zur Trennung
+* _/users_ für eine Menge und _/users/123_ für einzelne Ressource
+
+Beispiel: `account/payment` statt `account/pay`
+
+=== Wichtigste HTTP Antwortcodes
+
+[cols="1,2"]
+|===
+|200 OK|Erfolg (normale Antwort)
+|201 CREATED|Erfolgreich erstellt (Antwort auf POST)
+|204 NO CONTENT|Erfolg, aber kein Inhalt (Antwort auf DELETE)
+|400 BAD REQUEST|Anfrage kann nicht verarbeitet werden (Validierungsfehler)
+|401 UNAUTHORIZED|Notwendige Authentifizerung fehlt (z.B. kein Token vorhanden)
+|403 FORBIDDEN|Berechtigung nicht ausreichend
+|404 NOT FOUND|Ressource existiert nicht
+|405 METHOD NOT ALLOWED|HTTP-Methode für die entsprechende URI nicht anwendbar
+|409 CONFLICT|Bearbeitung der Anfrage würde zu Inkonsistenzen führen
+|410 GONE|Die Ressource wurde gelöscht (wenn das bekannt ist, sonst 404)
+|415 UNSUPPORTED MEDIA TYPE|Format der übertragenen Daten nicht untersützt
+|500 INTERNAL SERVER ERROR|Unerwarteter Fehler auf Server
+|===
+
+https://www.restapitutorial.com/lessons/httpstatuscodes.html[
+-> HTTP Status Codes] +
+
+[NOTE.speaker]
+--
+405 METHOD NOT ALLOWED:: Beispielsweise bei einem POST auf _/users/123_ statt auf _/users_. Die Antwort muss einen _Allow_ Header mit den
+unterstützten Methoden enthalten, z. B. `Allow: GET, PUT`
+409 CONFLICT:: Beispielsweise doppelte Einträge
+--
+
+=== Fragen?
+
+.Auch interessant:
+
+* JSON-API
+
+== Webanwendungen mit Java
+
+* Servlet-API seit 1996 (aktuell 4.0 seit Sept. 2017 als Teil von JavaEE 8)
+* Servlets können aus Java Server Pages (JSPs) erzeugt werden
+* Werden als WAR deployed
+* Ausführbar auf Servlet Container (z.B. Tomcat) oder Application Server (z.B. GlassFish)
+
+=== Einfaches Servlet
+
+[source,java,indent=0]
+----
+include::sources/HelloServlet.java[tags=servlet]
+----
+
+=== Zugehörige WEB-INF/web.xml
+
+[source,xml,indent=0]
+----
+include::sources/web.xml[]
+----
+
+=== Servlet ohne web.xml
+
+[source,java,indent=0]
+----
+include::sources/HelloServletAnno.java[tags=servlet]
+----
+
+seit Servlet API 3.0
+
+== REST mit JSR 370 / JAX-RS 2.1
+
+[.heading]
+JSR 370: JavaTM API for RESTful Web Services (JAX-RS 2.1)
+
+* Vormals JSR-339, JSR-311
+* Packet `java.ws.rs`
+* Implementierungen:
+** Project Jersey (http://jersey.java.net), _Referenz_
+** RESTEasy (https://resteasy.github.io/), _In Quarkus verwendet_
+* Pfade, HTTP-"verben", etc. als Annotationen
+[source,java]
+----
+include::sources/Jsr370.java[]
+----
+
+== REST-APIs testen
+
+[.heading]
+*curl* (über *Git Bash* aufrufbar)
+
+Liste aller Tasks:
+
+    curl http://localhost:8080/tasks
+
+Einen Task hinzufügen:
+
+    curl -d '{"description": "curl lernen", "state":"STARTED", "dateDue":"2019-05-25T10:15:00Z"}' \
+         -H "Content-Type: application/json" -X POST http://localhost:8080/tasks
+
+Task löschen (mit `-v` werden u. a. Status-Code und Header ausgegeben):
+
+    curl -v -X DELETE http://localhost:8080/tasks/2
+
+[.heading]
+Alternativen:
+
+* https://www.getpostman.com/[-> Postman]
+* https://addons.mozilla.org/de/firefox/addon/restclient/[-> RESTClient (Browser-Plugin)]
+
+== Aufgabe 3.1
+
+*Aufgabenstellung*:
+
+* Implementieren Sie eine REST-API für die Verwaltung von Pizza-Bestellungen.
+* Die Resource soll Create-, Read-, Update- und Delete-Operationen erlauben.
+* Zusätzlich sollen alle Bestellungen als Liste abrufbar sein (index).
+* Testen Sie die API mit postman
+
+*Hinweise*:
+
+* Im Ordner `lesson03-rest/lesson03` befindet sich bereits ein Skelett samt Repository und Model
+* Eine Beispiellösung finden Sie im Ordner `solutions/lesson03/lesson03-rest`
+

@@ -41,11 +41,11 @@ link:greeting.html[Begrüßung]
 
 . link:lesson01-intro.html[Einführung]
 . link:lesson02-microservices.html[µService Grundlagen]
-. µServices mit MicroProfile
-    (REST / JAX-RS,
-    CDI,
-    Open API,
-    JPA)
+. Erstellung eines Services
+    (link:lesson03-rest.html[REST / JAX-RS],
+    link:lesson03-cdi.html[CDI],
+    link:lesson03-open-api.html[Open API],
+    link:lessin03-jpa.html[JPA])
 . Konfiguration
 . Security
 . Logging

@@ -3,8 +3,8 @@
 
 [.text-center]
 Wofür ist Quarkus gedacht? +
-Was sind die Anforderung an das Quarkus Framework?
-"top-down" Vorgehen
+Was sind die Anforderung an das Quarkus Framework? +
+"Top-down" Ansatz
 
 == Formen der Modularisierung
 
@@ -170,23 +170,24 @@ image::lesson02/SCS.png[pdfwidth=60%,height=500]
 == Architektur
 
 [.heading]
-Makro-Architektur
-
-* Wie viele Services brauchen wir?
-* Wie groß darf ein Service sein?
-* Wie schneiden wir die Services?
-* Wie sollen die Schnittstellen aussehen?
-* Welche Technologiestacks erlauben wir?
-* Wie setzen wir Authentifikation, Monitoring und Logging um?
-
-== Architektur
-
-[.heading]
 Mikro-Architektur
 
 * Wie sollte ein Service aufgebaut sein?
 * Welche Technologien nutzen wir im Detail?
 * Wie setzen wir Autorisierung um?
+
+
+== Architektur
+
+[.heading]
+Makro-Architektur
+
+* _Welche Services brauchen wir?_
+* _Wie sollen die Schnittstellen aussehen?_
+* Welche Technologiestacks erlauben wir?
+* Wie setzen wir Authentifikation, Monitoring und Logging um?
+
+Ansatz: _Fachlicher Schnitt_
 
 == Domain Driven Design
 
@@ -198,6 +199,7 @@ Wie klein (oder groß) soll ein µService sein?
 * [x] Wie sollte ein Service aufgebaut sein?
 * [x] Wie groß sollte ein Service sein?
 * [x] Wie viele Services brauchen wir?
+* [x] Wie sollen die Schnittstellen aussehen?
 
 
 [.columns]
@@ -545,6 +547,7 @@ Siehe auch: https://12factor.net/
 * Abgrenzung mittels Bounded Contexts und Context Map
 * Vielseitige Integrationsmöglichkeiten
 * Microservice API Patterns
+
 
 
 // include::closing.adoc[]
