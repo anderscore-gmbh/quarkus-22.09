@@ -228,12 +228,13 @@ JSR 370: JavaTM API for RESTful Web Services (JAX-RS 2.1)
 ** Project Jersey (http://jersey.java.net), _Referenz_
 ** RESTEasy (https://resteasy.github.io/), _In Quarkus verwendet_
 * Pfade, HTTP-"verben", etc. als Annotationen
-[source,java]
+
+[source,java,indent=0]
 ----
 include::sources/Jsr370.java[]
 ----
 
-== REST-APIs testen
+== REST-APIs testen: HTTP-Client
 
 [.heading]
 *curl* (über *Git Bash* aufrufbar)
@@ -257,7 +258,7 @@ Alternativen:
 * https://www.getpostman.com/[-> Postman]
 * https://addons.mozilla.org/de/firefox/addon/restclient/[-> RESTClient (Browser-Plugin)]
 
-== Aufgabe 3.1
+== Aufgabe 3.1: lesson03-rest
 
 *Aufgabenstellung*:
 
@@ -271,3 +272,169 @@ Alternativen:
 * Im Ordner `lesson03-rest/lesson03` befindet sich bereits ein Skelett samt Repository und Model
 * Eine Beispiellösung finden Sie im Ordner `solutions/lesson03/lesson03-rest`
 
+== REST-APIs: Response Builder
+
+[.heading]
+HTTP-Semantik
+
+* Bisher: Direkte Rückgabe (JSON-Encoding)
+* Alternativ: Response-Builder (z.B. HTTP-Status-Codes)
+
+[source,java,indent=4]
+----
+@POST
+public Response create(Customer customer) {
+    customerRepository.createCustomer(customer);
+    return Response.status(201).build();
+}
+----
+
+Vgl. https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/core/Response.html
+
+== REST-APIs: Exception Handling: Explizit
+
+[source,java,indent=4]
+----
+@RequestScoped
+@Path("users")
+public class UsersResource {
+
+    @Inject
+    UserRepository userRepository;
+
+    @POST
+    public Response registerUser(User userRequest) {
+        try {
+            User managedUser = userRepository.register(userRequest);
+            return Response.created(managedUser).build();
+        } catch (Exception ex) {
+           return Response.status(405).build();
+        }
+
+    }
+}
+----
+https://jaxenter.de/wie-man-ein-zentralisiertes-rest-api-exception-handling-mit-beanvalidation-kombiniert-24427
+
+== REST-APIs: Exception Handling: Zentralisiert (Aspekt)
+
+Around Advice
+
+[source,java,indent=4]
+----
+public class APIExceptionInterceptor {
+    @AroundInvoke
+    public Object handleException(InvocationContext context) { Object proceedResponse;
+        try {
+            proceedResponse = context.proceed();
+        } catch (Exception ex) {
+            return Response.serverError().entity(ex.getMessage()).build();
+        }
+        return proceedResponse;
+    }
+}
+----
+
+Einbindung
+
+[source,java,indent=4]
+----
+@RequestScoped
+@Path("users")
+@Interceptor(APIExceptionInterceptor.class)
+public class UsersResource {
+   // ...
+}
+----
+
+https://jaxenter.de/wie-man-ein-zentralisiertes-rest-api-exception-handling-mit-beanvalidation-kombiniert-24427
+
+== REST-APIs: Exception Handling: Integration-Test (automatisiert)
+
+* Bisher: Postman, curl, ...
+* Vorteile:
+** Vollständiger end-to-end Test
+** Verifiziert realistische Umgebung
+* Nachteile:
+** Laufzeit-Umgebung wird benötigt
+** Kaum Integration in IDE und CI/CD
+* Alternativ Integrationstest mit `@QuarkusTest`
+** Start eines HTTP-Service zur Testausführung
+** Integration in maven.
+
+== Beispiel REST-APIs: Beispiel `@QuarkusTest`
+
+[source,java,indent=4]
+----
+@QuarkusTest
+public class StaticContentTest {
+
+    @TestHTTPEndpoint(GreetingResource.class)
+    @TestHTTPResource
+    URL url;
+
+    @Test
+    public void testIndexHtml() throws Exception {
+        try (InputStream in = url.openStream()) {
+            String contents = readStream(in);
+            Assertions.assertTrue(contents.equals("hello"));
+        }
+    }
+
+    private static String readStream(InputStream in) throws IOException {
+        // ...
+    }
+}
+----
+`@QuarkusTest`: Start eines HTTP-Service zur Testausführung, Integration in maven (surefire)
+
+`@TestHTTPResource`, `@TestHTTPEndpoint:(GreetingResource.class)`: URL-Injection, Referenz
+
+Vgl. https://quarkus.io/guides/getting-started-testing
+
+
+== REST-APIs: Exception Handling: Integration-Test (automatisiert)
+
+[.heading]
+REST-assured
+
+Aufruf der Greeting-Resource aus dem Hello-Word-Beispiel:
+
+[source,java,indent=4]
+----
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
+
+@QuarkusTest
+@TestHTTPEndpoint(GreetingResource.class)
+public class GreetingResourceTest {
+
+    @Test
+    public void testHelloEndpoint() {
+        given()
+          .when().get()
+          .then()
+             .statusCode(200)
+             .body(is("hello"));
+    }
+}
+----
+
+Vgl. https://github.com/rest-assured/rest-assured/wiki/Usage
+
+== Aufgabe 3.2: lesson03-test
+
+*Aufgabenstellung*:
+
+* Erweitern Sie die Pizza-Ressource um passende Status-Codes
+** HTTP-201 (created), wenn eine Bestellung erstellt wurde
+** HTTP-204 (no content), wenn andere Operation ohne Rückgabe erfolgreich war
+** HTTP-404 (not found), falls eine Bestellung nicht gefunden wurde
+** HTTP-422 (unprocessable entity), falls bei `create` eine ID übermittelt wurde
+* Verifizieren Sie die Funktionsweise beispielhaft mit einem Rest-assured Test je Status-Code.
+* Verifizieren Sie, dass die Bestellung 4711 korrekt aus der Datenbank geladen werden kann.
+
+*Hinweise*:
+
+* Im Ordner `lesson03-test/lesson03` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 3.1
+* Eine Beispiellösung finden Sie im Ordner `solutions/lesson03/lesson03-test`
