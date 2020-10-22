@@ -438,3 +438,5 @@ Vgl. https://github.com/rest-assured/rest-assured/wiki/Usage
 
 * Im Ordner `lesson03-test/lesson03` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 3.1
 * Eine Beispiellösung finden Sie im Ordner `solutions/lesson03/lesson03-test`
+
+link:index.html#/_agenda[-> Zurück zur Übersicht]

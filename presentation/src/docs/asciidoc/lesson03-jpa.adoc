@@ -1,0 +1,308 @@
+[state=no-title-footer]
+== JPA und Quarkus
+
+[.center]
+Wie funktioniert das?
+
+== Java Persistence API (JPA) in Stichworten
+
+* Anbindung relationaler Datenbanken (OR-Mapping)
+* Maßgeblicher Einfluss: *Hibernate*
+* Als https://jcp.org/en/jsr/detail?id=220[-> JSR 220] im Jahr 2006 erstmalis veröffentlicht
+* Aktuelle Version 2.2 (https://jcp.org/en/jsr/detail?id=338[-> JSR 338]) ist 2017 mit *Java EE 8*
+offiziell erschienen
+* Inzwischen unter der Obhut der Eclipse Foundation:
+https://projects.eclipse.org/proposals/eclipse-project-jpa[
+    -> Eclipse Project for JPA]
+* Heute: "Jakarta Persistence"
+
+== Java Persistence API (JPA) in Stichworten
+
+* Persistence Provider: Hibernate, EclipseLink, TopLink, OpenJPA
+* Referenzimplementierung: EclipseLink (früher: Hibernate)
+* Datenbankunabhängig
+* Mapping-Metadaten über Java-Annotationen (oder XML)
+* Abfragen über Java Persistence Query Language (JPQL) oder Criteria API
+
+== Wichtige JPA Annotationen
+
+|===
+|@Entity|Markiert Klasse als JPA-Entity
+|@Table(name="CUST")|Ordnet Datenbanktabelle zu
+|@Column(name="CUST_ID")|Ordnet Spaltenname zu
+|@Id|Markiert Spalte als Primärschlüssel
+|@GeneratedValue|Generiert IDs
+|@Enumerated(EnumType.STRING)|Enum-Namen als String speichern
+|@OneToOne, @OneToMany, @ManyToOne, @ManyToMany|Beziehungen
+|===
+
+https://javaee.github.io/javaee-spec/javadocs/javax/persistence/package-summary.html[
+-> Java EE 8 API: javax.persistence]
+
+== Deklaration einer Entity
+[.heading]
+Besipiel: TaskEntity.java
+
+[source,java,indent=0]
+----
+@Entity // Objekt in eigener Datenbanktabelle speichern
+@Table(name = "TASK") // Tabellename
+public class TaskEntity {
+    public enum State {
+        OPEN, STARTED, DONE
+    }
+
+    @Id // Primärschlüssel
+    @GeneratedValue // wird automatisch generiert
+    @Column(name = "TASK_ID") // expliziter Spaltenname
+    private Long id;
+
+    private String description;
+
+    private Instant dateDue;
+
+    @Enumerated(EnumType.STRING) // als String speichern
+    private State state;
+
+    // Getter, Setter, etc.
+}
+----
+
+== Datenbankzugriff mit Plain-JPA
+
+[.heading]
+JPA Begriffe
+
+Persistence Context::
+* Menge persistenter (eindeutiger) Entity-Objekte (in Memory)
+* Managed Lebenszyklus der Entities
+* Ist mit einer Transaktion verknüpft
+`EntityManager` Interface::
+* Schnittstelle zur Interaktion mit _Persistence Context_ (CRUD)
+* "Generisches DAO"
+Persistence Unit::
+* Menge der Entities, die vom EntityManager verwaltet werden können
+* Wird durch `EntityManagerFactory` repräsentiert
+Detached Entites::
+Entity-Objekt, das nicht mit einem _Persistence Context_ verbunden ist (nach Commit)
+
+=== Wie kommt man an den EntityManager ran?
+
+==== Java EE Umgebung (Container-managed Entity Manager)
+
+[source, java]
+----
+@PersistenceUnit
+EntityManagerFactory emf;
+
+@PersistenceContext
+ContextEntityManager em;
+----
+
+==== Quarkus
+
+[source, java]
+----
+@Inject
+EntityManager em;
+----
+
+https://javaee.github.io/javaee-spec/javadocs/javax/persistence/package-summary.html[
+-> javax.persistence Javadocs]
+
+https://quarkus.io/guides/hibernate-orm[
+-> Guide: Quarkus - Using Hibernate ORM and JPA]
+
+== Entity-Manager in Quarkus 1/3: Dependencies
+
+pom.xml
+
+[source, xml]
+----
+<dependency>
+  <groupId>io.quarkus</groupId>
+  <artifactId>quarkus-hibernate-orm</artifactId>
+</dependency>
+
+<dependency>
+  <groupId>io.quarkus</groupId>
+  <artifactId>quarkus-jdbc-h2</artifactId>
+</dependency>
+
+<dependency>
+  <groupId>io.quarkus</groupId>
+  <artifactId>quarkus-agroal</artifactId>
+</dependency>
+----
+
+== Entity-Manager in Quarkus 2/3: Properties
+
+application.properties
+
+[source, properties]
+----
+# Configuration file
+# key = value
+# datasource configuration
+quarkus.datasource.db-kind=h2
+quarkus.datasource.username=schulung
+quarkus.datasource.password=schulung
+quarkus.datasource.jdbc.url=jdbc:h2:mem:myDB
+
+# drop and create the database at startup (use `update` to only update the schema)
+quarkus.hibernate-orm.database.generation=drop-and-create
+
+# Log SQL - not to be used in production
+quarkus.hibernate-orm.log.sql=true
+quarkus.hibernate-orm.log.bind-param=true
+
+# Optional: Pre-populate database
+# quarkus.hibernate-orm.sqlo-load-script=import.sql
+----
+
+https://quarkus.io/guides/datasource#h2[
+-> Guide: Quarkus - Datasources]
+
+== Entity-Manager in Quarkus 3/3: Repository
+
+[.heading]
+Plain JPA (klassisch)
+
+[source, java]
+----
+@ApplicationScoped
+public class OrderRepository {
+    Logger logger = LoggerFactory.getLogger(OrderRepository.class);
+
+    @Inject
+    EntityManager em;
+
+    // Aktualisieren oder anlegen - wichtig: Transactional
+    @Transactional
+    public void save(Order o){
+        logger.info("Order: "+ o.toString());
+        em.merge(o);
+    }
+    // ...
+}
+----
+
+== Aufgabe 3.3: lesson03-jpa
+
+*Aufgabenstellung*:
+
+* Persistieren die Pizza-Bestellungen in einer H2 in-memory Datenbank
+** Nutzen Sie JPA-Annotationen
+** Injizieren und verwenden Sie einen Entity-Manager im Repository
+** Testen Sie mit Postman
+
+*Hinweise*:
+
+1. `ORDER` ist ein ungeschickter Name für eine Tabelle.
+2. IDs in H2 erzeugen: `@GeneratedValue(strategy = GenerationType.IDENTITY)`
+3. Lazy-Loading über hibernate-Proxies ist nur innerhalb der Session möglich.
+`@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)`
+4. Im Ordner `lesson03-jpa/lesson03` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 3.2.
+5. Eine Beispiellösung finden Sie im Ordner `solutions/lesson03/lesson03-jpa`
+
+== Hibernate Panache
+
+* Plain-JPA: Repository händisch Implementieren
+* Idee: Framework generiert Operationen
+** Ruby On Rails Active Record / Grails ORM: Active Record Pattern
+** spring-data: Repository Interface vom Framework verwaltet: Repository Pattern
+** Quarkus: Hibernate Panache: Repository oder Active Record Pattern
+* Zusätzliche Features
+** Vereinfachung der Abfrage-Sprache
+** Konventionen &amp; für Paging
+** Sonst. Hilfsmethoden
+
+https://www.martinfowler.com/eaaCatalog/activeRecord.html[
+-> Martin Fowler: Active Record]
+
+https://martinfowler.com/eaaCatalog/repository.html[
+-> Martin Fowler: Repository]
+
+== Verwendung von Hibernate Panache
+
+[.heading]
+Umstellung Plain-JPA auf Panache Repository
+
+Dependency einbinden
+[source,xml]
+----
+    <dependency>
+        <groupId>io.quarkus</groupId>
+        <artifactId>quarkus-hibernate-orm-panache</artifactId>
+    </dependency>
+----
+
+Repository umstellen
+[source, java]
+----
+@ApplicationScoped
+public class PersonRepository implements PanacheRepository<Person> {
+    // Hinweis: Generierte Methoden sind nicht @Transactional
+
+    // Beispiel: Hilfsmethode
+    public Person findByName(String name){
+       return find("name", name).firstResult();
+    }
+
+}
+----
+
+https://javadoc.io/doc/io.quarkus/quarkus-hibernate-orm-panache/latest/io/quarkus/hibernate/orm/panache/PanacheRepository.html[
+-> API Doc: io.quarkus.hibernate.orm.panache.PanacheRepository<Entity>
+]
+
+https://quarkus.io/guides/hibernate-orm-panache[
+-> Guide: Quarkus - Simplified Hibernate ORM with Panache]
+
+== Verwendung von Hibernate Panache
+
+[.heading]
+Alternative: Active Record Pattern
+
+Definition
+[source,java]
+----
+@Entity
+public class Person extends PanacheEntity {
+    // Auto-generated ID field
+    public String name;
+    public LocalDate birth;
+    public Status status;
+}
+----
+
+Verwendung
+[source,java]
+----
+Person person = new Person();
+person.name = "Stef";
+
+person.persist();
+----
+https://javadoc.io/doc/io.quarkus/quarkus-hibernate-orm-panache/latest/io/quarkus/hibernate/orm/panache/PanacheEntity.html[
+-> API Doc: io.quarkus.hibernate.orm.panache.PanacheEntity
+]
+
+https://quarkus.io/guides/hibernate-orm-panache[
+-> Guide: Quarkus - Simplified Hibernate ORM with Panache]
+
+== Aufgabe 3.4: lesson03-panache
+
+*Aufgabenstellung*:
+
+* Persistieren die Pizza-Bestellungen in einer H2 in-memory Datenbank und einem *Panache-Repository*
+** Bauen Sie auf der vorherigen Aufgabe auf
+** Testen Sie die Methoden mit Postman
+
+*Hinweise*:
+
+1. Im Ordner `lesson03-panache/lesson03` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 3.3.
+2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson03-panache`
+3. Alternativ können Sie das Active Record Pattern verwenden
+
+link:index.html#/_agenda[-> Zurück zur Übersicht]

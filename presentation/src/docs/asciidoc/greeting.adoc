@@ -78,7 +78,7 @@ Voraussetzungen::
 ** Bildschirmfreigabe / Folien: Jetzt testen :-)
 ** Breakout Rooms für Übungen
 ** Lautsprecher + Mikrophon benötigt, Kamera empfehlenswert
-* Entwicklung: Lokal
+* Entwicklung: Remote Desktop Protocol (RDP) zur GfU
 ** Praktische Übungen
 ** Aufschaltung über BBB möglich
 * Material auf GitHub
@@ -124,5 +124,38 @@ Jetzt sind Sie dran!
 
 image::anybody.jpg[float=right, pdfwidth=4cm]
 
+== Ihre Umgebung
+* OpenJDK 11
+* Apache Maven
+* Gradle
+* GraalVM Community Edition
+* NodeJS
+* IntelliJ Community Edition
+* Docker CU
+* Minishift
+* Postman
+* Git
+
+_Demo_
+
+== Aufgabe 0.1
+
+Aufgabenstellung:
+
+* Verbinden Sie sich per RDP in Ihre Umgebung
+* Überprüfen Sie, dass OpenJDK 11 installiert ist `java -version`
+* Laden Sie die Unterlagen zum Kurs herunter
+* Blenden Sie die Index-Folie (index.html) auf
+[source,shell script,indent=4]
+----
+$ git clone https://github.com/anderscore-gmbh/quarkus-2020.10.git
+Cloning into 'quarkus-2020.10'...
+remote: Enumerating objects: 378, done.
+remote: Counting objects: 100% (378/378), done.
+remote: Compressing objects: 100% (193/193), done.
+remote: Total 378 (delta 82), reused 378 (delta 82), pack-reused 0
+Receiving objects: 100% (378/378), 3.69 MiB | 2.21 MiB/s, done.
+Resolving deltas: 100% (82/82), done.
+----
 
 link:index.html#/_agenda[-> Zurück zur Übersicht]
