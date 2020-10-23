@@ -195,42 +195,6 @@ Hinweise:
 link:lesson02-microservices.html[-> Weiter zu µServices]
 
 
-== Exkurs: MicroProfile
-
---
-image::microprofile.png[width=700]
-* Sammlung von Spezifikationen
-* Fokus auf Microservices
---
-
---
-image::MicroProfile3.3.png[width=900]
---
-
-[.columns.text-center]
-== Exkurs: MicroProfile
-
---
-[.margin-bottom-wide]
-image::quarkus.jpg[width=200]
-
-[.margin-bottom-wide]
-image::thorntail.png[width=250]
-
-[.margin-bottom-wide]
-image::openliberty.png[width=250]
---
-
---
-[.margin-bottom-wide]
-image::payara.jpeg[width=250]
-
-[.margin-bottom-wide]
-image::helidon.png[width=250]
-
-[.margin-bottom-wide]
-image::kumuluz.png[width=250]
---
 
 == Exkurs: GraalVM
 

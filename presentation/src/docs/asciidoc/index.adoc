@@ -44,11 +44,13 @@ link:greeting.html[Begrüßung]
 . Erstellung eines Services
     (link:lesson03-rest.html[REST / JAX-RS],
     link:lesson03-jpa.html[JPA])
+. link:lesson04-microprofile.html[MicroProfile im Detail] (Health / Metrics, REST Client, OpenTracing, Fault Tolerance)
+
+
 . Konfiguration
 . Security
 . Logging
 . Testing
-. MicroProfile im Detail (Health / Metrics, REST Client, OpenTracing, Fault Tolerance)
 . Application Building
 . Kubernetes Grundlagen
 . Extensions

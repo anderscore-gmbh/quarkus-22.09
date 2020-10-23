@@ -1,0 +1,208 @@
+[state=no-title-footer]
+== Die Microprofile API
+
+[.center]
+Ein Standard für Microservices
+
+== Microprofile API
+
+--
+image::microprofile.png[width=700]
+* Sammlung von Spezifikationen
+* Fokus auf Microservices
+--
+
+--
+image::MicroProfile3.3.png[width=900]
+--
+
+[.columns.text-center]
+== Microprofile API
+--
+[.margin-bottom-wide]
+image::quarkus.jpg[width=200]
+
+[.margin-bottom-wide]
+image::thorntail.png[width=250]
+
+[.margin-bottom-wide]
+image::openliberty.png[width=250]
+--
+
+--
+[.margin-bottom-wide]
+image::payara.jpeg[width=250]
+
+[.margin-bottom-wide]
+image::helidon.png[width=250]
+
+[.margin-bottom-wide]
+image::kumuluz.png[width=250]
+--
+
+== Microprofile API: Relevante Bestandteile
+
+* *Configuration*:
+Einheitlicher Ansatz zur Konfiguration. Injizieren von Files oder Umgebungsvariablen
+* *Health*:
+Endpunkt für Health, liveness und readiness Checks
+* *Fault Tolerance*:
+Ausfall-Strategie (z.B. Timeouts, Retry Policy, Fallback, Circuit Breaker)
+* *Metrics*:
+Fachliches Monitoring (z.B. Datensätze) an externe System
+* *OpenAPI*:
+Bschreibung der REST-Schnittstelle
+* *OpenTracing*:
+Intrumentation für JAX-RS und CDI
+* *Rest Client*
+Aufbauend auf JAX-RS, client-funktionalität
+
+== Health: Klassischer Health-Check (deprecated)
+
+Dependency
+
+[source, xml]
+----
+<dependency>
+  <groupId>io.quarkus</groupId>
+  <artifactId>quarkus-smallrye-health</artifactId>
+</dependency>
+----
+
+Implementierung
+[source, java]
+----
+@Health
+@ApplicationScoped
+public class OldStyleHealthCheck implements HealthCheck {
+
+    @Override
+    public HealthCheckResponse call() {
+        double dice = Math.random();
+        HealthCheckResponseBuilder builder = HealthCheckResponse.named("dice");
+        if(dice >= 0.5) {
+            builder.up();
+        } else {
+            builder.down().withData("valueOfDice", "" + dice);
+        }
+        return builder.build();
+    }
+}
+----
+
+Vor Microprofile 3.0
+
+== Health: Klassischer Health-Check (deprecated)
+
+[.heading]
+Aufruf des Checks
+
+`curl http://127.0.0.1:8080/health`
+
+[source,json]
+----
+{
+    "status": "DOWN",
+    "checks": [
+        {
+            "name": "dice",
+            "status": "DOWN",
+            "data": {
+                "valueOfDice": "0.19585549288164417"
+            }
+        },
+        {
+            "name": "Database connections health check",
+            "status": "UP"
+        }
+    ]
+}
+----
+
+== Health: Liveness and Readiness checks (Microprofile 3.0)
+
+Konzept:
+
+* *Readiness*: Der Service kann aktuell (temporär) Daten verarbeiten / nicht verarbeiten.
+* *Liveness*: Der Service is aktiv oder dauerhaft gestört.
+
+Eigenschaften:
+
+* Feinere Granularität
+* Aufruf:
+** `curl http://127.0.0.1:8080/health` (kombiniert)
+** `curl http://127.0.0.1:8080/health/live`
+** `curl http://127.0.0.1:8080/health/ready`
+** `chrome http://127.0.0.1:8080/health-ui` (kein Standard)
+
+link:https://quarkus.io/guides/microprofile-health[-> Quarkus Microprofile Health]
+
+link:https://download.eclipse.org/microprofile/microprofile-health-2.1/microprofile-health-spec.html[-> MicroProfile Health Specification]
+
+== Health: Liveness and Readiness checks (Microprofile 3.0)
+
+*Liveness: `@Liveness`*
+
+[source,java]
+----
+@Liveness
+@ApplicationScoped
+public class MyLivenessCheck implements HealthCheck {
+
+    @Override
+    public HealthCheckResponse call() {
+        // Inhalt
+    }
+}
+----
+
+*Readiness: `@Readiness`*
+
+[source,java]
+----
+@Readiness
+@ApplicationScoped
+public class MyReadinessCheck implements HealthCheck {
+
+    @Override
+    public HealthCheckResponse call() {
+        // Inhalt
+    }
+}
+----
+
+link:https://quarkus.io/guides/microprofile-health[-> Guide: Quarkus Microprofile Health]
+
+== Aufgabe 4.1: lesson04-health
+
+*Aufgabenstellung*:
+
+* Implementieren Sie Readiness und Liveness für den Order-Service
+** Readiness: Weniger als 42 Bestellungen Status: `IN_PROGRESS`
+** Liveness: Keine Bestellung Status: `LOST`
+* Testen Sie mit Postman oder Curl
+* Überprüfen Sie die Ausgabe in der Health-UI
+* Optional: Implementieren Sie einen klassischen Health-Check *`dice`*, der würfelt.
+
+*Hinweise*:
+
+1. Im Ordner `lesson04-health/lesson04` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 3.4.
+2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04/lesson04-health`
+
+link:https://quarkus.io/guides/microprofile-health[-> Guide: Quarkus Microprofile Health]
+
+== Fault Tolerance API
+
+[.heading]
+Fault Tolerance API: Strategien bei Nicht-Erreichbarkeit
+
+1. *Timeout*: Wenn die Antwort ausbleibt
+2. *Fallback*: Wenn ein Fehler auftritt
+3. *Retry*: Wie soll ein Aufruf wiederholt werden?
+4. *Bulkhead*: Isolation lokaler Fehler
+5. *Circuit Breaker*: fast-fail: Überlast vermeiden
+6. (*Asynchronous*): Verhalten bei asynchronen aufrufen
+
+link:https://quarkus.io/guides/microprofile-fault-tolerance[-> Guide: Quarkus Fault Tolerance]
+
+link:https://download.eclipse.org/microprofile/microprofile-fault-tolerance-2.0.4/microprofile-fault-tolerance-spec.html[-> Microprofile Fault Tolerance Specification]
