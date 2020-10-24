@@ -438,7 +438,7 @@ Implementieren Sie verschiedene Metriken für die `Order Resource`
 1. Im Ordner `lesson04-metrics/lesson04` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 4.1.
 2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-metrics/lesson04`
 
-== OpenApi / Swagger UI
+== 5. OpenApi / Swagger UI
 
 [.center]
 image:swagger.png[width=1200]
@@ -520,3 +520,203 @@ link:https://quarkus.io/guides/openapi-swaggerui[-> Guide: Quarkus Using OpenAPI
 
 1. Im Ordner `lesson04-openapi/lesson04` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 4.1.
 2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-openapi/lesson04`
+
+== 6. REST Client
+
+[.heading]
+Der Quarkus Rest-Client
+
+* Umsetzung des Microprofile REST client
+* Alternative zum JAX-RS Client
+* Integration in Quarkus
+* Vorteile: Konfiguration, einfache Integration
+* Asynchrone Aufrufe
+* Mock-Server
+
+{nbsp} +
+
+=== Maven Dependencies
+
+[source,xml]
+----
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-rest-client</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>com.github.tomakehurst</groupId>
+    <artifactId>wiremock</artifactId>
+    <scope>test</scope>
+    <version>${wiremock.version}</version>
+</dependency>
+
+<!-- Auch fuer Server benoetigt, d.h. bereits vorhanden -->
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-resteasy-jsonb</artifactId>
+</dependency>
+
+----
+
+link:https://quarkus.io/guides/rest-client[-> Guide: Quarkus Rest Client]
+
+== Rest Client: Verwendung
+
+[source,java]
+----
+package net.gfu.quarkus.client;
+
+@Path("/hw")
+@RegisterRestClient
+public interface HelloWordService {
+
+    @GET
+    @Path("{name}")
+    @Produces("application/json")
+    GreetingMsg getByName(@PathParam String name);
+
+    public static class GreetingMsg {
+        public String message;
+    }
+}
+----
+
+[source,properties]
+----
+# Your configuration properties
+net.gfu.quarkus.client.HelloWordService/mp-rest/url=http://localhost:8081
+net.gfu.quarkus.client.HelloWordService/mp-rest/scope=javax.inject.Singleton
+----
+
+[source,java]
+----
+@Path("/myRes")
+public class MyResource {
+    @RestClient
+    @Inject
+    HelloWordService service;
+
+    @GET public String index() {
+        return service.getByName("MyResource");
+    }
+}
+----
+
+== Aufgabe 4.4: lesson04-restclient
+
+*Aufgabenstellung*
+
+* Erstellen Sie einen seperaten Franchise-Service, der auch Pizza-Bestellungen anzeigt.
+** Erstellen Sie ein weiteres Quarkus-Projekt `franchise`.
+** Der Service hat die Operation `index(). Die Rückgabe ist wie folgt:
+
+[source,json]
+----
+{
+  "pizzaOrders" : [] /* Die Liste des Order-Services */
+}
+----
+
+
+*Hinweise*
+
+1. Der Eintrag *`quarkus.http.port=8080`* in der Datei `application.properties` bestimmt den HTTP-Port ‒
+*`mvn compile quarkus:dev -Ddebug=5006`* den Debug-Port.
+1. Im Ordner `lesson04-restlclient/lesson04` befindet sich bereits ein Skelett, jedoch nur für einen Service
+2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-restclient/`. Das Beispiel enthält beide Projekte
+
+== 7. OpenTracing API
+
+[.heading]
+Warum Tracing?
+
+*Herausforderung Verteiltes System*
+
+* Requests durchlaufen verschiedene Services
+* Jeder Service für individuelles Protokoll / Log
+* Welche Protokoll-Einträge gehören zusammen? Was gehört alles zu einem Request?
+
+*Ansatz: Request correlation*
+
+* ID an Requests initial vergeben
+* ID beim Aufruf anderer Services weiterreichen
+* ID loggen
+
+[source,xml]
+----
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-smallrye-opentracing</artifactId>
+</dependency>
+----
+
+link:https://quarkus.io/guides/opentracing[-> Quarkus - Using OpenTracing]
+
+== 7. OpenTracing API: Verwendung
+
+*Konfiguration - `application.properties`*
+
+[source,properties]
+----
+quarkus.jaeger.service-name=franchise
+quarkus.jaeger.sampler-type=const
+quarkus.jaeger.sampler-param=1
+quarkus.log.console.format=%d{HH:mm:ss} %-5p traceId=%X{traceId}, parentId=%X{parentId}, spanId=%X{spanId}, sampled=%X{sampled} [%c{2.}] (%t) %s%e%n
+----
+
+*Logger mit Trace-Ausgabe*
+
+[source,java]
+----
+import org.jboss.logging.Logger;
+
+public class FranchiseResource {
+
+    private static final Logger LOG = Logger.getLogger(FranchiseResource.class);
+
+    public String index() {
+        LOG.info("Index called");
+        return "index";
+    }
+}
+----
+
+*Beispiel*
+
+[source]
+----
+13:20:11 INFO  traceId=1336b2b0a76a96a3, parentId=0, spanId=1336b2b0a76a96a3, sampled=true [or.ac.qu.TracedResource] (executor-thread-63) hello
+----
+
+
+== 7. OpenTracing API: Jaeger UI
+[.center]
+image:jaeger.png[]
+
+*Installation*
+[source]
+----
+docker run \
+-p 5775:5775/udp -p 6831:6831/udp -p 6832:6832/udp -p 5778:5778 -p 16686:16686 -p 14268:14268 \
+jaegertracing/all-in-one:latest
+----
+
+link:http://localhost:16686/[-> Jaeger UI http://localhost:16686/]
+
+link:https://www.jaegertracing.io/[-> Jaeger: open source, end-to-end distributed tracing]
+
+== Aufgabe 4.5: lesson04-tracing
+
+*Aufgabenstellung*
+
+Verfolgen Sie requests zwischen Franchise und Order-Service aus der letzten Ausgabe.
+* Erweitern Sie beide Projekte und nutzen Sie die OpenTracing API
+* Verfolgen Sie den Franchise-Request in Jaeger
+
+*Hinweise*
+
+1. Der Eintrag *`quarkus.http.port=8080`* in der Datei `application.properties` bestimmt den HTTP-Port ‒
+*`mvn compile quarkus:dev -Ddebug=5006`* den Debug-Port.
+1. Im Ordner `lesson04-tracing/lesson04` befindet sich bereits ein Skelett, basierend auf der vorherigen Aufgabe
+2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-tracing/`. Das Beispiel enthält beide Projekte
