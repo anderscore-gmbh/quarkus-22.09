@@ -42,22 +42,22 @@ image::kumuluz.png[width=250]
 
 == Microprofile API: Relevante Bestandteile
 
-* *Configuration*:
-Einheitlicher Ansatz zur Konfiguration. Injizieren von Files oder Umgebungsvariablen
-* *Health*:
+1. *Configuration*:
+Einheitlicher Ansatz zur Konfiguration.
+1. *Health*:
 Endpunkt für Health, liveness und readiness Checks
-* *Fault Tolerance*:
+2. *Fault Tolerance*:
 Ausfall-Strategie (z.B. Timeouts, Retry Policy, Fallback, Circuit Breaker)
-* *Metrics*:
+3. *Metrics*:
 Fachliches Monitoring (z.B. Datensätze) an externe System
-* *OpenAPI*:
-Bschreibung der REST-Schnittstelle
-* *OpenTracing*:
+4. *OpenAPI*:
+Beschreibung der REST-Schnittstelle
+5. *OpenTracing*:
 Intrumentation für JAX-RS und CDI
-* *Rest Client*
+6. *Rest Client*
 Aufbauend auf JAX-RS, client-funktionalität
 
-== Health: Klassischer Health-Check (deprecated)
+== 2. Health: Klassischer Health-Check (deprecated)
 
 Dependency
 
@@ -92,7 +92,7 @@ public class OldStyleHealthCheck implements HealthCheck {
 
 Vor Microprofile 3.0
 
-== Health: Klassischer Health-Check (deprecated)
+== 2. Health: Klassischer Health-Check (deprecated)
 
 [.heading]
 Aufruf des Checks
@@ -119,7 +119,7 @@ Aufruf des Checks
 }
 ----
 
-== Health: Liveness and Readiness checks (Microprofile 3.0)
+== 2. Health: Liveness and Readiness checks (Microprofile 3.0)
 
 Konzept:
 
@@ -139,7 +139,7 @@ link:https://quarkus.io/guides/microprofile-health[-> Quarkus Microprofile Healt
 
 link:https://download.eclipse.org/microprofile/microprofile-health-2.1/microprofile-health-spec.html[-> MicroProfile Health Specification]
 
-== Health: Liveness and Readiness checks (Microprofile 3.0)
+== 2. Health: Liveness and Readiness checks (Microprofile 3.0)
 
 *Liveness: `@Liveness`*
 
@@ -187,22 +187,144 @@ link:https://quarkus.io/guides/microprofile-health[-> Guide: Quarkus Microprofil
 *Hinweise*:
 
 1. Im Ordner `lesson04-health/lesson04` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 3.4.
-2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04/lesson04-health`
+2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-health/lesson04`
 
 link:https://quarkus.io/guides/microprofile-health[-> Guide: Quarkus Microprofile Health]
 
-== Fault Tolerance API
+== 3. Fault Tolerance API
 
 [.heading]
 Fault Tolerance API: Strategien bei Nicht-Erreichbarkeit
 
-1. *Timeout*: Wenn die Antwort ausbleibt
-2. *Fallback*: Wenn ein Fehler auftritt
-3. *Retry*: Wie soll ein Aufruf wiederholt werden?
-4. *Bulkhead*: Isolation lokaler Fehler
-5. *Circuit Breaker*: fast-fail: Überlast vermeiden
-6. (*Asynchronous*): Verhalten bei asynchronen aufrufen
+* *Timeout*: Wenn die Antwort ausbleibt
+* *Fallback*: Wenn ein Fehler auftritt
+* *Retry*: Wie soll ein Aufruf wiederholt werden?
+* *Bulkhead*: Isolation lokaler Fehler
+* *Circuit Breaker*: fast-fail: Überlast vermeiden
+* (*Asynchronous*): Verhalten bei asynchronen Aufrufen
 
-link:https://quarkus.io/guides/microprofile-fault-tolerance[-> Guide: Quarkus Fault Tolerance]
+Dependency:
+[source,xml]
+----
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-smallrye-fault-tolerance</artifactId>
+</dependency>
+----
+
+link:https://quarkus.io/guides/microprofile-fault-tolerance[-> Guide: Quarkus Fault Tolerance] |
+link:https://download.eclipse.org/microprofile/microprofile-fault-tolerance-2.0.4/microprofile-fault-tolerance-spec.html[-> Microprofile Fault Tolerance Specification]
+
+== 3. Fault Tolerance: Timeout, Fallback, Retries
+[source, java]
+----
+@GET
+@Transactional
+@Timeout(250)
+@Fallback(fallbackMethod = "sorry")
+@Retry(maxRetries = 5)
+public List index(){
+    return this.repository.listAll();
+}
+// Fallback, index times out
+private List sorry(){
+    return new ArrayList<>();
+}
+----
+
+Konsequenzen
+
+* Nach 250ms wird ein Request abgebrochen
+* Es werden bis zu 5 Requests durchgeführt
+* Danach wird die Methode `sorry()` aufgerufen -> leere Liste als Rückgabe
 
 link:https://download.eclipse.org/microprofile/microprofile-fault-tolerance-2.0.4/microprofile-fault-tolerance-spec.html[-> Microprofile Fault Tolerance Specification]
+
+link:https://download.eclipse.org/microprofile/microprofile-fault-tolerance-2.0.2/apidocs/index.html?org/eclipse/microprofile/faulttolerance/Retry.html[->
+API Documentation]
+
+== 3. Fault Tolerance: Circuit Breaker
+
+Ziel: Überlast in Fehler-Situationen verhindern.
+
+Der Circuit-Breaker definiert Zustände:
+
+* Closed state: Der Stromkreis ist geschlossen, Requests werden bearbeitet
+* Half-open circuit: Einige Fehler treten auf, Requests werden in der Mehrzahl bearbeitet
+* Open state: Zu viele Fehler treten auf. Anfragen werden temporär zurück gewiesen
+
+== 3. Fault Tolerance: Circuit Breaker: Verwendung
+
+[source,java]
+----
+@POST
+@Transactional
+@CircuitBreaker(successThreshold = 5, requestVolumeThreshold = 4,
+        failureRatio = 0.75, delay = 1000)
+public Response create(/* ... */)){
+    // ...
+}
+----
+
+*Open state*
+
+* Für `delay = 1000 ms`, falls
+* Von den letzten `requestVolumeThreshold = 4`
+* 75% (d.h. `failureRatio = 0.75`) fehlerhaft sind.
+* Danach: Half open
+
+*Half open* - so lange bis:
+
+* `successThreshold = 5` Requests hintereinander erfolgreich waren oder (-> Closed state)
+* Alternativ: Open state auslöst
+
+link:https://download.eclipse.org/microprofile/microprofile-fault-tolerance-2.0.2/apidocs/index.html?org/eclipse/microprofile/faulttolerance/Retry.html[-> org.eclipse.microprofile.faulttolerance.CircuitBreaker]
+
+== 3. Fault Tolerance: Bulkhead
+
+Ziel: Überlast im Normalfall verhindern
+
+[source,java]
+----
+@Asynchronous
+@Bulkhead(value = 5)
+private Future doSomething(Order o) {
+    // ...
+}
+----
+Ziel: Gleichzeitige Ausführung einschränken (semaphore)
+
+* *Mit* `@Asynchronous`: *Thread-Isolation*, d.h. `value = 5` Threads in Pool
+* *Sonst*: Zählende Semaphore, kein eigener Thread-Pool
+
+API Dokumentation
+
+* link:https://download.eclipse.org/microprofile/microprofile-fault-tolerance-2.0.2/apidocs/index.html?org/eclipse/microprofile/faulttolerance/Asynchronous.html[org.eclipse.microprofile.faulttolerance.Asynchronous]
+* https://download.eclipse.org/microprofile/microprofile-fault-tolerance-2.0.2/apidocs/index.html?org/eclipse/microprofile/faulttolerance/Bulkhead.html[org.eclipse.microprofile.faulttolerance.Bulkhead]
+
+link:https://de.wikipedia.org/wiki/Semaphor_(Informatik)[-> Wikipedia: Semaphor (Informatik)]
+
+== Aufgabe 4.2: lesson04-fault-tolerance
+
+*Aufgabenstellung*:
+
+Implementieren Sie verschiedene Fault Tolerance Strategien für die `Order Resource`
+
+* Index: Nach einem Timeout von 250ms werden Anfragen abgebrochen
+** Eine Anfrage wird bis zu 5 mal wiederholt.
+** Falls die Anfrage fehl schlägt, wird eine leere Liste zurück gegeben.
+* Create:
+** Falls die Annahme von mindestens 3 der 4 letzten Bestellung fehlschlägt, sollen für 1 Sekunde keine Bestellungen erstellt werden.
+** Nach 5 erfolgreich angenommenen Bestellungen, steht die Annahme wieder voll zur Verfügung.
+* Update:
+** Es gibt nur 5 Lieferfahrzeuge, d.h. es dürfen maximal 5 Pizzas im Status `IN_DELIVERY` ausgeliefert werden.
+** Verwenden Sie einen eigenen Threadpool.
+
+*Hinweise*:
+
+1. Im Ordner `lesson04-fault-tolerance/lesson04` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 4.1.
+2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-fault-tolerance/lesson04`
+
+=== 4. Metrics API: Fachloches Logging
+
+

@@ -2,6 +2,8 @@ package net.gfu.quarkus.endpoints;
 
 import data.model.Order;
 import data.model.OrderRepository;
+import data.model.Status;
+import org.eclipse.microprofile.faulttolerance.*;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -15,6 +17,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 @Path("orders")
 @ApplicationScoped
@@ -29,6 +33,8 @@ public class OrderResource {
     // Create
     @POST
     @Transactional
+    @CircuitBreaker(successThreshold = 5, requestVolumeThreshold = 4,
+            failureRatio = 0.75, delay = 1000)
     public Response create(Order o, @Context UriInfo uriInfo){
         if(o == null) {
             return Response.status(402).build();
@@ -67,8 +73,12 @@ public class OrderResource {
         if(o.getOrderId() == null || this.repository.findById(o.getOrderId()) == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+        if(Status.IN_DELIVERY.equals(o.getStatus())){
+            deliverPizza(o);
+        }
         this.repository.persist(o);
         return Response.noContent().build();
+
     }
 
     // Delete
@@ -87,8 +97,27 @@ public class OrderResource {
     // Index
     @GET
     @Transactional
+    @Timeout(250) // 250 ms Timeout
+    @Fallback(fallbackMethod = "sorry") // Returns an empty list
+    @Retry(maxRetries = 5) // Try it for 5 times before falling back
     public List<Order> index(){
         return this.repository.listAll();
     }
-}
 
+    // Fallback, index times out
+    private List<Order> sorry(){
+        return new ArrayList<>();
+    }
+
+    // Pizza-Ausfahren braucht viel Zeit
+    @Asynchronous
+    @Bulkhead(value = 5) // Maximal 5 Lieferfahrzeuge.
+    private Future deliverPizza(Order o) {
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            return CompletableFuture.failedFuture(e);
+        }
+        return CompletableFuture.completedFuture(Boolean.TRUE);
+    }
+}
