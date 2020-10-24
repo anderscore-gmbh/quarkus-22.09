@@ -49,7 +49,7 @@ Endpunkt für Health, liveness und readiness Checks
 2. *Fault Tolerance*:
 Ausfall-Strategie (z.B. Timeouts, Retry Policy, Fallback, Circuit Breaker)
 3. *Metrics*:
-Fachliches Monitoring (z.B. Datensätze) an externe System
+Benchmarks auf Fach- und Anwendungsebene
 4. *OpenAPI*:
 Beschreibung der REST-Schnittstelle
 5. *OpenTracing*:
@@ -245,13 +245,13 @@ API Documentation]
 
 == 3. Fault Tolerance: Circuit Breaker
 
-Ziel: Überlast in Fehler-Situationen verhindern.
+*Ziel: Überlast in Fehler-Situationen verhindern*
 
 Der Circuit-Breaker definiert Zustände:
 
-* Closed state: Der Stromkreis ist geschlossen, Requests werden bearbeitet
-* Half-open circuit: Einige Fehler treten auf, Requests werden in der Mehrzahl bearbeitet
-* Open state: Zu viele Fehler treten auf. Anfragen werden temporär zurück gewiesen
+* *Closed state*: Der Stromkreis ist geschlossen, Requests werden bearbeitet
+* *Half-open state*: Einige Fehler treten auf, Requests werden in der Mehrzahl bearbeitet
+* *Open state*: Zu viele Fehler treten auf. Anfragen werden temporär zurück gewiesen
 
 == 3. Fault Tolerance: Circuit Breaker: Verwendung
 
@@ -306,25 +306,217 @@ link:https://de.wikipedia.org/wiki/Semaphor_(Informatik)[-> Wikipedia: Semaphor 
 
 == Aufgabe 4.2: lesson04-fault-tolerance
 
-*Aufgabenstellung*:
+*Aufgabenstellung*
 
 Implementieren Sie verschiedene Fault Tolerance Strategien für die `Order Resource`
 
-* Index: Nach einem Timeout von 250ms werden Anfragen abgebrochen
-** Eine Anfrage wird bis zu 5 mal wiederholt.
-** Falls die Anfrage fehl schlägt, wird eine leere Liste zurück gegeben.
-* Create:
-** Falls die Annahme von mindestens 3 der 4 letzten Bestellung fehlschlägt, sollen für 1 Sekunde keine Bestellungen erstellt werden.
-** Nach 5 erfolgreich angenommenen Bestellungen, steht die Annahme wieder voll zur Verfügung.
-* Update:
-** Es gibt nur 5 Lieferfahrzeuge, d.h. es dürfen maximal 5 Pizzas im Status `IN_DELIVERY` ausgeliefert werden.
-** Verwenden Sie einen eigenen Threadpool.
+* Index: Nach einem Timeout von 250ms werden Anfragen abgebrochen. Eine Anfrage wird bis zu 5 mal wiederholt.
+Falls die Anfrage fehl schlägt, wird eine leere Liste zurück gegeben.
+* Create: Falls die Annahme von 3 der 4 letzten Bestellung fehlschlägt: Keine Annahme für 1s - nach 5
+erfolgreichen Annahmen, steht die Annahme wieder voll zur Verfügung.
+* Update: Es gibt 5 Lieferfahrzeuge, d.h. 5 Pizzas im Status `IN_DELIVERY`. Beschränken Sie die Auslieferung.
 
 *Hinweise*:
 
 1. Im Ordner `lesson04-fault-tolerance/lesson04` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 4.1.
 2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-fault-tolerance/lesson04`
 
-=== 4. Metrics API: Fachloches Logging
+== 4. Metrics API: Monitoring auf Anwendungs- und Fachebene
 
+*Funktion*
 
+* Fachereignisse als Benchmark exportieren
+* Optionen
+** *Counter* / *Meter* - Aufrufe zählen
+** *Gauge* - "Wasserstands-Anzeiger"; beliebiges Feld
+** *Timer* - Ausführungsdauer messen
+
+*Dependency*
+
+[source,xml]
+----
+<dependency>
+  <groupId>io.quarkus</groupId>
+  <artifactId>quarkus-smallrye-metrics</artifactId>
+</dependency>
+----
+
+*Abfrage*
+
+* `curl -H"Accept: application/json" http://localhost:8080/metrics/application`
+* `curl -H"Accept: application/json" http://localhost:8080/metics` (auch System-Metrics)
+
+link:https://quarkus.io/guides/microprofile-metrics[
+-> Quarkus Metrics]
+
+=== 4. Metrics API: Monitoring auf Anwendungs- und Fachebene
+
+[source,java]
+----
+@GET
+@Timed(name = "listenAufruf", description = "Ladezeit Startseite", unit = MetricUnits.MILLISECONDS)
+public List get(){
+    // ....
+}
+@Counted(description = "Anzahl", absolute = true)
+public Response create(/* ..*/){ {
+    // ...
+}
+----
+
+Ergebnis:
+
+[source,json]
+----
+    "application": {
+        "net.gfu.quarkus.endpoints.OrderResource.listenAufruf": {
+            "p99": 0.0,
+            "min": 0.0,
+            "max": 0.0,
+            "mean": 0.0,
+// Weitere statistische Kennzahlen
+            "meanRate": 0.0,
+            "count": 0,
+            "oneMinRate": 0.0
+        },
+        "create": 0
+    }
+----
+
+* Hinweis: Gauge ist aktuell buggy und wird nicht aufgenommen
+
+== 4. Metrics API Alternative: Micrometer
+
+image::micrometer.png[width=1200]
+
+Dependency (plattformabhängig)
+
+[source,xml]
+----
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-micrometer</artifactId>
+</dependency>
+<dependency>
+    <groupId>io.micrometer</groupId>
+    <artifactId>micrometer-registry-prometheus</artifactId>
+</dependency>
+
+----
+=== Verwendung Micrometer
+
+[source,java]
+----
+public MyResource(MeterRegistry registry) {
+    this.registry = registry;
+    registry.gauge("wasserstand", this, MyResource::getWasserstand);
+}
+
+public void doSth() {
+    Supplier<String> supplier = () -> { // Macht etwas };
+    return registry.timer("MyResource.doSth").wrap(supplier).get();
+}
+----
+
+* "Recommended" im Quarkus-Guide, aber nicht Teil von Microprofile
+
+link:https://quarkus.io/guides/micrometer[-> Guide: Quarkus Micrometer]
+
+== Aufgabe 4.3: lesson04-metrics
+
+*Aufgabenstellung*
+
+Implementieren Sie verschiedene Metriken für die `Order Resource`
+
+* Index:
+** Messung der Ladezeit - wie schnell kann die Seite geladen werden (UX)
+* Create
+** Umsatz - wie viele Bestellungen gehen ein?
+
+*Hinweise*
+
+1. Im Ordner `lesson04-metrics/lesson04` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 4.1.
+2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-metrics/lesson04`
+
+== OpenApi / Swagger UI
+
+[.center]
+image:swagger.png[width=1200]
+
+*OpenAPI*:
+
+* YAML-basiert
+* Dokumentenformat zur Beschreibung einer öffentlichen API
+
+*Swagger*
+
+* Tool-Sammlung
+* Auf OpenAPI aufbauend
+
+== OpenApi / Swagger UI: Verwendung
+
+*Dependency*
+[source,xml]
+----
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-smallrye-openapi</artifactId>
+</dependency>
+----
+*Aufruf*
+
+* `chrome http://localhost:8080/swagger-ui` (GUI)
+* `curl http://localhost:8080/openapi` (Abruf)
+
+*Ergebnis*
+
+[source,yaml]
+----
+openapi: 3.0.3
+info:
+  title: Generated API
+  version: "1.0"
+paths:
+  /myRessource:
+    get:
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+# ...
+----
+
+=== Dokumentation ausweisen
+
+[source, java]
+----
+@Tag(name = "OpenAPI Beispiel", description = "Quarkus CRUD Endpunkt")
+public class MyResource {
+
+    @Operation(operationId = "all", description = "Alle Ressourcen abrufen")
+    @APIResponse(responseCode = "200", description = "Erfolgreich")
+    @GET
+    public List getAll() { /* ..*/  }
+
+    @POST
+    public Response create(
+            @Parameter(description = "Das Dokument", required = true) MyDoc doc) { /* .. */}
+}
+----
+* Weitere Tags, z.B. `@OpenAPIDefinition` enthalten
+* Export des OpenAPI-YAML nach adoc, pdf, etc. möglich
+
+link:https://quarkus.io/guides/openapi-swaggerui[-> Guide: Quarkus Using OpenAPI and Swagger UI]
+
+== Aufgabe 4.3: lesson04-openapi
+
+*Aufgabenstellung*
+
+* Erstellen Sie ein Aussagekräftige Dokumentation für die Orderesources
+* Überprüfen Sie das Ergebnis in der Swagger UI
+
+*Hinweise*
+
+1. Im Ordner `lesson04-openapi/lesson04` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 4.1.
+2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-openapi/lesson04`
