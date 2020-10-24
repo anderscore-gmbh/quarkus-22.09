@@ -44,18 +44,147 @@ image::kumuluz.png[width=250]
 
 1. *Configuration*:
 Einheitlicher Ansatz zur Konfiguration.
-1. *Health*:
+2. *Health*:
 Endpunkt für Health, liveness und readiness Checks
-2. *Fault Tolerance*:
+3. *Fault Tolerance*:
 Ausfall-Strategie (z.B. Timeouts, Retry Policy, Fallback, Circuit Breaker)
-3. *Metrics*:
+4. *Metrics*:
 Benchmarks auf Fach- und Anwendungsebene
-4. *OpenAPI*:
+5. *OpenAPI*:
 Beschreibung der REST-Schnittstelle
-5. *OpenTracing*:
-Intrumentation für JAX-RS und CDI
 6. *Rest Client*
 Aufbauend auf JAX-RS, client-funktionalität
+7. *OpenTracing*:
+Intrumentation für JAX-RS und CDI
+
+== 1. Configuration
+
+[.heading]
+Einheitliche Konfiguration
+
+*Worum geht es?*
+
+* Quarkus-Komponenten konfigurieren (z.B. panache) - Tipp: `./mvnw quarkus:generate-config`
+* Eigene Optionen definieren und verwenden
+* Optionen überschreiben (Deployment)
+* `application.properties` je nach Umgebung auswerten
+
+=== Eigene Optionen definieren
+
+*Zugriff*
+
+[source,java]
+----
+@ConfigProperty(name = "order.instanceName")
+String instanceName;
+
+@ConfigProperty(name = "order.currencySymbol", defaultValue="€")
+String currencySymbol;
+
+@ConfigProperty(name = "order.envNotice")
+Optional<String> notice;
+----
+
+*Werte in `application.properties`*
+[source,properties]
+----
+order.instanceName=dev01
+order.currencySymbol=NOK
+order.envNotice=Sie arbeiten in der Entwicklung
+----
+
+
+link:https://quarkus.io/guides/config[Guide: Quarkus - Configuring your application ]
+
+=== Strukturierte Optionen definieren
+
+[source,java]
+----
+@ConfigProperties(prefix = "order")
+public class OrderConfiguration {
+    private String instanceName;
+    private String currencySymbol = "€";
+    private Optional<String> notice;
+
+    // Getter, Setter - Alternative: public statt private
+    // Bean-Validation wird unterstützt.
+}
+----
+
+*Verwendung*
+
+[source,java]
+----
+@Inject
+OrderConfiguration orderConfiguration;
+
+@ConfigPrefix("andererPrefixInApplicationProperties"
+OrderConfiguration orderConfiguration;
+
+----
+
+*Werte in `application.properties`*
+[source,properties]
+----
+order.instanceName=dev01
+order.currencySymbol=NOK
+order.envNotice=Sie arbeiten in der Entwicklung
+----
+
+link:https://quarkus.io/guides/config[Guide: Quarkus - Configuring your application]
+
+=== Hierarchie verschiedene Quellen
+
+Nach Priorität geordnet (1: Höchste Priorität)
+
+1. System-Properties
+** `java -Dorder.currencySymbol=NOK -jar target/myapp-runner.jar`
+**  `./target/myapp-runner -Dorder.currencySymbol=NOK`
+2. Umgebungs-Variablen - link:https://github.com/eclipse/microprofile-config/blob/master/spec/src/main/asciidoc/configsources.asciidoc#default-configsources[-> Eclipse Microprofile Konventionen]
+** `export ORDER_CURRENCYSYMBOL=NOK ; java -jar target/myapp-runner.jar`**
+** `export ORDER_CURRENCYSYMBOL=NOK  ; ./target/myapp-runner`
+3. `.env` im Working-Directory (Format wie Umgebungs-Variablen)
+4. application.properties im Working-Directory `config/application.properties`
+5. `src/main/resorces/application.property`
+
+link:https://quarkus.io/guides/config[Guide: Quarkus - Configuring your application]
+
+=== Konfiguration nach Profilen
+
+* dev - `quarkus:dev`
+* test - Automatische Tests
+* prod - Default
+
+*Eigene Profile Definieren: quarkus.profile*
+
+* System property: `-Dquarkus.profile`
+* Umgebungs-Variable: `QUARKUS_PROFILE`
+
+Property-Syntax:
+
+[source,properties]
+----
+quarkus.http.port=9090
+%dev.quarkus.http.port=8181
+----
+
+ENV-Syntax:
+
+[source,shell script]
+----
+QUARKUS_HTTP_PORT=9090
+_DEV_QUARKUS_HTTP_PORT=8181
+----
+
+link:https://quarkus.io/guides/config[Guide: Quarkus - Configuring your application]
+
+== 2. Health
+
+Motivation
+
+* Monitoring ermöglichen (icinga, nagios, ...)
+* Monitoring durch Application-Server (kubernetes, ...)
+* Steuerung durch Application-Server
 
 == 2. Health: Klassischer Health-Check (deprecated)
 
@@ -634,7 +763,7 @@ Warum Tracing?
 *Herausforderung Verteiltes System*
 
 * Requests durchlaufen verschiedene Services
-* Jeder Service für individuelles Protokoll / Log
+* Jeder Service führt individuelles Protokoll / Log
 * Welche Protokoll-Einträge gehören zusammen? Was gehört alles zu einem Request?
 
 *Ansatz: Request correlation*
@@ -711,12 +840,15 @@ link:https://www.jaegertracing.io/[-> Jaeger: open source, end-to-end distribute
 *Aufgabenstellung*
 
 Verfolgen Sie requests zwischen Franchise und Order-Service aus der letzten Ausgabe.
+
 * Erweitern Sie beide Projekte und nutzen Sie die OpenTracing API
+* Loggen Sie, wenn die index-Methode aufgerufen wird. Beobachten Sie die IDs
 * Verfolgen Sie den Franchise-Request in Jaeger
 
 *Hinweise*
 
 1. Der Eintrag *`quarkus.http.port=8080`* in der Datei `application.properties` bestimmt den HTTP-Port ‒
 *`mvn compile quarkus:dev -Ddebug=5006`* den Debug-Port.
-1. Im Ordner `lesson04-tracing/lesson04` befindet sich bereits ein Skelett, basierend auf der vorherigen Aufgabe
-2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-tracing/`. Das Beispiel enthält beide Projekte
+1. Im Ordner `lesson04-tracing/lesson04` befindet sich bereits ein Skelett, basierend auf der vorherigen Aufgabe.
+Es enthält den Franchise- und den Order-Service.
+2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-tracing/`.
