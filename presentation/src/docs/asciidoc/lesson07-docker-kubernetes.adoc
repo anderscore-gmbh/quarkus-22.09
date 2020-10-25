@@ -1,1 +1,299 @@
+[state=no-title-footer]
+== Lektion 6 - Container
+
+[.center]
+Was fällt Ihnen zu Containern ein?
+
+== Kennen Sie?
+
+* Docker
+** Container
+** Dockerfiles
+** Images
+** Docker compose
+* Kubernetes
+** OpenShift
+
+
+Referenzen
+
+* https://www.docker.com/
+* https://docs.docker.com/engine/reference/commandline/image/
+* https://docs.docker.com/compose/
+* https://kubernetes.io/
+* https://www.openshift.com/
+
+== Kennen Sie Docker Hello World?
+
+[source]
+----
+$ docker run --rm  hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+0e03bdcc26d7: Pull complete
+Digest: sha256:8c5aeeb6a5f3ba4883347d3747a7249f491766ca1caa47e5da5dfcf6b9b717c0
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+----
+
+=== Docker bietet
+
+* Prozess-Isolation
+* Virtuelle Netzwerke
+* Kommandozeilen-Werkzeuge
+
+[.columns]
+
+== Was ist Kubernetes?
+--
+* "Application-Server" (Cluster für docker und rkt)
+* Google-Projekt (auch: k8s, k8),
+* Erstes Release 7. Juni 2014, Aktuell 1.19.2 (16. September 2020)
+* Konzepte
+** Node: Maschine im Cluster
+** Pod:
+*** Kleinste Einheit, 1-n Container
+*** 1 Host, Ressource-Sharing
+** Controller: Mind. Einer pro Cluster
+** Service:
+*** Vers. Pods, e.g. ein Tier einer Application
+*** Adressierung über DNS über ENV-Variablen
+** Vers. Distributionen: z.B. OpenShift
+--
+--
+image:kubernetes.png[width=400]
+--
+
+=== Architektur
+
+[.center]
+image:Kubernetes_archi.png[]
+
+Bildquelle: https://en.wikipedia.org/wiki/Kubernetes#/media/File:Kubernetes.png, Khtan66, CC-BY SA 4.0
+
+
+== Docker Image mit Quarkus erzeugen
+
+*Maven Artefakt erstellen*
+
+[source]
+----
+$ mvn install
+# ...
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.617 s
+[INFO] Finished at: 2020-10-25T18:51:25+01:00
+[INFO] ------------------------------------------------------------------------
+----
+
+*Image erzeugen*
+
+[source]
+----
+$ docker build -t quarkus/lesson03-rest -f src/main/docker/Dockerfile.jvm .
+# ...
+Successfully tagged quarkus/lesson03-rest:latest
+----
+
+*Container starten*
+
+[source]
+----
+$ docker run -it -p 4321:8080 --rm quarkus/lesson03-rest
+----
+
+*Test*
+
+[source]
+----
+$ curl -s http://localhost:4321/orders
+[{"customerId":42,"orderDateTime":"2020-10-25T17:57:44.659Z[UTC]","orderId":1,"pizzaList":["Funghi"],"status":"LOST","totalPrice":6.5}]
+----
+
+=== Variante: Native Build
+
+[source]
+----
+$ mvn package -Pnative -Dnative-image.docker-build=true
+# ....
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  02:25 min
+[INFO] Finished at: 2020-10-25T19:05:36+01:00
+[INFO] ------------------------------------------------------------------------
+
+----
+
+*Image erzeugen*
+
+[source]
+----
+$ docker build -t quarkus/lesson03-rest-native -f src/main/docker/Dockerfile.native .
+# ...
+Successfully tagged quarkus/lesson03-rest-native:latest
+----
+
+*Container starten*
+
+[source]
+----
+$ docker run -it -p 4321:8080 --rm quarkus/lesson03-rest
+----
+
+*Test*
+
+[source]
+----
+$ curl http://localhost:4321/orders
+[{"customerId":42,"orderDateTime":"2020-10-25T18:04:25.295Z[UTC]","orderId":1,"pizzaList":["Funghi"],"status":"LOST","totalPrice":6.5}]
+----
+
+== OKD (OpenShift Community Distribution of Kubernetes)
+
+_"OKD is a distribution of Kubernetes optimized for continuous application development and multi-tenant deployment.
+OKD also serves as the upstream code base upon which Red Hat OpenShift Online and Red Hat OpenShift Container Platform are built."_
+https://docs.okd.io/
+
+*Starten*
+
+[source]
+----
+$ cd minishift-1.34.3-linux-amd64
+$ sudo ./minishift start
+# ...
+OpenShift server started.
+
+The server is accessible via web console at:
+    https://192.168.42.166:8443/console
+
+You are logged in as:
+    User:     developer
+    Password: <any value>
+
+To login as administrator:
+    oc login -u system:admin
+
+----
+
+_Tipp: `oc` in den Path aufnehmen:_
+
+[source]
+----
+$ export PATH=$PATH:~/minishift-1.34.3-linux-amd64/:~/.minishift/cache/oc/v3.11.0/linux/
+----
+
+=== Deployment nach OKD: 1. Projekt erstellen und Build konfigurieren
+
+[source]
+----
+# Namespace für das Projekt erstellen
+$ oc new-project lesson03-test
+
+# Build für das Projekt erstellen
+$ oc new-build --binary --name=lesson03-test -l app=lesson03-test
+    * A Docker build using binary input will be created
+      * The resulting image will be pushed to image stream tag "lesson03-test:latest"
+      * A binary build was created, use 'start-build --from-dir' to trigger a new build
+
+--> Creating resources with label app=lesson03-test ...
+    imagestream.image.openshift.io "lesson03-test" created
+    buildconfig.build.openshift.io "lesson03-test" created
+--> Success
+
+# Überprüfen
+$ oc get bc
+NAME            TYPE      FROM      LATEST
+lesson03-test   Docker    Binary    0
+----
+
+
+=== Deployment nach OKD: 2. Build konfigurieren und ausführen
+
+[source]
+----
+# Dockerfile referenzieren
+$ oc patch bc/lesson03-test -p '{"spec":{"strategy":{"dockerStrategy":{"dockerfilePath": "src/main/docker/Dockerfile.native"}}}}'
+buildconfig.build.openshift.io/lesson03-test patched
+
+# Verifizieren
+$ oc describe bc/lesson03-test
+$ oc describe bc/lesson03-test
+Name:           lesson03-test
+Namespace:      lesson03-test
+# ...
+
+# Build ausführen
+$ oc start-build lesson03-test --from-dir=. --follow
+
+# Ergebnis verifizieren
+$ oc get is
+NAME            DOCKER REPO                                   TAGS      UPDATED
+lesson03-test   172.30.1.1:5000/lesson03-test/lesson03-test   latest    42 seconds ago
+----
+
+Hinweis: `Dockerfile.native` ist z.T. fehlerhaft. Zeilen 22-23 lauten korrekt
+[source]
+----
+COPY target/*-runner /work/application
+RUN chown -R 1001:root /work/application
+----
+
+=== Deployment nach OKD: 3. Anwendung starten und einbinden
+
+[source]
+----
+# App und Image-Stream erstellen
+$ oc new-app --image-stream=lesson03-test:latest
+--> Found image a5637f4 (2 minutes old) in image stream "lesson03-test/lesson03-test" under tag "latest" for "lesson03-test:latest"
+# ...
+
+# Route anlegen
+$ oc expose svc/lesson03-test
+route.route.openshift.io/lesson03-test exposed
+
+# Adresse abfragen
+$ oc get route lesson03-test -o jsonpath --template="{.spec.host}"
+lesson03-test.192.168.42.166.nip.io
+----
+
+Die Anwendung ist nun unter lesson03-test.192.168.42.166.nip.io (ggf. abweichend) erreichbar.
+
+_Vorsicht bei link:https://forum.openwrt.org/t/nip-io-doesnt-work-for-local-network-behind-lede-solved-dns-rebind-protection/7766[-> DNS Rebind Protection]_
+
+== Aufgabe lesson07-docker
+
+*Aufgabenstellung*
+
+* Starten Sie OKD / minishift
+* Legen Sie Anwendung "order" aus lesson04-checks dort ab.
+* Erzeugen Sie 10 Pods
+
+*Hinweise*
+
+* Sie können weitere Pod-Instanzen wie folgt erzeugen `$ oc scale --replicas=10 dc/lesson03-rest`
+* Optional: Liefern Sie beide Anwendungen aus Aufgabe 4 aus. Wie können Sie die URL für den RestClient konfigurieren?
+
+
 link:index.html#/_agenda[-> Zurück zur Übersicht]

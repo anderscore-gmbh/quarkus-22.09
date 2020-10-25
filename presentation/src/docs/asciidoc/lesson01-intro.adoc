@@ -30,7 +30,7 @@ image::quarkus.jpg[width=400]
 |07/2020|1.6|AppCDS, Google Cloud Functions, GraalVM 20.1.0
 |08/2020|1.7|Elasticsearch and Redis clients, Reactive routes and Funqy improvements
 |09/2020|1.8|Multiple Persistence Units, Micrometer, jbang, GraalVM 20.2
-|10/2020|1.8.3|Aktuelles Release
+|10/2020|1.9|Micrometer extension maturing, multiple Redis clients, Quarkiverse
 
 
 
