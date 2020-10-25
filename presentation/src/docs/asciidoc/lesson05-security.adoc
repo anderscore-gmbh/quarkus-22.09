@@ -1,1 +1,241 @@
+[state=no-title-footer]
+== Lektion 5 - Quarkus Security
+
+[.center]
+Was fällt Ihnen zum Thema Security ein?
+
+[.center]
+Welche Unterstützung erwarten Sie von Quarkus?
+
+== Quarkus-Security
+
+[.heading]
+Themen
+
+* Grundlagen zu IT-Sicherheit
+* Authentifzierung mit Quarkus
+* Authentifzierung bei einer Webanwendung
+* Autorisierung
+
+== Grundlagen zu IT-Sicherheit
+
+[.heading]
+IT-Sicherheit
+
+Es gibt drei Grundwerte  der Informationssicherheit:
+
+* Vertraulichkeit,
+* Verfügbarkeit und
+* Integrität.
+
+Quelle: https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/Leitfaden/GS-Leitfaden_pdf.pdf?__blob=publicationFile&v=3[Leitfaden Informationssicherheit], +
+https://www.bsi.bund.de[Bundesamt für Sicherheit in der Informationstechnik – BSI]
+
+=== IT-Sicherheit mit Quarkus-Security
+
+Es gibt drei Grundwerte der Informationssicherheit:
+
+* Vertraulichkeit, => Quarkus Security:
+** Authentifizierung => Anwender identifizieren
+** Autorisierung => Berechtigung prüfen
+* Verfügbarkeit und
+* Integrität.
+
+=== Security bei Quarkus Webanwendungen
+
+* Security ist ein Querschnittsthema
+* Erste Berechtigungsprüfung anhand der URL
+* Securitybelange über Filterkette realisiert
+
+=== Security bei Quarkus Webanwendungen: Ablauf
+
+. Anwender besucht Startseite und klickt auf einen Link
+. Anfrage geht an Server, dieser stellt fest: Seite ist geschützt
+. Server antwortet: Authentifizierung erforderlich (401 oder redirect)
+. Anwender gibt Username und Passwort im Browser ein
+. Browser schickt Daten an Server
+. Server prüft Anmeldedaten
+. Server löst Weiterleitung auf geschützte Seite aus
+
+_Hinweis: In einer µService-Architektur: IdR dedizierter Service (AAA / SSO) für Authentication_
+
+=== Begriffe: Rechte, Rollen, Benutzer und Gruppen
+
+* Authentication (Authentifizierung)
+** User: Login, Kennung, Kennwort
+** Group: Zusammenfassung von Benutzern
+* Authorization (Autorisierung)
+** Permission: Eine Operation darf ausgeführt werden
+** Role: Zusammenfassung von Rechten
+
+_Beliebige Zuordnung User, Group <- -> Permission, Role denkbar._
+
 link:index.html#/_agenda[-> Zurück zur Übersicht]
+
+== Rechte und Rollen in Quarkus
+
+Möglichkeiten zur Zuordnung
+
+. Programmatisch
+. .properties und Pattern Matching
+. Extern
+
+=== Programmatisch
+
+[source,java]
+----
+import javax.ws.rs.core.SecurityContext; // Vorsicht: Es gibt verschiedene
+
+@Path("/users")
+public class UsersController{
+    @RolesAllowed("admin")
+    @Get public Response index(){ /* ... */ }
+
+    @Path("myDetails")
+    @RolesAllowed("user")
+    @Get public UserDetails ownDetails(@Context SecurityContext sec){
+        Principal user = sec.getUserPrincipal();
+        return this.userRepository.findByLogin(user.getName());
+    }
+}
+
+----
+*(Relevante) JEE-Annotationen für Klassen oder Methoden*:
+
+* link:https://javaee.github.io/javaee-spec/javadocs/index.html?javax/annotation/security/RolesAllowed.html[@RolesAllowed],
+ link:https://javaee.github.io/javaee-spec/javadocs/index.html?javax/annotation/security/RunAs.html[@RunAs],
+ link:https://javaee.github.io/javaee-spec/javadocs/index.html?javax/annotation/security/PermitAll.html[@PermitAll],
+ link:https://javaee.github.io/javaee-spec/javadocs/index.html?javax/annotation/security/DenyAll.html[@DenyAll]
+
+*Zuordnung*
+
+* Recht: `/url` <--> Rolle: `admin` als Methode (übliche Konvention)
+* Alternativ: link:https://jakarta.ee/specifications/platform/8/apidocs/javax/ws/rs/core/SecurityContext.html[javax.ws.rs.core.SecurityContext]
+
+=== Via .properties / Pattern matching
+
+[source,properties]
+----
+quarkus.http.auth.policy.role-policy1.roles-allowed=user,admin
+
+quarkus.http.auth.permission.roles1.paths=/roles-secured/*,/other/*,/api/*
+quarkus.http.auth.permission.roles1.policy=role-policy1
+
+quarkus.http.auth.permission.permit1.paths=/public/*
+quarkus.http.auth.permission.permit1.policy=permit
+quarkus.http.auth.permission.permit1.methods=GET
+
+quarkus.http.auth.permission.deny1.paths=/forbidden
+quarkus.http.auth.permission.deny1.policy=deny
+----
+*Trennung von Roles und Permission*
+
+* `quarkus.http.auth.policy.`
+* `quarkus.http.auth.permission.`
+
+*Konflikt:*
+
+* Spezifische Regeln (langer Pfad) vor kurzen
+* Alle Regeln mit gleichem Pfad müssen erlauben
+
+link:https://quarkus.io/guides/security-authorization[-> Guide: Quarkus - Authorization of Web Endpoints]
+
+=== Externe Zuordnung
+[source, properties]
+----
+# OIDC Configuration
+quarkus.oidc.auth-server-url=https://localhost:8543/auth/realms/quarkus
+quarkus.oidc.client-id=backend-service
+quarkus.oidc.credentials.secret=secret
+quarkus.oidc.tls.verification=none
+# Enable Policy Enforcement
+quarkus.keycloak.policy-enforcer.enable=true
+----
+[source, java]
+----
+@Path("/api/admin")
+public class AdminResource {
+    @Inject SecurityIdentity identity;
+
+    @Authenticated
+    @GET public String admin() { return "granted"; }
+
+    @GET public CompletionStage<List<Permission>> get() {
+        return identity.checkPermission(new AuthPermission("{resource_name}"))
+                .thenCompose(granted -> {
+                    if (granted) {
+                        return CompletableFuture.completedFuture(doGetState());
+                    }
+                    throw new ForbiddenException();
+                });
+    }
+}
+----
+
+link:https://quarkus.io/guides/security-keycloak-authorization[-> Guide: Using OpenID Connect and Keycloak to centralize authorization]
+
+== Authentication
+
+Was kann Quarkus?
+
+* Basic und formular-basiert (auch LDAP)
+* OpenID connect (auch OAuth2; d.h. Authorization)
+* Json Web Token (JWT) ohne OpenID connect workflow
+* TLS Zertifikate (X.509)
+
+link:https://quarkus.io/guides/security[-> Quarkus Security Architecture and Guides]
+
+=== Basic Authentication
+
+Redhat Elytron
+
+* Kennwörter in Datenbank oder .properties speichern
+* Hilfreich in der Entwicklung
+
+_Hinweis: Produktive Benutzer-Kennwörter dürfen nie im Klartext gespeichert werden_
+
+link:https://quarkus.io/guides/security-properties[Guide: Quarkus - Using Security with .properties file]
+
+=== Verwendung Elytron
+
+[source,xml]
+----
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-elytron-security-properties-file</artifactId>
+</dependency>
+----
+application.properties
+
+[source,properties]
+----
+quarkus.security.users.file.enabled=true
+quarkus.security.users.file.users=test-users.properties
+quarkus.security.users.file.roles=test-roles.properties
+quarkus.security.users.file.realm-name=MyRealm
+quarkus.security.users.file.plain-text=true
+----
+
+[.columns]
+--
+
+test-users.properties
+
+[source,properties]
+----
+scott=jb0ss
+jdoe=p4ssw0rd
+----
+
+--
+
+--
+test-roles.properties
+
+[source,properties]
+----
+scott=Admin,admin,Tester,user
+jdoe=NoRolesUser
+----
+
+link:https://quarkus.io/guides/security-properties[Guide: Quarkus - Using Security with .properties file]

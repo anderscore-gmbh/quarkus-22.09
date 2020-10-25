@@ -1,0 +1,40 @@
+= Aufgabe 9.1 Distributed System
+
+== Einleitung
+
+Ziel der Aufgabe ist die Entwicklung eines größeren, verteilten Systems bei dem alle
+Aspekte der vorherigen Aufgabe in Kombination umgesetzt werden. Ziel ist der Aufgabe ist
+die Entwicklung eines Gesamtsystems. Bitte zerlegen Sie die Use-Cases erneut in Anforderungen und
+implementieren Sie diese in mehreren µServices.
+
+Das Gesamtsystem wird zur Abwicklung eines Pizza-Taxi-Franchise verwendet
+
+== Aufgabenstellung
+
+===  Funktionale Anforderungen
+
+* *UC-T1* Als Pizza-Taxi Betreiber (PT)  möchte ich im Franchise anmelden können. Hierzu werden Name und Adresse hinterlegt
+* *UC-T2* Als PT möchte ich die Speisekarte des Franchise samt Preisen einsehen können. Ein Eintrag besteht aus dem Namen der Pizza und dem Preis
+* *UC-T3* Als PT möchte ich eine Übersicht meiner Bestellungen sehen. Eine Bestellung besteht Einträgen der Speisekarte.
+* *UC-T4* Als PT möchte ich den Status meiner Bestellung (Neu, In Arbeit, Fertig, In Auslieferung, ausgeliefert) erfassen und bearbeiten können
+* *UC-T5* Als PT möchte ich Rechnungen für Endkunden ausstellen. Eine Rechnung bezieht sich auf eine Bestellung und geht über die Gesamtsumme.
+* *UC-T6* Als PT möchte ich Bestellungen abweisen, die unter einem Mindestbestellwert  liegen
+* *UC-T7* Als PT möchte ich Rabattaktionen durchführen: An einem Rabatt-Tag ("Pizza-Tag") kostet jede Pizza 5 €.
+* *UC-T8* Als PT möchte ich Ruhetage und Werksferien im Franchise-System hinterlegen.
+
+* *UC-E1* Als Endkunde (EK) möchte ich Pizzas können. Eine Bestellung bezieht
+sich auf einen Franchise-Nehmer, ein Datum, eine Uhrzeit und Artikel von der Speisekarte. Der
+Gesamtbetrag ist auszuweisen.
+* *UC-E2* Als EK möchte ich eine Bestellung reklamieren können, die nach einer Stunde nicht eingetroffen ist.
+
+* *UC-F1* Als Franchise (FS) möchte Rechnungen an Franchise-Nehmer (20% vom Umsatz) stellen können.
+* *UC-F2* Das Statistik-System im FS stellt Umsätze der Franchise-Nehmer graphisch da. Hierzu benötigt es den Gesamtumsatz
+
+=== Nicht-funktionale Anforderungen
+
+* Die Daten werden in einer relationalen Datenbank gespeichert
+* Installieren Sie alle µServices in einem OpenShift Cluster
+* Eine Bestellung muss innerhalb von 100ms verarbeitet werden können.
+
+
+

@@ -1,0 +1,14 @@
+== Aufgabe: lesson09-distributed-system
+
+*Aufgabenstellung*
+
+Implementieren Sie ein größeres, verteiltes System mit mehrere Microservices.
+
+*Hinweise*
+
+. Die Funktionsweise ist im Verzeichnis `lesson09/distributed-system` beschrieben.
+. Für diese Aufgabe gibt es keine Beispiellösung. Bitte orientieren Sie sich an den vorangegangen Beispielen
+. Ziel der Aufgabe ist es, komplexere Fachlichkeit in einer µService Architektur zu implementieren.
+
+
+
