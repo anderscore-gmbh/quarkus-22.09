@@ -26,6 +26,7 @@ Das Gesamtsystem wird zur Abwicklung eines Pizza-Taxi-Franchise verwendet
 sich auf einen Franchise-Nehmer, ein Datum, eine Uhrzeit und Artikel von der Speisekarte. Der
 Gesamtbetrag ist auszuweisen.
 * *UC-E2* Als EK möchte ich eine Bestellung reklamieren können, die nach einer Stunde nicht eingetroffen ist.
+* *UC-E2* Als EK möchte ich meine eigene Bestellung verändern, so lange Sie noch nicht bearbeitet wurde.
 
 * *UC-F1* Als Franchise (FS) möchte Rechnungen an Franchise-Nehmer (20% vom Umsatz) stellen können.
 * *UC-F2* Das Statistik-System im FS stellt Umsätze der Franchise-Nehmer graphisch da. Hierzu benötigt es den Gesamtumsatz
