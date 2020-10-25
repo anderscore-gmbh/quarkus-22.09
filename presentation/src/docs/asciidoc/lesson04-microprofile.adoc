@@ -64,10 +64,17 @@ Einheitliche Konfiguration
 
 *Worum geht es?*
 
-* Quarkus-Komponenten konfigurieren (z.B. panache) - Tipp: `./mvnw quarkus:generate-config`
+* Quarkus-Komponenten konfigurieren - Tipp: `./mvnw quarkus:generate-config`
 * Eigene Optionen definieren und verwenden
 * Optionen überschreiben (Deployment)
 * `application.properties` je nach Umgebung auswerten
+
+Beispiel: Undertow Konfiguration
+[source,properties]
+----
+quarkus.http.ssl.certificate.file=/path/to/certificate
+quarkus.http.ssl.certificate.key-file=/path/to/key
+----
 
 === Eigene Optionen definieren
 
@@ -811,12 +818,13 @@ public class FranchiseResource {
 }
 ----
 
-*Beispiel*
+*Beispiel* (Korrelation während der Auswertung)
 
 [source]
 ----
 13:20:11 INFO  traceId=1336b2b0a76a96a3, parentId=0, spanId=1336b2b0a76a96a3, sampled=true [or.ac.qu.TracedResource] (executor-thread-63) hello
 ----
+
 
 
 == 7. OpenTracing API: Jaeger UI
@@ -852,3 +860,6 @@ Verfolgen Sie requests zwischen Franchise und Order-Service aus der letzten Ausg
 1. Im Ordner `lesson04-tracing/lesson04` befindet sich bereits ein Skelett, basierend auf der vorherigen Aufgabe.
 Es enthält den Franchise- und den Order-Service.
 2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-tracing/`.
+3. Integration von Jaeger in Elastic-Search: https://logz.io/blog/jaeger-and-the-elk-stack/
+
+link:index.html#/_agenda[-> Zurück zur Übersicht]

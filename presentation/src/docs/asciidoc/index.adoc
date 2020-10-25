@@ -45,15 +45,12 @@ link:greeting.html[Begrüßung]
     (link:lesson03-rest.html[REST / JAX-RS],
     link:lesson03-jpa.html[JPA])
 . link:lesson04-microprofile.html[MicroProfile im Detail] (Health / Metrics, REST Client, OpenTracing, Fault Tolerance)
+. link:lesson05-security[Security: Authentication \& Authorization]
+. link:lesson06-application-buildung[Application Building: Graal VM]
+. link:lesson07-docker-kubernetes[Deployment Docker, Kubernetes und die Cloud]
+. link:lesson08-extensions[Extensions: Messaging \& Kafka]
 
 
-. Konfiguration
-. Security
-. Logging
-. Testing
-. Application Building
-. Kubernetes Grundlagen
-. Extensions
 [.columns]
 
 [.columns.text-center]
