@@ -288,6 +288,7 @@ _Vorsicht bei link:https://forum.openwrt.org/t/nip-io-doesnt-work-for-local-netw
 
 * Starten Sie OKD / minishift
 * Legen Sie Anwendung "order" aus lesson04-checks dort ab.
+** Erweitern Sie die Anwendung zuvor um einen Endpunkt, der Umgebungsvariablen ausgibt
 * Erzeugen Sie 10 Pods
 
 *Hinweise*
