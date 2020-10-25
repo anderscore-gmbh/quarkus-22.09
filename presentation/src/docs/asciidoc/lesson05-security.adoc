@@ -174,7 +174,7 @@ public class AdminResource {
 
 link:https://quarkus.io/guides/security-keycloak-authorization[-> Guide: Using OpenID Connect and Keycloak to centralize authorization]
 
-== Authentication
+== Authentication - Verwendung
 
 Was kann Quarkus?
 
@@ -196,7 +196,7 @@ _Hinweis: Produktive Benutzer-Kennwörter dürfen nie im Klartext gespeichert we
 
 link:https://quarkus.io/guides/security-properties[Guide: Quarkus - Using Security with .properties file]
 
-=== Verwendung Elytron
+=== Elytron
 
 [source,xml]
 ----
@@ -216,9 +216,6 @@ quarkus.security.users.file.realm-name=MyRealm
 quarkus.security.users.file.plain-text=true
 ----
 
-[.columns]
---
-
 test-users.properties
 
 [source,properties]
@@ -226,10 +223,6 @@ test-users.properties
 scott=jb0ss
 jdoe=p4ssw0rd
 ----
-
---
-
---
 test-roles.properties
 
 [source,properties]
@@ -239,3 +232,135 @@ jdoe=NoRolesUser
 ----
 
 link:https://quarkus.io/guides/security-properties[Guide: Quarkus - Using Security with .properties file]
+
+=== Keycloak
+
+[.center]
+image:keycloak.png[]
+
+
+=== OpenID Connect / Keycloak (SSO)
+
+[source,xml]
+----
+<dependency>
+ <groupId>io.quarkus</groupId>
+ <artifactId>quarkus-oidc</artifactId>
+</dependency>
+----
+
+[source, properties]
+----
+quarkus.oidc.auth-server-url=http://localhost:8180/auth/realms/quarkus
+quarkus.oidc.client-id=frontend
+quarkus.oidc.credentials.client-secret=geheim
+quarkus.oidc.application-type=web-app
+quarkus.http.auth.permission.authenticated.paths=/*
+quarkus.http.auth.permission.authenticated.policy=authenticated
+----
+
+[source,java]
+----
+@Path("/api/users")
+public class UsersResource {
+    @Inject
+    SecurityIdentity securityIdentity;
+
+    @Path("/me")
+    @RolesAllowed("user")
+    @GET public User me() {
+        return new User(securityIdentity);
+    }}
+----
+
+=== Plain-JWT
+
+* Json-Web-Token (JWT) als Ersatz für ein Kennwort
+* Token intern validierbar
+* Auch: Validierung über keycloak möglich
+
+[source,xml]
+----
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-smallrye-jwt</artifactId>
+</dependency>
+----
+=== Plain-JWT: Einbindung
+[source,java]
+----
+Path("/secured")
+@RequestScoped
+public class TokenSecuredResource {
+    @Inject
+    JsonWebToken jwt;
+
+    @Path("roles-allowed")
+    @RolesAllowed({ "User", "Admin" })
+    @GET public String helloRolesAllowed(@Context SecurityContext ctx) {
+        return getResponseString(ctx) + ", birthdate: " + jwt.getClaim("birthdate").toString();
+    }
+}
+----
+
+[source,properties]
+----
+mp.jwt.verify.publickey.location=META-INF/resources/publicKey.pem
+mp.jwt.verify.issuer=https://example.com/issuer
+----
+
+link:https://quarkus.io/guides/security-jwt[-> Guide: Quarkus - Using JWT RBAC]
+
+link:https://github.com/AnthonyDeroche/mod_authnz_jwt[-> AnthonyDeroche / mod_authnz_jwt]
+
+== Transport Layer Security (TLS)
+
+[.heading]
+Warum Transport Layer Security (TLS) / HTTPS?
+
+* Credentials werden im Klartext abgefragt.
+* Clustering über Wide Area Networks (WAN)
+
+*Wer terminiert TLS?*
+
+. Quarkus
+. Das API-Gateway (z.B. nginx)
+
+=== TLS mit Quarkus terminieren
+
+[source,properties]
+----
+quarkus.http.ssl.certificate.file=/path/to/certificate
+quarkus.http.ssl.certificate.key-file=/path/to/key
+quarkus.http.ssl-port=8443
+
+#Alternativen enabled, disabled
+quarkus.http.insecure-requests=redirect
+----
+
+Alternativ: Keystore einbinden
+
+_Keine Maven Dependency nötig :-)_
+
+link:https://quarkus.io/guides/http-reference[-> Guide: Quarkus - HTTP Reference]
+
+== Aufgabe 5.1 lesson05-security
+
+*Aufgabestellung*
+
+Beschränken Sie Aufrufe auf den Order-Service
+
+* Benutzer mit Rolle `user` dürfen Bestellungen erstellen
+* Für alle anderen Operationen ist die Rolle `admin` erforderlich
+* Nutzen Sie Elytron. Legen Sie Kennwörter in der .properties Datei ab.
+* Verschlüsseln Sie Zugriffe mit TLS
+
+*Hinweise*
+
+* Im Ordner `lesson05-security` ist ein Skelet. Es basiert auf der Beispiellösung von Aufgabe 3.1
+* Das Archiv `certs.zip` in `lesson05-security` enthält TLS-Zertifikate. Sie gelten für
+** localhost.k.anderscore.com
+** order.k.anderscore.com
+** franchise.k.anderscore.com
+* Im Ordner `solutions/lesson05-security` ist eine Beispiellösung. Zum Start muss das Archiv
+mit den Zertifikaten entpackt werden.

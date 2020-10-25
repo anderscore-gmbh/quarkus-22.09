@@ -2,13 +2,13 @@
 
 *Aufgabenstellung*
 
-Implementieren Sie ein größeres, verteiltes System mit mehrere Microservices.
+Implementieren Sie ein größeres, verteiltes System mit potentiell verschiedenen µServices.
 
 *Hinweise*
 
-. Die Funktionsweise ist im Verzeichnis `lesson09/distributed-system` beschrieben.
+. Die Funktionsweise ist im Verzeichnis `lesson09-distributed-system/use-cases.html` beschrieben. Es gibt einen PDF-Export
 . Für diese Aufgabe gibt es keine Beispiellösung. Bitte orientieren Sie sich an den vorangegangen Beispielen
 . Ziel der Aufgabe ist es, komplexere Fachlichkeit in einer µService Architektur zu implementieren.
 
-
+link:index.html#/_agenda[-> Zurück zur Übersicht]
 
