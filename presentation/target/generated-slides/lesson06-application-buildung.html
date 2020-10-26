@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Untitled</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="reveal.js-3.9.2/css/reveal.css" rel="stylesheet"><link href="reveal.js-3.9.2/plugin/title-footer/title-footer.css" rel="stylesheet"><link rel="stylesheet" href="reveal.js-3.9.2/css/theme/anderscore.css" id="theme"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"><style>/* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>GraalVM</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="reveal.js-3.9.2/css/reveal.css" rel="stylesheet"><link href="reveal.js-3.9.2/plugin/title-footer/title-footer.css" rel="stylesheet"><link rel="stylesheet" href="reveal.js-3.9.2/css/theme/anderscore.css" id="theme"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"><style>/* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
 pre.CodeRay{background:#f7f7f8}
 .CodeRay .line-numbers{border-right:1px solid currentColor;opacity:.35;padding:0 .5em 0 0}
 .CodeRay span.line-numbers{display:inline-block;margin-right:.75em}
@@ -84,7 +84,19 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 .CodeRay .insert .insert{color:#080}
 .CodeRay .delete .delete{color:#800}
 .CodeRay .change .change{color:#66f}
-.CodeRay .head .head{color:#f4f}</style><link href="reveal.js-3.9.2/lib/css/zenburn.css" rel="stylesheet"><script>document.write( '<link rel="stylesheet" href="reveal.js-3.9.2/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script></head><body><div class="reveal"><div class="slides"><div class="paragraph"><p><a href="index.html#/_agenda">&#8594; Zurück zur Übersicht</a></p></div></div></div><script src="reveal.js-3.9.2/lib/js/head.min.js"></script><script src="reveal.js-3.9.2/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+.CodeRay .head .head{color:#f4f}</style><link href="reveal.js-3.9.2/lib/css/zenburn.css" rel="stylesheet"><script>document.write( '<link rel="stylesheet" href="reveal.js-3.9.2/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script></head><body><div class="reveal"><div class="slides"><section id="_graalvm"><h2>GraalVM</h2><div class="imageblock" style=""><img src="images/graalvm.svg" alt="graalvm" width="800"></div>
+<div class="ulist"><ul><li><p>Alternative zu OpenJDK/HotSpot</p></li><li><p>Truffle Framework: Unterstützung anderer Sprachen über AST</p></li><li><p>Native Image: Erweiterung für ahead-of-time Compilation</p></li><li><p>Graal Compiler, SubstrateVM</p></li><li><p>Entwickelt in Java</p></li><li><p>Produktiv seit 2019</p></li><li><p>Community Edition vs. Enterprise Edition</p></li></ul></div></section>
+<section id="_graalvm_2"><h2>GraalVM</h2><div class="imageblock" style=""><img src="images/graalvm_architecture.jpg" alt="graalvm architecture" width="1400"></div></section>
+<section id="_graalvm_3"><h2>GraalVM</h2><div class="paragraph heading"><p>Verwendung</p></div>
+<pre class="CodeRay listingblock"><code class="bash language-bash">native-image -jar my-app.jar
+./my-app</code></pre></section>
+<section id="_graalvm_4"><h2>GraalVM</h2><div class="paragraph heading"><p>Vorteile</p></div>
+<div class="ulist"><ul><li><p>Reduzierte Startup Time</p></li><li><p>Geringerer Speicherverbrauch</p></li><li><p>Polyglotte Anwendungen</p></li></ul></div></section>
+<section id="_graalvm_5"><h2>GraalVM</h2><div class="paragraph heading"><p>Eingeschränkt</p></div>
+<div class="ulist"><ul><li><p>Reflection (@RegisterForReflection)</p></li><li><p>JDK DynamicProxy</p></li><li><p>Resources</p></li><li><p>JNI</p></li><li><p>Statische Initialisierung (durch Heap Snapshots)</p></li></ul></div></section>
+<section id="_graalvm_6"><h2>GraalVM</h2><div class="paragraph heading"><p>Nicht unterstützt</p></div>
+<div class="ulist"><ul><li><p>Dynamisches Class Loading (z.B. JRebel)</p></li><li><p>Manipulationen des Bytecodes (z.B. Lombok, Profiler)</p></li><li><p>Java Debugger (nur GDB)</p></li><li><p>InvokeDynamic, MethodHandles</p></li></ul></div>
+<div class="paragraph"><p><a href="index.html#/_agenda">&#8594; Zurück zur Übersicht</a></p></div></section></div></div><script src="reveal.js-3.9.2/lib/js/head.min.js"></script><script src="reveal.js-3.9.2/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
 Reveal.initialize({
   // Display controls in the bottom right corner
   controls: true,

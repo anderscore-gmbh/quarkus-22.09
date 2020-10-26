@@ -1,1 +1,58 @@
+== GraalVM
+
+image::graalvm.svg[width=800]
+
+* Alternative zu OpenJDK/HotSpot
+* Truffle Framework: Unterstützung anderer Sprachen über AST
+* Native Image: Erweiterung für ahead-of-time Compilation
+* Graal Compiler, SubstrateVM
+* Entwickelt in Java
+* Produktiv seit 2019
+* Community Edition vs. Enterprise Edition
+
+== GraalVM
+
+image::graalvm_architecture.jpg[width=1400]
+
+== GraalVM
+
+[.heading]
+Verwendung
+
+[source, bash]
+----
+native-image -jar my-app.jar
+./my-app
+----
+
+== GraalVM
+
+[.heading]
+Vorteile
+
+* Reduzierte Startup Time
+* Geringerer Speicherverbrauch
+* Polyglotte Anwendungen
+
+== GraalVM
+
+[.heading]
+Eingeschränkt
+
+* Reflection (@RegisterForReflection)
+* JDK DynamicProxy
+* Resources
+* JNI
+* Statische Initialisierung (durch Heap Snapshots)
+
+== GraalVM
+
+[.heading]
+Nicht unterstützt
+
+* Dynamisches Class Loading (z.B. JRebel)
+* Manipulationen des Bytecodes (z.B. Lombok, Profiler)
+* Java Debugger (nur GDB)
+* InvokeDynamic, MethodHandles
+
 link:index.html#/_agenda[-> Zurück zur Übersicht]

@@ -158,23 +158,9 @@ hello GfU</code></pre></section>
 Quarkus4711</code></pre>
 <div class="paragraph"><p>&#160;<br></p></div>
 <div class="paragraph"><p>Hinweise:</p></div>
-<div class="olist arabic"><ol class="arabic"><li><p>Neben dem Maven-Archetype können Sie auch <a href="https://code.quarkus.io" class="bare">https://code.quarkus.io</a> zum Erzeugen eines Projekts verwenden</p></li><li><p>Nutzen Sie erneut einen Business-Service und CDI</p></li><li><p>Eine Beispiellösung finden Sie unter solutions/lesson01-intro</p></li><li><p>Auf <a href="https://quarkus.io/guides/getting-started" class="bare">https://quarkus.io/guides/getting-started</a> gibt es eine weitere Anleitung für ein reaktives Projekt. Was sind die Unterschiede?</p></li></ol></div>
+<div class="olist arabic"><ol class="arabic"><li><p>Neben dem Maven-Archetype können Sie auch <a href="https://code.quarkus.io" class="bare">https://code.quarkus.io</a> zum Erzeugen eines Projekts verwenden</p></li><li><p>Nutzen Sie erneut einen Business-Service und CDI</p></li><li><p>Eine Beispiellösung finden Sie unter solutions/lesson01-intro</p></li><li><p>Auf <a href="https://quarkus.io/guides/getting-started-reactive" class="bare">https://quarkus.io/guides/getting-started-reactive</a> gibt es eine weitere Anleitung für ein reaktives Projekt. Was sind die Unterschiede?</p></li></ol></div>
 <div class="paragraph"><p><a href="lesson02-microservices.html">&#8594; Weiter zu µServices</a></p></div></section>
-<section id="_exkurs_graalvm"><h2>Exkurs: GraalVM</h2><div class="imageblock" style=""><img src="images/graalvm.svg" alt="graalvm" width="800"></div>
-<div class="ulist"><ul><li><p>Alternative zu OpenJDK/HotSpot</p></li><li><p>Truffle Framework: Unterstützung anderer Sprachen über AST</p></li><li><p>Native Image: Erweiterung für ahead-of-time Compilation</p></li><li><p>Graal Compiler, SubstrateVM</p></li><li><p>Entwickelt in Java</p></li><li><p>Produktiv seit 2019</p></li><li><p>Community Edition vs. Enterprise Edition</p></li></ul></div></section>
-<section id="_exkurs_graalvm_2"><h2>Exkurs: GraalVM</h2><div class="imageblock" style=""><img src="images/graalvm_architecture.jpg" alt="graalvm architecture" width="1400"></div></section>
-<section id="_exkurs_graalvm_3"><h2>Exkurs: GraalVM</h2><div class="paragraph heading"><p>Verwendung</p></div>
-<pre class="CodeRay listingblock"><code class="bash language-bash">native-image -jar my-app.jar
-./my-app</code></pre></section>
-<section id="_exkurs_graalvm_4"><h2>Exkurs: GraalVM</h2><div class="paragraph heading"><p>Vorteile</p></div>
-<div class="ulist"><ul><li><p>Reduzierte Startup Time</p></li><li><p>Geringerer Speicherverbrauch</p></li><li><p>Polyglotte Anwendungen</p></li></ul></div></section>
-<section id="_exkurs_graalvm_5"><h2>Exkurs: GraalVM</h2><div class="paragraph heading"><p>Eingeschränkt</p></div>
-<div class="ulist"><ul><li><p>Reflection (@RegisterForReflection)</p></li><li><p>JDK DynamicProxy</p></li><li><p>Resources</p></li><li><p>JNI</p></li><li><p>Statische Initialisierung (durch Heap Snapshots)</p></li></ul></div></section>
-<section id="_exkurs_graalvm_6"><h2>Exkurs: GraalVM</h2><div class="paragraph heading"><p>Nicht unterstützt</p></div>
-<div class="ulist"><ul><li><p>Dynamisches Class Loading (z.B. JRebel)</p></li><li><p>Manipulationen des Bytecodes (z.B. Lombok, Profiler)</p></li><li><p>Java Debugger (nur GDB)</p></li><li><p>InvokeDynamic, MethodHandles</p></li></ul></div></section>
-<section id="_container_first"><h2>Container First</h2><div class="paragraph heading"><p>Ziele</p></div>
-<div class="ulist"><ul><li><p>Skalierbarkeit in der Cloud</p></li><li><p>Kurze Startup Time</p></li><li><p>Geringer Speicherverbrauch</p></li></ul></div></section>
-<section id="_container_first_2"><h2>Container First</h2><div class="paragraph heading"><p>Realisierung</p></div>
+<section id="_container_first"><h2>Container First</h2><div class="paragraph heading"><p>Realisierung</p></div>
 <div class="ulist"><ul><li><p>Quarkus Maven Plugin</p><div class="ulist"><ul><li><p>Erstellung von Container Images (Docker, Podman)</p></li><li><p>Optimierung für OpenJDK/HotSpot und GraalVM (native)</p></li></ul></div></li><li><p>Build Time Metadata Processing</p><div class="ulist"><ul><li><p>Höhere Build Time, verbesserte Runtime</p></li><li><p>Vermeidung von Reflection und Lazy Initialization</p></li><li><p>Aufzeichnung des Bootstrapping Prozesses</p></li><li><p>Vorgenerierung von Bytecode</p></li><li><p>Reduktion verbleibender Bootstrapper Klassen</p></li></ul></div></li></ul></div></section>
 <section id="_quarkus_extensions"><h2>Quarkus Extensions</h2><div class="ulist"><ul><li><p>Integration von Libraries und Frameworks</p></li><li><p>Maven Dependencies</p></li><li><p>Versionen</p></li><li><p>Konfigurationen</p></li><li><p>Optimiert für Quarkus (HotSpot / SubstrateVM)</p></li><li><p>Vergleichbar mit Spring Boot Startern</p></li></ul></div>
 <pre class="CodeRay listingblock"><code>mvn quarkus:list-extensions</code></pre></section>

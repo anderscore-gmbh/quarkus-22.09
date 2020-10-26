@@ -190,77 +190,12 @@ Hinweise:
 . Neben dem Maven-Archetype können Sie auch https://code.quarkus.io zum Erzeugen eines Projekts verwenden
 . Nutzen Sie erneut einen Business-Service und CDI
 . Eine Beispiellösung finden Sie unter solutions/lesson01-intro
-. Auf https://quarkus.io/guides/getting-started gibt es eine weitere Anleitung für ein reaktives Projekt. Was sind die Unterschiede?
+. Auf https://quarkus.io/guides/getting-started-reactive gibt es eine weitere Anleitung für ein reaktives Projekt. Was sind die Unterschiede?
 
 link:lesson02-microservices.html[-> Weiter zu µServices]
 
 
 
-== Exkurs: GraalVM
-
-image::graalvm.svg[width=800]
-
-* Alternative zu OpenJDK/HotSpot
-* Truffle Framework: Unterstützung anderer Sprachen über AST
-* Native Image: Erweiterung für ahead-of-time Compilation
-* Graal Compiler, SubstrateVM
-* Entwickelt in Java
-* Produktiv seit 2019
-* Community Edition vs. Enterprise Edition
-
-== Exkurs: GraalVM
-
-image::graalvm_architecture.jpg[width=1400]
-
-== Exkurs: GraalVM
-
-[.heading]
-Verwendung
-
-[source, bash]
-----
-native-image -jar my-app.jar
-./my-app
-----
-
-== Exkurs: GraalVM
-
-[.heading]
-Vorteile
-
-* Reduzierte Startup Time
-* Geringerer Speicherverbrauch
-* Polyglotte Anwendungen
-
-== Exkurs: GraalVM
-
-[.heading]
-Eingeschränkt
-
-* Reflection (@RegisterForReflection)
-* JDK DynamicProxy
-* Resources
-* JNI
-* Statische Initialisierung (durch Heap Snapshots)
-
-== Exkurs: GraalVM
-
-[.heading]
-Nicht unterstützt
-
-* Dynamisches Class Loading (z.B. JRebel)
-* Manipulationen des Bytecodes (z.B. Lombok, Profiler)
-* Java Debugger (nur GDB)
-* InvokeDynamic, MethodHandles
-
-== Container First
-
-[.heading]
-Ziele
-
-* Skalierbarkeit in der Cloud
-* Kurze Startup Time
-* Geringer Speicherverbrauch
 
 == Container First
 
