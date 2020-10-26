@@ -198,15 +198,6 @@ link:lesson02-microservices.html[-> Weiter zu µServices]
 == Container First
 
 [.heading]
-Ziele
-
-* Skalierbarkeit in der Cloud
-* Kurze Startup Time
-* Geringer Speicherverbrauch
-
-== Container First
-
-[.heading]
 Realisierung
 
 * Quarkus Maven Plugin

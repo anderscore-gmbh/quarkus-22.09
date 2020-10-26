@@ -1,1 +1,140 @@
-link:index.html#/_agenda[-> Zurück zur Übersicht]
+[state=no-title-footer]
+== Lektion 8: Quarkus Messaging: Kafka
+
+[.text-center]
+Was wissen Sie über Messaging (z.B. JMS)? +
+Haben Sie schon mal mit Kafka gearbeitet? +
+
+[.text-center]
+(Zusatz-Folien: Vorstellung Kafka)
+
+== Kafka: Einbindung & Zugriff in Kafka
+[.heading]
+Vorbereitung
+
+[source,xml]
+----
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-smallrye-reactive-messaging-kafka</artifactId>
+</dependency>
+
+----
+
+[source,properties]
+----
+# Configure the SmallRye Kafka connector
+kafka.bootstrap.servers=<kafka-server>:9092
+
+# Configure the Kafka sink (we write to it)
+mp.messaging.outgoing.generated-price.connector=smallrye-kafka
+mp.messaging.outgoing.generated-price.topic=prices
+mp.messaging.outgoing.generated-price.value.serializer=org.apache.kafka.common.serialization.IntegerSerializer
+
+# Configure the Kafka source (we read from it)
+mp.messaging.incoming.prices.connector=smallrye-kafka
+mp.messaging.incoming.prices.value.deserializer=org.apache.kafka.common.serialization.IntegerDeserializer
+----
+
+link:https://quarkus.io/guides/kafka[-> Guide: Using Apache Kafka with Reactive Messaging]
+
+== Kafka: Zugriff in Java
+
+*Consumer*
+
+[source,java]
+----
+@ApplicationScoped
+public class PriceGenerator {
+
+    @Incoming("prices")
+    public CompletionStage<Void> consume(Message<Integer> price) { return price.ack(); }
+
+    // Alternativ
+    @Incoming("prices")
+    public void consume(int price) { /* process your price. */ }
+}
+----
+
+*Producer*
+
+[source,java]
+----
+public class KafkaPriceProducer {
+
+    @Outgoing("prices")
+    public Multi<Message<Integer>> generate() {
+        return Multi.createFrom().ticks().every(Duration.ofSeconds(1)).map(x -> 4711);
+    }
+
+    // Alternativ
+    @Outgoing("prices")
+    public Multi<Integer> generate() {
+        return Multi.createFrom().ticks().every(Duration.ofSeconds(1)).map(x -> Message.of(random.nextDouble()));;
+    }
+}
+----
+
+link:https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/2/kafka/kafka.html[
+-> SmallRye Reactive Messaging: Kafka]
+
+== JSON-Payload
+
+*POJO*
+[source,java]
+----
+public class Fruit {
+
+    public String name;
+    public int price;
+
+    public Fruit() { }
+    public Fruit(String name, int price) { this.name = name; this.price = price;}
+}
+----
+
+*Deserializer*
+
+[source,java]
+----
+public class FruitDeserializer extends JsonbDeserializer<Fruit> {
+    public FruitDeserializer(){
+        super(Fruit.class);
+    }
+}
+----
+
+[source,properties]
+----
+mp.messaging.incoming.fruit-in.connector=smallrye-kafka
+mp.messaging.incoming.fruit-in.topic=fruit-in
+mp.messaging.incoming.fruit-in.value.deserializer=com.acme.fruit.jsonb.FruitDeserializer
+mp.messaging.outgoing.fruit-out.connector=smallrye-kafka
+mp.messaging.outgoing.fruit-out.topic=fruit-out
+mp.messaging.outgoing.fruit-out.value.serializer=io.quarkus.kafka.client.serialization.JsonbSerializer
+----
+
+link:https://quarkus.io/guides/kafka[-> Guide: Using Apache Kafka with Reactive Messaging]
+
+== lesson08-kafka
+
+*Aufgabenstellung*
+
+Zur Integration in das Franchise soll der Pizza-Service Aufträge per Kafka in JSON abwickeln:
+
+* `order-v1-incoming` wird konsumiert. Hier gehen Bestellungen ein.
+* `order-v1-delivery` wird produziert. Hier gehen Bestellungen an die Lieferabteilung
+** Eine Bestellung ist lieferbereit, wenn per REST der Status auf `IN_DELIVERY` gesetzt wird
+
+*Hinweise*
+
+* Ein Skelett liegt in lesson08-kafka. Es basiert auf `lesson03-panache`. Eine Beispiellösung liegt im
+Ordner `solutions/lesson03-kafka`.
+* Der Broker ist unter `kafka.k.anderscore.com:9092` erreichbar (ohne Zugangsdaten).
+* Erzeugen: +
+`kafkacat -b kafka.k.anderscore.com:9092 -t order-v1-incoming -T -P order.json`
+* Lesen : +
+`kafkacat -b kafka.k.anderscore.com:9092 -t order-v1-delivery`
+
+https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/2.2/emitter/emitter.html[
+-> Emitter - Senden ohne @Outgoing] | link:index.html#/_agenda[-> Zurück zur Übersicht]
