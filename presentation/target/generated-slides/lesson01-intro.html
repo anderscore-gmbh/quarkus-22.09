@@ -160,18 +160,6 @@ Quarkus4711</code></pre>
 <div class="paragraph"><p>Hinweise:</p></div>
 <div class="olist arabic"><ol class="arabic"><li><p>Neben dem Maven-Archetype können Sie auch <a href="https://code.quarkus.io" class="bare">https://code.quarkus.io</a> zum Erzeugen eines Projekts verwenden</p></li><li><p>Nutzen Sie erneut einen Business-Service und CDI</p></li><li><p>Eine Beispiellösung finden Sie unter solutions/lesson01-intro</p></li><li><p>Auf <a href="https://quarkus.io/guides/getting-started" class="bare">https://quarkus.io/guides/getting-started</a> gibt es eine weitere Anleitung für ein reaktives Projekt. Was sind die Unterschiede?</p></li></ol></div>
 <div class="paragraph"><p><a href="lesson02-microservices.html">&#8594; Weiter zu µServices</a></p></div></section>
-<section id="_exkurs_graalvm"><h2>Exkurs: GraalVM</h2><div class="imageblock" style=""><img src="images/graalvm.svg" alt="graalvm" width="800"></div>
-<div class="ulist"><ul><li><p>Alternative zu OpenJDK/HotSpot</p></li><li><p>Truffle Framework: Unterstützung anderer Sprachen über AST</p></li><li><p>Native Image: Erweiterung für ahead-of-time Compilation</p></li><li><p>Graal Compiler, SubstrateVM</p></li><li><p>Entwickelt in Java</p></li><li><p>Produktiv seit 2019</p></li><li><p>Community Edition vs. Enterprise Edition</p></li></ul></div></section>
-<section id="_exkurs_graalvm_2"><h2>Exkurs: GraalVM</h2><div class="imageblock" style=""><img src="images/graalvm_architecture.jpg" alt="graalvm architecture" width="1400"></div></section>
-<section id="_exkurs_graalvm_3"><h2>Exkurs: GraalVM</h2><div class="paragraph heading"><p>Verwendung</p></div>
-<pre class="CodeRay listingblock"><code class="bash language-bash">native-image -jar my-app.jar
-./my-app</code></pre></section>
-<section id="_exkurs_graalvm_4"><h2>Exkurs: GraalVM</h2><div class="paragraph heading"><p>Vorteile</p></div>
-<div class="ulist"><ul><li><p>Reduzierte Startup Time</p></li><li><p>Geringerer Speicherverbrauch</p></li><li><p>Polyglotte Anwendungen</p></li></ul></div></section>
-<section id="_exkurs_graalvm_5"><h2>Exkurs: GraalVM</h2><div class="paragraph heading"><p>Eingeschränkt</p></div>
-<div class="ulist"><ul><li><p>Reflection (@RegisterForReflection)</p></li><li><p>JDK DynamicProxy</p></li><li><p>Resources</p></li><li><p>JNI</p></li><li><p>Statische Initialisierung (durch Heap Snapshots)</p></li></ul></div></section>
-<section id="_exkurs_graalvm_6"><h2>Exkurs: GraalVM</h2><div class="paragraph heading"><p>Nicht unterstützt</p></div>
-<div class="ulist"><ul><li><p>Dynamisches Class Loading (z.B. JRebel)</p></li><li><p>Manipulationen des Bytecodes (z.B. Lombok, Profiler)</p></li><li><p>Java Debugger (nur GDB)</p></li><li><p>InvokeDynamic, MethodHandles</p></li></ul></div></section>
 <section id="_container_first"><h2>Container First</h2><div class="paragraph heading"><p>Ziele</p></div>
 <div class="ulist"><ul><li><p>Skalierbarkeit in der Cloud</p></li><li><p>Kurze Startup Time</p></li><li><p>Geringer Speicherverbrauch</p></li></ul></div></section>
 <section id="_container_first_2"><h2>Container First</h2><div class="paragraph heading"><p>Realisierung</p></div>
@@ -179,9 +167,6 @@ Quarkus4711</code></pre>
 <section id="_quarkus_extensions"><h2>Quarkus Extensions</h2><div class="ulist"><ul><li><p>Integration von Libraries und Frameworks</p></li><li><p>Maven Dependencies</p></li><li><p>Versionen</p></li><li><p>Konfigurationen</p></li><li><p>Optimiert für Quarkus (HotSpot / SubstrateVM)</p></li><li><p>Vergleichbar mit Spring Boot Startern</p></li></ul></div>
 <pre class="CodeRay listingblock"><code>mvn quarkus:list-extensions</code></pre></section>
 <section id="_quarkus_extensions_2"><h2>Quarkus Extensions</h2><div class="imageblock" style=""><img src="images/quarkus_extensions.png" alt="quarkus extensions" width="800"></div></section>
-<section id="_arc"><h2>ArC</h2><div class="ulist"><ul><li><p>Problem: CDI 2.0 (Weld) nutzt Reflection</p></li><li><p>ArC: Built Time CDI</p></li><li><p>Statische Verwendungsanalyse</p></li><li><p>"Hardcoding" der Metadaten</p></li><li><p>Eingeschränkungen bei BeanManager</p></li></ul></div></section>
-<section id="_arc_2"><h2>ArC</h2><div class="paragraph heading"><p>Nicht unterstützt</p></div>
-<div class="ulist"><ul><li><p>@Interceptor</p></li><li><p>@Decorator</p></li><li><p>@ConversationScoped</p></li><li><p>Passivation</p></li><li><p>Portable Extensions</p></li><li><p>beans.xml</p></li></ul></div></section>
 <section id="_bootstrapping"><h2>Bootstrapping</h2><div class="paragraph heading"><p>quarkus-maven-plugin</p></div>
 <pre class="CodeRay listingblock"><code class="bash language-bash">mvn quarkus:create \
 -DprojectGroupId=com.anderscore \
@@ -205,31 +190,9 @@ Quarkus4711</code></pre>
 │       └── resources
 |           └── application.properties
 └── pom.xml</pre></div></div></section>
-<section id="_bootstrapping_4"><h2>Bootstrapping</h2><div class="paragraph heading"><p>Build</p></div>
-<pre class="CodeRay listingblock"><code class="bash language-bash">./mvnw package -Pnative</code></pre>
-<div class="dlist"><dl><dt class="hdlist1">target/quarkus-demo-1.0-SNAPSHOT.jar</dt><dd><p>Klassen und Ressourcen (thin jar)</p></dd><dt class="hdlist1">target/quarkus-demo-1.0-SNAPSHOT-runner.jar </dt><dd><p>Runner (executable jar)</p></dd><dt class="hdlist1">target/lib/</dt><dd><p>Dependencies</p></dd></dl></div></section>
-<section id="_bootstrapping_5"><h2>Bootstrapping</h2><div class="paragraph heading"><p>HotSpot</p></div>
-<pre class="CodeRay listingblock"><code class="bash language-bash">java -jar quarkus-demo-1.0-SNAPSHOT-runner.jar</code></pre>
-<div class="paragraph heading"><p>SubstrateVM (native)</p></div>
-<pre class="CodeRay listingblock"><code class="bash language-bash">./quarkus-demo-1.0-SNAPSHOT-runner</code></pre>
-<pre class="CodeRay listingblock"><code>[io.quarkus] (main) Installed features: [agroal, cdi, hibernate-orm,
-jdbc-h2,mutiny, narayana-jta,resteasy, resteasy-jsonb, smallrye-context-propagation,
-smallrye-health, smallrye-metrics, smallrye-openapi]</code></pre></section>
 <section id="_development_mode"><h2>Development Mode</h2><div class="ulist"><ul><li><p>Live Reload (Hot Deployment)</p><div class="ulist"><ul><li><p>bei Änderungen</p></li><li><p>mit jedem HTTP Request</p></li></ul></div></li><li><p>Inhalte</p><div class="ulist"><ul><li><p>Klassen</p></li><li><p>Resourcen</p></li><li><p>Konfigurationen</p></li></ul></div></li><li><p>Debugger Port: 5005</p></li></ul></div>
 <pre class="CodeRay listingblock"><code class="bash language-bash">./mvnw compile quarkus:dev</code></pre></section>
-<section id="_native_executables"><h2>Native Executables</h2><div class="ulist"><ul><li><p>SubstrateVM ermöglicht native Images</p></li><li><p>Deutliche Reduktion der Startup Time</p></li><li><p>Erstellung auch ohne lokale GraalVM</p></li></ul></div>
-<pre class="CodeRay listingblock"><code class="bash language-bash">./mvnw package -Pnative -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true</code></pre></section>
-<section id="_live_demo" class="text-center"><h2>Live Demo</h2><div class="paragraph heading"><p>Zeit für eine Live Demo!</p></div></section>
-<section id="_links" class="columns text-center"><h2>Links</h2><div class="openblock"><div class="content"><div class="ulist"><ul><li><p>Quarkus: <a href="https://quarkus.io" class="bare">https://quarkus.io</a></p></li><li><p>MicroProfile: <a href="https://microprofile.io" class="bare">https://microprofile.io</a></p></li><li><p>GraalVM: <a href="https://www.graalvm.org" class="bare">https://www.graalvm.org</a></p></li><li><p>Docker: <a href="https://docs.docker.com" class="bare">https://docs.docker.com</a></p></li><li><p>Folien + Demo: <a href="https://github.com/goldschmiede/2020-08-21-Quarkus" class="bare">https://github.com/goldschmiede/2020-08-21-Quarkus</a></p></li></ul></div></div></div></section>
-<section id="_fragen" class="columns text-center"><h2>Fragen?</h2><div class="openblock"><div class="content"><div class="paragraph"><p><span class="image"><img src="images/question.jpg" alt="question" width="750" height="750"></span></p></div></div></div></section>
-<section id="_ende" class="text-center"><h2>Ende</h2><div class="paragraph heading margin-bottom-wide"><p>Vielen Dank!</p></div>
-<div class="imageblock" style=""><img src="images/anderscore/anderScore_white.jpg" alt="anderScore white" width="900"></div>
-<div class="openblock social-media"><div class="content"><div class="paragraph"><p><span class="image"><img src="images/social/twitter.png" alt="twitter" height="30"></span>
-@anderScoreGmbH
-<span class="image"><img src="images/social/facebook.png" alt="facebook" height="30"></span>
-anderScore.company
-<span class="image"><img src="images/social/meetup.svg" alt="meetup" height="30"></span>
-Java_Meetup_anderscore</p></div></div></div></section></div></div><script src="reveal.js-3.9.2/lib/js/head.min.js"></script><script src="reveal.js-3.9.2/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+<section id="_links" class="columns text-center"><h2>Links</h2><div class="openblock"><div class="content"><div class="ulist"><ul><li><p>Quarkus: <a href="https://quarkus.io" class="bare">https://quarkus.io</a></p></li><li><p>MicroProfile: <a href="https://microprofile.io" class="bare">https://microprofile.io</a></p></li><li><p>GraalVM: <a href="https://www.graalvm.org" class="bare">https://www.graalvm.org</a></p></li><li><p>Docker: <a href="https://docs.docker.com" class="bare">https://docs.docker.com</a></p></li><li><p>Folien + Demo: <a href="https://github.com/goldschmiede/2020-08-21-Quarkus" class="bare">https://github.com/goldschmiede/2020-08-21-Quarkus</a></p></li></ul></div></div></div></section></div></div><script src="reveal.js-3.9.2/lib/js/head.min.js"></script><script src="reveal.js-3.9.2/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
 Reveal.initialize({
   // Display controls in the bottom right corner
   controls: true,
