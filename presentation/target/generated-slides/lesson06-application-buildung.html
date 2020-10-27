@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>GraalVM</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="reveal.js-3.9.2/css/reveal.css" rel="stylesheet"><link href="reveal.js-3.9.2/plugin/title-footer/title-footer.css" rel="stylesheet"><link rel="stylesheet" href="reveal.js-3.9.2/css/theme/anderscore.css" id="theme"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"><style>/* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Lektion 6 - Application Building: GraalVM</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="reveal.js-3.9.2/css/reveal.css" rel="stylesheet"><link href="reveal.js-3.9.2/plugin/title-footer/title-footer.css" rel="stylesheet"><link rel="stylesheet" href="reveal.js-3.9.2/css/theme/anderscore.css" id="theme"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"><style>/* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
 pre.CodeRay{background:#f7f7f8}
 .CodeRay .line-numbers{border-right:1px solid currentColor;opacity:.35;padding:0 .5em 0 0}
 .CodeRay span.line-numbers{display:inline-block;margin-right:.75em}
@@ -84,18 +84,47 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 .CodeRay .insert .insert{color:#080}
 .CodeRay .delete .delete{color:#800}
 .CodeRay .change .change{color:#66f}
-.CodeRay .head .head{color:#f4f}</style><link href="reveal.js-3.9.2/lib/css/zenburn.css" rel="stylesheet"><script>document.write( '<link rel="stylesheet" href="reveal.js-3.9.2/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script></head><body><div class="reveal"><div class="slides"><section id="_graalvm"><h2>GraalVM</h2><div class="imageblock" style=""><img src="images/graalvm.svg" alt="graalvm" width="800"></div>
+.CodeRay .head .head{color:#f4f}</style><link href="reveal.js-3.9.2/lib/css/zenburn.css" rel="stylesheet"><script>document.write( '<link rel="stylesheet" href="reveal.js-3.9.2/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script></head><body><div class="reveal"><div class="slides"><section id="_lektion_6_application_building_graalvm" data-state="no-title-footer"><h2>Lektion 6 - Application Building: GraalVM</h2><div class="paragraph text-center"><p>Was ist die GraalVM?<br>
+Wie kann sie zusammen mit Quarkus genutzt werden?</p></div></section>
+<section id="_einführung"><h2>Einführung</h2><div class="imageblock" style=""><img src="images/lesson06/graalvm.svg" alt="graalvm" width="800"></div>
 <div class="ulist"><ul><li><p>Alternative zu OpenJDK/HotSpot</p></li><li><p>Truffle Framework: Unterstützung anderer Sprachen über AST</p></li><li><p>Native Image: Erweiterung für ahead-of-time Compilation</p></li><li><p>Graal Compiler, SubstrateVM</p></li><li><p>Entwickelt in Java</p></li><li><p>Produktiv seit 2019</p></li><li><p>Community Edition vs. Enterprise Edition</p></li></ul></div></section>
-<section id="_graalvm_2"><h2>GraalVM</h2><div class="imageblock" style=""><img src="images/graalvm_architecture.jpg" alt="graalvm architecture" width="1400"></div></section>
-<section id="_graalvm_3"><h2>GraalVM</h2><div class="paragraph heading"><p>Verwendung</p></div>
-<pre class="CodeRay listingblock"><code class="bash language-bash">native-image -jar my-app.jar
+<section id="_einführung_2"><h2>Einführung</h2><div class="imageblock" style=""><img src="images/lesson06/graalvm_architecture.jpg" alt="graalvm architecture" width="1400"></div></section>
+<section id="_vorteile"><h2>Vorteile</h2><div class="ulist"><ul><li><p>Reduzierte Startup Time</p></li><li><p>Geringerer Speicherverbrauch</p></li><li><p>Polyglotte Anwendungen</p></li></ul></div></section>
+<section id="_installation"><h2>Installation</h2><div class="paragraph"><p><strong>1. GraalVM CE herunterladen:</strong></p></div>
+<div class="paragraph"><p><a href="https://github.com/graalvm/graalvm-ce-builds/releases" class="bare">https://github.com/graalvm/graalvm-ce-builds/releases</a></p></div>
+<div class="paragraph"><p><strong>2. GraalVM CE installieren (Linux):</strong></p></div>
+<pre class="CodeRay listingblock"><code class="bash language-bash">tar -xzf &lt;graalvm-archive&gt;.tar.gz
+export PATH=&lt;graalvm&gt;/bin:$PATH
+export JAVA_HOME=&lt;graalvm&gt;</code></pre>
+<div class="paragraph"><p><strong>3. Native Image installieren (Linux):</strong></p></div>
+<pre class="CodeRay listingblock"><code class="bash language-bash">sudo apt-get install build-essential libz-dev zlib1g-dev
+gu install native-image</code></pre></section>
+<section id="_verwendung"><h2>Verwendung</h2><pre class="CodeRay listingblock"><code class="bash language-bash">native-image -jar my-app.jar
 ./my-app</code></pre></section>
-<section id="_graalvm_4"><h2>GraalVM</h2><div class="paragraph heading"><p>Vorteile</p></div>
-<div class="ulist"><ul><li><p>Reduzierte Startup Time</p></li><li><p>Geringerer Speicherverbrauch</p></li><li><p>Polyglotte Anwendungen</p></li></ul></div></section>
-<section id="_graalvm_5"><h2>GraalVM</h2><div class="paragraph heading"><p>Eingeschränkt</p></div>
-<div class="ulist"><ul><li><p>Reflection (@RegisterForReflection)</p></li><li><p>JDK DynamicProxy</p></li><li><p>Resources</p></li><li><p>JNI</p></li><li><p>Statische Initialisierung (durch Heap Snapshots)</p></li></ul></div></section>
-<section id="_graalvm_6"><h2>GraalVM</h2><div class="paragraph heading"><p>Nicht unterstützt</p></div>
-<div class="ulist"><ul><li><p>Dynamisches Class Loading (z.B. JRebel)</p></li><li><p>Manipulationen des Bytecodes (z.B. Lombok, Profiler)</p></li><li><p>Java Debugger (nur GDB)</p></li><li><p>InvokeDynamic, MethodHandles</p></li></ul></div>
+<section id="_aufgabe_1_erste_schritte_mit_graalvm"><h2>Aufgabe 1: Erste Schritte mit GraalVM</h2><div class="olist arabic"><ol class="arabic"><li><p>Erstellen Sie ein leeres Maven-Projekt und legen Sie darin eine Klasse an, die "Hello GraalVM!" ausgibt.</p></li><li><p>Binden Sie das maven-jar-plugin ein und erzeugen Sie mittels <code>mvn package</code> ein Executable Jar.</p></li><li><p>Starten Sie das Jar über <code>java -jar &lt;executable-jar&gt;.jar</code>.</p></li><li><p>Installieren Sie GraalVM CE und die Erweiterung Native Image auf Ihrem Rechner, falls noch nicht geschehen.</p></li><li><p>Erzeugen Sie über <code>native-image -jar &lt;executable-jar&gt;.jar</code> ein Native Executable aus Ihrem Jar und starten Sie dieses.
+Was fällt Ihnen auf?</p></li></ol></div></section>
+<section id="_native_executables"><h2>Native Executables</h2><div class="imageblock" style=""><img src="images/lesson06/native-executable-process.png" alt="native executable process" width="1200"></div></section>
+<section id="_native_executables_2"><h2>Native Executables</h2><div class="ulist"><ul><li><p>App + Quarkus Runtime + SubstrateVM</p></li><li><p>Deutliche Reduktion der Startup Time</p></li><li><p>Erstellung auch ohne lokale GraalVM</p></li></ul></div>
+<pre class="CodeRay listingblock"><code class="bash language-bash">./mvnw package -Pnative -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true</code></pre></section>
+<section id="_startup"><h2>Startup</h2><pre class="CodeRay listingblock"><code class="bash language-bash">./quarkus-demo-1.0-SNAPSHOT-runner</code></pre>
+<pre class="CodeRay listingblock"><code>[io.quarkus] (main) Installed features: [agroal, cdi, hibernate-orm,
+jdbc-h2,mutiny, narayana-jta,resteasy, resteasy-jsonb, smallrye-context-propagation,
+smallrye-health, smallrye-metrics, smallrye-openapi]</code></pre></section>
+<section id="_einschränkungen"><h2>Einschränkungen</h2><div class="ulist"><ul><li><p>Reflection (@RegisterForReflection)</p></li><li><p>JDK DynamicProxy</p></li><li><p>Resources</p></li><li><p>JNI</p></li><li><p>Statische Initialisierung (durch Heap Snapshots)</p></li></ul></div></section>
+<section id="_nicht_unterstützt"><h2>Nicht unterstützt</h2><div class="ulist"><ul><li><p>Dynamisches Class Loading (z.B. JRebel)</p></li><li><p>Manipulationen des Bytecodes (z.B. Lombok, Profiler)</p></li><li><p>Java Debugger (nur GDB)</p></li><li><p>InvokeDynamic, MethodHandles</p></li></ul></div></section>
+<section id="_arc"><h2>ArC</h2><div class="ulist"><ul><li><p>Problem: CDI 2.0 (Weld) nutzt Reflection</p></li><li><p>ArC: Built Time CDI</p></li><li><p>Statische Verwendungsanalyse</p></li><li><p>"Hardcoding" der Metadaten</p></li><li><p>Eingeschränkungen bei BeanManager</p></li></ul></div></section>
+<section id="_arc_2"><h2>ArC</h2><div class="paragraph heading"><p>Nicht unterstützt</p></div>
+<div class="ulist"><ul><li><p>@Interceptor</p></li><li><p>@Decorator</p></li><li><p>@ConversationScoped</p></li><li><p>Passivation</p></li><li><p>Portable Extensions</p></li><li><p>beans.xml</p></li></ul></div></section>
+<section id="_aufgabe_2_native_executables"><h2>Aufgabe 2: Native Executables</h2><div class="olist arabic"><ol class="arabic"><li><p>Öffnen Sie das Projekt <code>lesson0602-native</code>.</p></li><li><p>Erzeugen Sie mittels <code>mvn clean package</code> ein Executable Jar und starten Sie es über <code>java -jar &lt;executable-jar&gt;.jar -Dquarkus.http.port=8181</code>.</p></li><li><p>Erzeugen Sie mittels <code>mvn clean package -Pnative</code> ein Native Executable und starten Sie es über <code>./target/&lt;native-executable&gt;</code>. Wie erklären Sie sich die Ausgabe?</p></li><li><p>Optional: Welche technischen Anpassungen müssen Sie an dem Service und seiner Konfiguration vornehmen, damit dieser nativ ausgeführt werden kann? Tip: Schauen Sie sich hierzu auch einmal
+den Server Mode und die Console von H2 an.</p></li><li><p>Optional: Vergleichen Sie Startup Time und Speicherverbrauch des Native Executables mit jenen des Executable Jars.</p></li></ol></div></section>
+<section id="_quarkus_native_tests"><h2>Quarkus Native Tests</h2><div class="ulist"><ul><li><p>@NativeImageTest</p></li><li><p>Integration Test für Native Executable</p></li><li><p>Black Box Test gegen öffentliche API</p></li><li><p>Test selbst läuft auf JVM</p></li></ul></div>
+<pre class="CodeRay listingblock"><code class="java language-java"><span class="annotation">@NativeImageTest</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">NativeOrderResourceIT</span> <span class="directive">extends</span> OrderResourceTest {
+
+    <span class="comment">// Execute the same tests but in native mode.</span>
+}</code></pre></section>
+<section id="_aufgabe_3_native_tests"><h2>Aufgabe 3: Native Tests</h2><div class="olist arabic"><ol class="arabic"><li><p>Bauen Sie ein Native Executable und starten Sie den H2 Server, sofern noch nicht geschehen.</p></li><li><p>Lassen Sie den NativeOrderResourceIT laufen und vollziehen Sie die Ausgabe nach.</p></li></ol></div></section>
+<section id="_zusammenfassung_application_building"><h2>Zusammenfassung Application Building</h2><div class="ulist"><ul><li><p>GraalVM ermöglicht Native Executables</p></li><li><p>Sehr gute Unterstützung durch Quarkus</p></li><li><p>Reduktion von Startup Time und Speicherverbrauch</p></li><li><p>Einschränkungen (z.B. Reflection)</p></li><li><p>Native Integration Tests</p></li></ul></div>
 <div class="paragraph"><p><a href="index.html#/_agenda">&#8594; Zurück zur Übersicht</a></p></div></section></div></div><script src="reveal.js-3.9.2/lib/js/head.min.js"></script><script src="reveal.js-3.9.2/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
 Reveal.initialize({
   // Display controls in the bottom right corner
@@ -111,7 +140,7 @@ Reveal.initialize({
   // Enable the slide overview mode
   overview: true,
   // Vertical centering of slides
-  center: true,
+  center: false,
   // Enables touch navigation on devices with touch input
   touch: true,
   // Loop the presentation

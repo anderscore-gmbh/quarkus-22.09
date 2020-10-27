@@ -1,6 +1,13 @@
-== GraalVM
+[state=no-title-footer]
+== Lektion 6 - Application Building: GraalVM
 
-image::graalvm.svg[width=800]
+[.text-center]
+Was ist die GraalVM? +
+Wie kann sie zusammen mit Quarkus genutzt werden?
+
+== Einführung
+
+image::lesson06/graalvm.svg[width=800]
 
 * Alternative zu OpenJDK/HotSpot
 * Truffle Framework: Unterstützung anderer Sprachen über AST
@@ -10,14 +17,40 @@ image::graalvm.svg[width=800]
 * Produktiv seit 2019
 * Community Edition vs. Enterprise Edition
 
-== GraalVM
+== Einführung
 
-image::graalvm_architecture.jpg[width=1400]
+image::lesson06/graalvm_architecture.jpg[width=1400]
 
-== GraalVM
+== Vorteile
 
-[.heading]
-Verwendung
+* Reduzierte Startup Time
+* Geringerer Speicherverbrauch
+* Polyglotte Anwendungen
+
+== Installation
+
+*1. GraalVM CE herunterladen:*
+
+https://github.com/graalvm/graalvm-ce-builds/releases
+
+*2. GraalVM CE installieren (Linux):*
+
+[source, bash]
+----
+tar -xzf <graalvm-archive>.tar.gz
+export PATH=<graalvm>/bin:$PATH
+export JAVA_HOME=<graalvm>
+----
+
+*3. Native Image installieren (Linux):*
+
+[source, bash]
+----
+sudo apt-get install build-essential libz-dev zlib1g-dev
+gu install native-image
+----
+
+== Verwendung
 
 [source, bash]
 ----
@@ -25,19 +58,45 @@ native-image -jar my-app.jar
 ./my-app
 ----
 
-== GraalVM
+== Aufgabe 1: Erste Schritte mit GraalVM
 
-[.heading]
-Vorteile
+. Erstellen Sie ein leeres Maven-Projekt und legen Sie darin eine Klasse an, die "Hello GraalVM!" ausgibt.
+. Binden Sie das maven-jar-plugin ein und erzeugen Sie mittels `mvn package` ein Executable Jar.
+. Starten Sie das Jar über `java -jar <executable-jar>.jar`.
+. Installieren Sie GraalVM CE und die Erweiterung Native Image auf Ihrem Rechner, falls noch nicht geschehen.
+. Erzeugen Sie über `native-image -jar <executable-jar>.jar` ein Native Executable aus Ihrem Jar und starten Sie dieses.
+Was fällt Ihnen auf?
 
-* Reduzierte Startup Time
-* Geringerer Speicherverbrauch
-* Polyglotte Anwendungen
+== Native Executables
 
-== GraalVM
+image::lesson06/native-executable-process.png[width=1200]
 
-[.heading]
-Eingeschränkt
+== Native Executables
+
+* App + Quarkus Runtime + SubstrateVM
+* Deutliche Reduktion der Startup Time
+* Erstellung auch ohne lokale GraalVM
+
+[source, bash]
+----
+./mvnw package -Pnative -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true
+----
+
+== Startup
+
+[source, bash]
+----
+./quarkus-demo-1.0-SNAPSHOT-runner
+----
+
+[source]
+----
+[io.quarkus] (main) Installed features: [agroal, cdi, hibernate-orm,
+jdbc-h2,mutiny, narayana-jta,resteasy, resteasy-jsonb, smallrye-context-propagation,
+smallrye-health, smallrye-metrics, smallrye-openapi]
+----
+
+== Einschränkungen
 
 * Reflection (@RegisterForReflection)
 * JDK DynamicProxy
@@ -45,14 +104,69 @@ Eingeschränkt
 * JNI
 * Statische Initialisierung (durch Heap Snapshots)
 
-== GraalVM
-
-[.heading]
-Nicht unterstützt
+== Nicht unterstützt
 
 * Dynamisches Class Loading (z.B. JRebel)
 * Manipulationen des Bytecodes (z.B. Lombok, Profiler)
 * Java Debugger (nur GDB)
 * InvokeDynamic, MethodHandles
+
+== ArC
+
+* Problem: CDI 2.0 (Weld) nutzt Reflection
+* ArC: Built Time CDI
+* Statische Verwendungsanalyse
+* "Hardcoding" der Metadaten
+* Eingeschränkungen bei BeanManager
+
+== ArC
+
+[.heading]
+Nicht unterstützt
+
+* @Interceptor
+* @Decorator
+* @ConversationScoped
+* Passivation
+* Portable Extensions
+* beans.xml
+
+== Aufgabe 2: Native Executables
+
+. Öffnen Sie das Projekt `lesson0602-native`.
+. Erzeugen Sie mittels `mvn clean package` ein Executable Jar und starten Sie es über `java -jar <executable-jar>.jar -Dquarkus.http.port=8181`.
+. Erzeugen Sie mittels `mvn clean package -Pnative` ein Native Executable und starten Sie es über `./target/<native-executable>`. Wie erklären Sie sich die Ausgabe?
+. Optional: Welche technischen Anpassungen müssen Sie an dem Service und seiner Konfiguration vornehmen, damit dieser nativ ausgeführt werden kann? Tip: Schauen Sie sich hierzu auch einmal
+den Server Mode und die Console von H2 an.
+. Optional: Vergleichen Sie Startup Time und Speicherverbrauch des Native Executables mit jenen des Executable Jars.
+
+== Quarkus Native Tests
+
+* @NativeImageTest
+* Integration Test für Native Executable
+* Black Box Test gegen öffentliche API
+* Test selbst läuft auf JVM
+
+[source, java]
+----
+@NativeImageTest
+public class NativeOrderResourceIT extends OrderResourceTest {
+
+    // Execute the same tests but in native mode.
+}
+----
+
+== Aufgabe 3: Native Tests
+
+. Bauen Sie ein Native Executable und starten Sie den H2 Server, sofern noch nicht geschehen.
+. Lassen Sie den NativeOrderResourceIT laufen und vollziehen Sie die Ausgabe nach.
+
+== Zusammenfassung Application Building
+
+* GraalVM ermöglicht Native Executables
+* Sehr gute Unterstützung durch Quarkus
+* Reduktion von Startup Time und Speicherverbrauch
+* Einschränkungen (z.B. Reflection)
+* Native Integration Tests
 
 link:index.html#/_agenda[-> Zurück zur Übersicht]

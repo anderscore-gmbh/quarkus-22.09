@@ -190,11 +190,9 @@ Hinweise:
 . Neben dem Maven-Archetype können Sie auch https://code.quarkus.io zum Erzeugen eines Projekts verwenden
 . Nutzen Sie erneut einen Business-Service und CDI
 . Eine Beispiellösung finden Sie unter solutions/lesson01-intro
-. Auf https://quarkus.io/guides/getting-started-reactive gibt es eine weitere Anleitung für ein reaktives Projekt. Was sind die Unterschiede?
+. Auf https://quarkus.io/guides/getting-started gibt es eine weitere Anleitung für ein reaktives Projekt. Was sind die Unterschiede?
 
 link:lesson02-microservices.html[-> Weiter zu µServices]
-
-
 
 
 == Container First
@@ -228,26 +226,6 @@ mvn quarkus:list-extensions
 == Quarkus Extensions
 
 image::quarkus_extensions.png[width=800]
-
-== ArC
-
-* Problem: CDI 2.0 (Weld) nutzt Reflection
-* ArC: Built Time CDI
-* Statische Verwendungsanalyse
-* "Hardcoding" der Metadaten
-* Eingeschränkungen bei BeanManager
-
-== ArC
-
-[.heading]
-Nicht unterstützt
-
-* @Interceptor
-* @Decorator
-* @ConversationScoped
-* Passivation
-* Portable Extensions
-* beans.xml
 
 == Bootstrapping
 
@@ -296,45 +274,6 @@ Projektstruktur
 └── pom.xml
 ....
 
-== Bootstrapping
-
-[.heading]
-Build
-
-[source, bash]
-----
-./mvnw package -Pnative
-----
-
-target/quarkus-demo-1.0-SNAPSHOT.jar:: Klassen und Ressourcen (thin jar)
-target/quarkus-demo-1.0-SNAPSHOT-runner.jar :: Runner (executable jar)
-target/lib/:: Dependencies
-
-== Bootstrapping
-
-[.heading]
-HotSpot
-
-[source, bash]
-----
-java -jar quarkus-demo-1.0-SNAPSHOT-runner.jar
-----
-
-[.heading]
-SubstrateVM (native)
-
-[source, bash]
-----
-./quarkus-demo-1.0-SNAPSHOT-runner
-----
-
-[source]
-----
-[io.quarkus] (main) Installed features: [agroal, cdi, hibernate-orm,
-jdbc-h2,mutiny, narayana-jta,resteasy, resteasy-jsonb, smallrye-context-propagation,
-smallrye-health, smallrye-metrics, smallrye-openapi]
-----
-
 == Development Mode
 
 * Live Reload (Hot Deployment)
@@ -353,23 +292,6 @@ smallrye-health, smallrye-metrics, smallrye-openapi]
 ./mvnw compile quarkus:dev
 ----
 
-== Native Executables
-
-* SubstrateVM ermöglicht native Images
-* Deutliche Reduktion der Startup Time
-* Erstellung auch ohne lokale GraalVM
-
-[source, bash]
-----
-./mvnw package -Pnative -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true
-----
-
-[.text-center]
-== Live Demo
-
-[.heading]
-Zeit für eine Live Demo!
-
 [.columns.text-center]
 == Links
 
@@ -379,29 +301,4 @@ Zeit für eine Live Demo!
 * GraalVM: https://www.graalvm.org
 * Docker: https://docs.docker.com
 * Folien + Demo: https://github.com/goldschmiede/2020-08-21-Quarkus
---
-
-[.columns.text-center]
-== Fragen?
-
---
-image:question.jpg[width=750,height=750]
---
-
-[.text-center]
-== Ende
-
-[.heading.margin-bottom-wide]
-Vielen Dank!
-
-image::anderscore/anderScore_white.jpg[heigth=400, width=900, pdfwidth=60%]
-
-[.social-media]
---
-image:social/twitter.png[height=30, pdfwidth=5%]
-@anderScoreGmbH
-image:social/facebook.png[height=30, pdfwidth=5%]
-anderScore.company
-image:social/meetup.svg[height=30, pdfwidth=5%]
-Java_Meetup_anderscore
 --
