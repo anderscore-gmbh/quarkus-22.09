@@ -58,7 +58,9 @@ native-image -jar my-app.jar
 ./my-app
 ----
 
-== Aufgabe 1: Erste Schritte mit GraalVM
+== Aufgabe 6.1: Erste Schritte mit GraalVM
+
+*Aufgabenstellung*
 
 . Erstellen Sie ein leeres Maven-Projekt und legen Sie darin eine Klasse an, die "Hello GraalVM!" ausgibt.
 . Binden Sie das maven-jar-plugin ein und erzeugen Sie mittels `mvn package` ein Executable Jar.
@@ -66,6 +68,11 @@ native-image -jar my-app.jar
 . Installieren Sie GraalVM CE und die Erweiterung Native Image auf Ihrem Rechner, falls noch nicht geschehen.
 . Erzeugen Sie über `native-image -jar <executable-jar>.jar` ein Native Executable aus Ihrem Jar und starten Sie dieses.
 Was fällt Ihnen auf?
+
+*Hinweise*
+
+* Zu dieser Aufgabe gibt es kein Skelett. Verwenden Sie ein neues Projekt.
+* Eine Beispiellösung finden sie im Ordner `solutions/lesson06-appbuilding/lesson0601-graalvm`
 
 == Native Executables
 
@@ -156,10 +163,21 @@ public class NativeOrderResourceIT extends OrderResourceTest {
 }
 ----
 
-== Aufgabe 3: Native Tests
+== Aufgabe 6.2: Native Tests:
 
-. Bauen Sie ein Native Executable und starten Sie den H2 Server, sofern noch nicht geschehen.
+*Aufgabenstellung*
+
+. Bauen Sie ein Native Executable und starten Sie den PostgreSQL (alternativ: H2 Server), sofern noch nicht geschehen.
 . Lassen Sie den NativeOrderResourceIT laufen und vollziehen Sie die Ausgabe nach.
+
+*Hinweise*
+
+* Einen Postgres-Server können Sie wie folgt starten +
+`docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres`
+** User: `postgres`, Datenbank `postgres`, Kennwort: `mysecretpassword` +
+* Das Skelett zur Aufgabe befindet sich im Ordner `lesson06-appbuilding/lesson0602-native`
+* Eine Beispiellösung liegt im Ordner `solutions/lesson06-appbuilding/lesson0602-native
+
 
 == Zusammenfassung Application Building
 

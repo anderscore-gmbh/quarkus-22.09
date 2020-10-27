@@ -125,7 +125,7 @@ public class OrderConfiguration {
 @Inject
 OrderConfiguration orderConfiguration;
 
-@ConfigPrefix("andererPrefixInApplicationProperties"
+@ConfigPrefix("andererPrefixInApplicationProperties")
 OrderConfiguration orderConfiguration;
 
 ----
@@ -322,8 +322,8 @@ link:https://quarkus.io/guides/microprofile-health[-> Guide: Quarkus Microprofil
 
 *Hinweise*:
 
-1. Im Ordner `lesson04-health/lesson04` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 3.4.
-2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-health/lesson04`
+1. Im Ordner `lesson04-check/lesson04` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 3.4.
+2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-check/lesson04`
 
 link:https://quarkus.io/guides/microprofile-health[-> Guide: Quarkus Microprofile Health]
 

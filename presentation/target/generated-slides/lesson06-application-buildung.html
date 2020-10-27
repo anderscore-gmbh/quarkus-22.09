@@ -101,8 +101,11 @@ export JAVA_HOME=&lt;graalvm&gt;</code></pre>
 gu install native-image</code></pre></section>
 <section id="_verwendung"><h2>Verwendung</h2><pre class="CodeRay listingblock"><code class="bash language-bash">native-image -jar my-app.jar
 ./my-app</code></pre></section>
-<section id="_aufgabe_1_erste_schritte_mit_graalvm"><h2>Aufgabe 1: Erste Schritte mit GraalVM</h2><div class="olist arabic"><ol class="arabic"><li><p>Erstellen Sie ein leeres Maven-Projekt und legen Sie darin eine Klasse an, die "Hello GraalVM!" ausgibt.</p></li><li><p>Binden Sie das maven-jar-plugin ein und erzeugen Sie mittels <code>mvn package</code> ein Executable Jar.</p></li><li><p>Starten Sie das Jar über <code>java -jar &lt;executable-jar&gt;.jar</code>.</p></li><li><p>Installieren Sie GraalVM CE und die Erweiterung Native Image auf Ihrem Rechner, falls noch nicht geschehen.</p></li><li><p>Erzeugen Sie über <code>native-image -jar &lt;executable-jar&gt;.jar</code> ein Native Executable aus Ihrem Jar und starten Sie dieses.
-Was fällt Ihnen auf?</p></li></ol></div></section>
+<section id="_aufgabe_6_1_erste_schritte_mit_graalvm"><h2>Aufgabe 6.1: Erste Schritte mit GraalVM</h2><div class="paragraph"><p><strong>Aufgabenstellung</strong></p></div>
+<div class="olist arabic"><ol class="arabic"><li><p>Erstellen Sie ein leeres Maven-Projekt und legen Sie darin eine Klasse an, die "Hello GraalVM!" ausgibt.</p></li><li><p>Binden Sie das maven-jar-plugin ein und erzeugen Sie mittels <code>mvn package</code> ein Executable Jar.</p></li><li><p>Starten Sie das Jar über <code>java -jar &lt;executable-jar&gt;.jar</code>.</p></li><li><p>Installieren Sie GraalVM CE und die Erweiterung Native Image auf Ihrem Rechner, falls noch nicht geschehen.</p></li><li><p>Erzeugen Sie über <code>native-image -jar &lt;executable-jar&gt;.jar</code> ein Native Executable aus Ihrem Jar und starten Sie dieses.
+Was fällt Ihnen auf?</p></li></ol></div>
+<div class="paragraph"><p><strong>Hinweise</strong></p></div>
+<div class="ulist"><ul><li><p>Zu dieser Aufgabe gibt es kein Skelett. Verwenden Sie ein neues Projekt.</p></li><li><p>Eine Beispiellösung finden sie im Ordner <code>solutions/lesson06-appbuilding/lesson0601-graalvm</code></p></li></ul></div></section>
 <section id="_native_executables"><h2>Native Executables</h2><div class="imageblock" style=""><img src="images/lesson06/native-executable-process.png" alt="native executable process" width="1200"></div></section>
 <section id="_native_executables_2"><h2>Native Executables</h2><div class="ulist"><ul><li><p>App + Quarkus Runtime + SubstrateVM</p></li><li><p>Deutliche Reduktion der Startup Time</p></li><li><p>Erstellung auch ohne lokale GraalVM</p></li></ul></div>
 <pre class="CodeRay listingblock"><code class="bash language-bash">./mvnw package -Pnative -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true</code></pre></section>
@@ -123,7 +126,11 @@ den Server Mode und die Console von H2 an.</p></li><li><p>Optional: Vergleichen 
 
     <span class="comment">// Execute the same tests but in native mode.</span>
 }</code></pre></section>
-<section id="_aufgabe_3_native_tests"><h2>Aufgabe 3: Native Tests</h2><div class="olist arabic"><ol class="arabic"><li><p>Bauen Sie ein Native Executable und starten Sie den H2 Server, sofern noch nicht geschehen.</p></li><li><p>Lassen Sie den NativeOrderResourceIT laufen und vollziehen Sie die Ausgabe nach.</p></li></ol></div></section>
+<section id="_aufgabe_6_2_native_tests"><h2>Aufgabe 6.2: Native Tests:</h2><div class="paragraph"><p><strong>Aufgabenstellung</strong></p></div>
+<div class="olist arabic"><ol class="arabic"><li><p>Bauen Sie ein Native Executable und starten Sie den PostgreSQL (alternativ: H2 Server), sofern noch nicht geschehen.</p></li><li><p>Lassen Sie den NativeOrderResourceIT laufen und vollziehen Sie die Ausgabe nach.</p></li></ol></div>
+<div class="paragraph"><p><strong>Hinweise</strong></p></div>
+<div class="ulist"><ul><li><p>Einen Postgres-Server können Sie wie folgt starten<br>
+<code>docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres</code></p><div class="ulist"><ul><li><p>User: <code>postgres</code>, Datenbank <code>postgres</code>, Kennwort: <code>mysecretpassword</code><br></p></li></ul></div></li><li><p>Das Skelett zur Aufgabe befindet sich im Ordner <code>lesson06-appbuilding/lesson0602-native</code></p></li><li><p>Eine Beispiellösung liegt im Ordner `solutions/lesson06-appbuilding/lesson0602-native</p></li></ul></div></section>
 <section id="_zusammenfassung_application_building"><h2>Zusammenfassung Application Building</h2><div class="ulist"><ul><li><p>GraalVM ermöglicht Native Executables</p></li><li><p>Sehr gute Unterstützung durch Quarkus</p></li><li><p>Reduktion von Startup Time und Speicherverbrauch</p></li><li><p>Einschränkungen (z.B. Reflection)</p></li><li><p>Native Integration Tests</p></li></ul></div>
 <div class="paragraph"><p><a href="index.html#/_agenda">&#8594; Zurück zur Übersicht</a></p></div></section></div></div><script src="reveal.js-3.9.2/lib/js/head.min.js"></script><script src="reveal.js-3.9.2/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
 Reveal.initialize({

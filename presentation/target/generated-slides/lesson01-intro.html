@@ -160,9 +160,7 @@ Quarkus4711</code></pre>
 <div class="paragraph"><p>Hinweise:</p></div>
 <div class="olist arabic"><ol class="arabic"><li><p>Neben dem Maven-Archetype können Sie auch <a href="https://code.quarkus.io" class="bare">https://code.quarkus.io</a> zum Erzeugen eines Projekts verwenden</p></li><li><p>Nutzen Sie erneut einen Business-Service und CDI</p></li><li><p>Eine Beispiellösung finden Sie unter solutions/lesson01-intro</p></li><li><p>Auf <a href="https://quarkus.io/guides/getting-started" class="bare">https://quarkus.io/guides/getting-started</a> gibt es eine weitere Anleitung für ein reaktives Projekt. Was sind die Unterschiede?</p></li></ol></div>
 <div class="paragraph"><p><a href="lesson02-microservices.html">&#8594; Weiter zu µServices</a></p></div></section>
-<section id="_container_first"><h2>Container First</h2><div class="paragraph heading"><p>Ziele</p></div>
-<div class="ulist"><ul><li><p>Skalierbarkeit in der Cloud</p></li><li><p>Kurze Startup Time</p></li><li><p>Geringer Speicherverbrauch</p></li></ul></div></section>
-<section id="_container_first_2"><h2>Container First</h2><div class="paragraph heading"><p>Realisierung</p></div>
+<section id="_container_first"><h2>Container First</h2><div class="paragraph heading"><p>Realisierung</p></div>
 <div class="ulist"><ul><li><p>Quarkus Maven Plugin</p><div class="ulist"><ul><li><p>Erstellung von Container Images (Docker, Podman)</p></li><li><p>Optimierung für OpenJDK/HotSpot und GraalVM (native)</p></li></ul></div></li><li><p>Build Time Metadata Processing</p><div class="ulist"><ul><li><p>Höhere Build Time, verbesserte Runtime</p></li><li><p>Vermeidung von Reflection und Lazy Initialization</p></li><li><p>Aufzeichnung des Bootstrapping Prozesses</p></li><li><p>Vorgenerierung von Bytecode</p></li><li><p>Reduktion verbleibender Bootstrapper Klassen</p></li></ul></div></li></ul></div></section>
 <section id="_quarkus_extensions"><h2>Quarkus Extensions</h2><div class="ulist"><ul><li><p>Integration von Libraries und Frameworks</p></li><li><p>Maven Dependencies</p></li><li><p>Versionen</p></li><li><p>Konfigurationen</p></li><li><p>Optimiert für Quarkus (HotSpot / SubstrateVM)</p></li><li><p>Vergleichbar mit Spring Boot Startern</p></li></ul></div>
 <pre class="CodeRay listingblock"><code>mvn quarkus:list-extensions</code></pre></section>
@@ -207,7 +205,7 @@ Reveal.initialize({
   // Enable the slide overview mode
   overview: true,
   // Vertical centering of slides
-  center: true,
+  center: false,
   // Enables touch navigation on devices with touch input
   touch: true,
   // Loop the presentation

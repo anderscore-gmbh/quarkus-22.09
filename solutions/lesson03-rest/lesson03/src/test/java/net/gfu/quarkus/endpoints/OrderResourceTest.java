@@ -12,7 +12,23 @@ public class OrderResourceTest {
 
     @Test
     public void testHelloEndpoint() {
-        assertThat("nothing",true);
+        //try {
+            new A().doSth();
+        //} catch (Throwable e) {
+            //throw new RuntimeException(e);
+        //    System.out.println("Gefangen");
+        //}
+
+
     }
 
+    class A {
+        public void doSth(){
+            throw new PizzaTooBigException();
+        }
+    }
+
+    public static class PizzaTooBigException extends RuntimeException {
+
+    }
 }

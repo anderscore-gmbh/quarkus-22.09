@@ -1,15 +1,11 @@
 package net.gfu.quarkus.endpoints;
 
-import data.model.Order;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 
 import javax.json.Json;
 import javax.json.JsonObject;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Date;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
@@ -23,8 +19,8 @@ public class OrderResourceTest {
     @Test
     public void testNoOrder4711(){
         given()
-            .when().get("4711")
-            .then().statusCode(404);
+            .when().get("4711") //URL: http://localhost:8081/orders/4711
+            .then().statusCode(404); // Not found
     }
 
     @Test
@@ -43,7 +39,7 @@ public class OrderResourceTest {
                 .add("orderId",42L).build();
         given().contentType("application/json")
                 .body(obj)
-                .when().post("/")
+                .when().post("/") //URL: http://localhost:8081/orders/
                 .then().statusCode(422).body(is(emptyString()));
     }
 
