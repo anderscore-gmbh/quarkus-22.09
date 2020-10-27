@@ -115,6 +115,7 @@ Share images, automate workflows, and more with a free Docker ID:
 
 For more examples and ideas, visit:
  https://docs.docker.com/get-started/</code></pre></section><section id="_docker_bietet"><h2>Docker bietet</h2><div class="ulist"><ul><li><p>Prozess-Isolation</p></li><li><p>Virtuelle Netzwerke</p></li><li><p>Kommandozeilen-Werkzeuge</p></li></ul></div></section></section>
+<section id="_übersicht_container_und_virtualisierung"><h2>Übersicht: Container und Virtualisierung</h2><div class="paragraph"><p><span class="image"><img src="images/uebersicht_container.png" alt="uebersicht container"></span></p></div></section>
 <section><section id="_was_ist_kubernetes" class="columns"><h2>Was ist Kubernetes?</h2><div class="openblock"><div class="content"><div class="ulist"><ul><li><p>"Application-Server" (Cluster für docker und rkt)</p></li><li><p>Google-Projekt (auch: k8s, k8),</p></li><li><p>Erstes Release 7. Juni 2014, Aktuell 1.19.2 (16. September 2020)</p></li><li><p>Konzepte</p><div class="ulist"><ul><li><p>Node: Maschine im Cluster</p></li><li><p>Pod:</p><div class="ulist"><ul><li><p>Kleinste Einheit, 1-n Container</p></li><li><p>1 Host, Ressource-Sharing</p></li></ul></div></li><li><p>Controller: Mind. Einer pro Cluster</p></li><li><p>Service:</p><div class="ulist"><ul><li><p>Vers. Pods, e.g. ein Tier einer Application</p></li><li><p>Adressierung über DNS über ENV-Variablen</p></li></ul></div></li><li><p>Vers. Distributionen: z.B. OpenShift</p></li></ul></div></li></ul></div></div></div><div class="openblock"><div class="content"><div class="paragraph"><p><span class="image"><img src="images/kubernetes.png" alt="kubernetes" width="400"></span></p></div></div></div></section><section id="_architektur"><h2>Architektur</h2><div class="paragraph center"><p><span class="image"><img src="images/Kubernetes_archi.png" alt="Kubernetes archi"></span></p></div>
 <div class="paragraph"><p>Bildquelle: <a href="https://en.wikipedia.org/wiki/Kubernetes#/media/File:Kubernetes.png" class="bare">https://en.wikipedia.org/wiki/Kubernetes#/media/File:Kubernetes.png</a>, Khtan66, CC-BY SA 4.0</p></div></section></section>
 <section><section id="_docker_image_mit_quarkus_erzeugen"><h2>Docker Image mit Quarkus erzeugen</h2><div class="paragraph"><p><strong>Maven Artefakt erstellen</strong></p></div><pre class="CodeRay listingblock"><code>$ mvn install
@@ -227,7 +228,7 @@ Reveal.initialize({
   // Enable the slide overview mode
   overview: true,
   // Vertical centering of slides
-  center: true,
+  center: false,
   // Enables touch navigation on devices with touch input
   touch: true,
   // Loop the presentation
