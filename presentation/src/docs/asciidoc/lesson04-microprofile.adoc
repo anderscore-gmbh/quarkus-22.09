@@ -822,7 +822,7 @@ public class FranchiseResource {
 
 [source]
 ----
-13:20:11 INFO  traceId=1336b2b0a76a96a3, parentId=0, spanId=1336b2b0a76a96a3, sampled=true [or.ac.qu.TracedResource] (executor-thread-63) hello
+13:20:11 INFO  traceId=1336b2b0a76a96a3, parentId=0, spanId=1336b2b0a76a96a3, sampled=true [or.ac.qu.TracedResource] (executor-thread-63) Index called
 ----
 
 
