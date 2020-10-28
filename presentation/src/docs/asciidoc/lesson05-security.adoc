@@ -346,21 +346,22 @@ link:https://quarkus.io/guides/http-reference[-> Guide: Quarkus - HTTP Reference
 
 == Aufgabe 5.1 lesson05-security
 
-*Aufgabestellung*
+*Aufgabenstellung*
 
-Beschränken Sie Aufrufe auf den Order-Service
+Beschränken Sie Aufrufe auf den Order-Service:
 
-* Benutzer mit Rolle `user` dürfen Bestellungen erstellen
-* Für alle anderen Operationen ist die Rolle `admin` erforderlich
-* Nutzen Sie Elytron. Legen Sie Kennwörter in der .properties Datei ab.
+* Benutzer mit Rolle `user` dürfen Bestellungen erstellen; sonst ist die Rolle `admin` erforderlich.
+* Nutzen Sie Elytron. Legen Sie Kennwörter in der `.properties`-Datei ab.
 * Verschlüsseln Sie Zugriffe mit TLS
 
 *Hinweise*
 
-* Im Ordner `lesson05-security` ist ein Skelet. Es basiert auf der Beispiellösung von Aufgabe 3.1
+* Im Ordner `lesson05-security` ist ein Skelett. Es basiert auf der Beispiellösung von Aufgabe 3.1
 * Das Archiv `certs.zip` in `lesson05-security` enthält TLS-Zertifikate. Sie gelten für
-** localhost.k.anderscore.com
-** order.k.anderscore.com
-** franchise.k.anderscore.com
+** `localhost.k.anderscore.com`
+** `order.k.anderscore.com`
+** `franchise.k.anderscore.com`
 * Im Ordner `solutions/lesson05-security` ist eine Beispiellösung. Zum Start muss das Archiv
 mit den Zertifikaten entpackt werden.
+
+link:index.html#/_agenda[-> Zurück zur Übersicht]
