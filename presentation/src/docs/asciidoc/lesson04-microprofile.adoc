@@ -649,7 +649,7 @@ link:https://quarkus.io/guides/openapi-swaggerui[-> Guide: Quarkus Using OpenAPI
 
 *Aufgabenstellung*
 
-* Erstellen Sie ein Aussagekräftige Dokumentation für die Orderesources
+* Erstellen Sie ein aussagekräftige Dokumentation für die Orderesources
 * Überprüfen Sie das Ergebnis in der Swagger UI
 
 *Hinweise*
@@ -745,7 +745,7 @@ public class MyResource {
 
 * Erstellen Sie einen seperaten Franchise-Service, der auch Pizza-Bestellungen anzeigt.
 ** Erstellen Sie ein weiteres Quarkus-Projekt `franchise`.
-** Der Service hat die Operation `index(). Die Rückgabe ist wie folgt:
+** Der Service hat die Operation `index()`. Die Rückgabe ist wie folgt:
 
 [source,json]
 ----
@@ -759,7 +759,7 @@ public class MyResource {
 
 1. Der Eintrag *`quarkus.http.port=8080`* in der Datei `application.properties` bestimmt den HTTP-Port ‒
 *`mvn compile quarkus:dev -Ddebug=5006`* den Debug-Port.
-1. Im Ordner `lesson04-restlclient/lesson04` befindet sich bereits ein Skelett, jedoch nur für einen Service
+1. Im Ordner `lesson04-restclient/lesson04` befindet sich bereits ein Skelett, jedoch nur für einen Service
 2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-restclient/`. Das Beispiel enthält beide Projekte
 
 == 7. OpenTracing API
