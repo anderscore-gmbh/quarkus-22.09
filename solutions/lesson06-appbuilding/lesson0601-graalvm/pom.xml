@@ -62,7 +62,7 @@
           <configuration>
             <archive>
               <manifest>
-                <mainClass>net.gfu.quarkus.quarkus.App</mainClass>
+                <mainClass>net.gfu.quarkus.App</mainClass>
               </manifest>
             </archive>
           </configuration>
