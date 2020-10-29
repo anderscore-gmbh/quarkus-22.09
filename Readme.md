@@ -94,4 +94,4 @@ Ascii-Editor erklärt. Vorlage evtl. nach dem Buch "Quarkus Framework: Build Clo
 7. Übungsaufgaben nutzen H2-in-memory, was wegen native-executables eher ungeschickt ist. Gleichzeitig ist es recht aufwändig, einen H2-Server lokal zu installieren.
 Geschickter wäre, die Aufgaben von Anfang an mit Postgres zu machen und die Datenbank über Docker zu starten - die Postgres-Variante ist - stand 2020/10 - nur für die 
 Native-Testing Aufgabe in Kapitel 6 vorgesehen.
-
+8. Z.T. fehlen Links in die Unterkapitel. Links zu den einzelnen Punkten bspw. der Microprofile API wären nett. Ebenso links im Microprofile-Kapitel.
