@@ -87,9 +87,9 @@ Vor einer erneuten Durchführung kann die Schulung in diesen Punkten verbessert 
 Fehler finden und beheben. Folgende (!) Aufgaben im Beispiel-Code und im Skelett anpassen.
 3. Das Kubernetes-Kapitel ist recht "hackish" und geht auf OpenShift aus dem Buch "Hands-On Cloud-Native Applications with Java and Quarkus: Build high performance, Kubernetes-native Java serverless applications (English Edition)" zurück.
 Besser wäre wohl minikube nach dem Quarkus-Guide
-4. Die Folien zu GraalVM haben z.T. recht wenig Inhalt. Vorlage evtl. nach dem Buch "Quarkus Framework: Build Cloud-Native Enterprise Java Applications and Microservices (English Edition) 1. Auflage" - dort gibt es ein Kapitel zu CDI - oder dem Quarkus Guide: https://quarkus.io/guides/cdi-reference
+4. Die Folien zu GraalVM haben z.T. recht wenig Inhalt. 
 5. Gut wäre noch ein Kapitel zu CDI-Grundlagen - insb. zu den Teilen, die von ArC (Build time CI) unterstützt werden. Jan hat bei der Schulung Dependency-Injetion mit einem 
-Ascii-Editor erklärt.
+Ascii-Editor erklärt. Vorlage evtl. nach dem Buch "Quarkus Framework: Build Cloud-Native Enterprise Java Applications and Microservices (English Edition) 1. Auflage" - dort gibt es ein Kapitel zu CDI - oder dem Quarkus Guide: https://quarkus.io/guides/cdi-reference
 6. Die Kafka-Folien (Powerpoint) nach Reveal-JS übernehmen. Redundanz entfernen.
 7. Übungsaufgaben nutzen H2-in-memory, was wegen native-executables eher ungeschickt ist. Gleichzeitig ist es recht aufwändig, einen H2-Server lokal zu installieren.
 Geschickter wäre, die Aufgaben von Anfang an mit Postgres zu machen und die Datenbank über Docker zu starten - die Postgres-Variante ist - stand 2020/10 - nur für die 
