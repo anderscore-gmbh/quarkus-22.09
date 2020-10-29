@@ -39,8 +39,8 @@ public class OrderResourceTest {
     @Test
     public void testCannotCreateOrderWithGivenID(){
         JsonObject obj = Json.createObjectBuilder()
-                .add("customerId", 42L)
-                .add("orderId",42L).build();
+                .add("customerId", 42)
+                .add("orderId",42).build();
         given().contentType("application/json")
                 .body(obj)
                 .when().post("/")
@@ -50,7 +50,7 @@ public class OrderResourceTest {
     @Test
     public void testCreateOrder(){
         JsonObject obj = Json.createObjectBuilder()
-                .add("customerId", 42L)
+                .add("customerId", 42)
                 .add("pizzaList",Json.createArrayBuilder().add("Funghi").build())
                 .add("totalPrize", "7").build();
         given().contentType("application/json")

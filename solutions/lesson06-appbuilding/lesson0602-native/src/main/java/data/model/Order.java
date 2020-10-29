@@ -1,6 +1,7 @@
 package data.model;
 
 
+import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 import org.slf4j.LoggerFactory;
 
 import javax.json.bind.annotation.JsonbTransient;
@@ -15,6 +16,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "pizza_order")
+@RegisterRestClient
 public class Order implements Serializable {
 
 
@@ -22,7 +24,7 @@ public class Order implements Serializable {
 
     }
 
-    public Order(Long orderId, Date orderDateTime, Long customerId, Status status, List<Pizza> pizzaList, BigDecimal totalPrice) {
+    public Order(Long orderId, Date orderDateTime, Integer customerId, Status status, List<Pizza> pizzaList, BigDecimal totalPrice) {
         this.orderId = orderId;
         this.orderDateTime = orderDateTime;
         this.customerId = customerId;
@@ -38,7 +40,7 @@ public class Order implements Serializable {
 
     private Date orderDateTime;
 
-    private Long customerId;
+    private Integer customerId;
     private Status status;
 
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
@@ -62,11 +64,11 @@ public class Order implements Serializable {
         this.orderDateTime = orderDateTime;
     }
 
-    public Long getCustomerId() {
+    public Integer getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Long customerId) {
+    public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
 

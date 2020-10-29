@@ -1,5 +1,7 @@
 package data.model;
 
+import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -7,6 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@RegisterRestClient
 public class Pizza implements Serializable {
 
     @Id

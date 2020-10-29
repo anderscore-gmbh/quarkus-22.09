@@ -357,7 +357,7 @@ Beschränken Sie Aufrufe auf den Order-Service:
 *Hinweise*
 
 * Im Ordner `lesson05-security` ist ein Skelett. Es basiert auf der Beispiellösung von Aufgabe 3.1
-* Das Archiv `certs.zip` in `lesson05-security` enthält TLS-Zertifikate. Sie gelten für
+* Das Archiv `certs.zip` in `lesson05-security` enthält ein TLS-Zertifikat. Es gilt für:
 ** `localhost.k.anderscore.com`
 ** `order.k.anderscore.com`
 ** `franchise.k.anderscore.com`

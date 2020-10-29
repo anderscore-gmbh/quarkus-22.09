@@ -221,12 +221,13 @@ quarkus.http.insecure-requests=redirect</code></pre>
 <div class="paragraph"><p>Alternativ: Keystore einbinden</p></div>
 <div class="paragraph"><p><em>Keine Maven Dependency nötig :-)</em></p></div>
 <div class="paragraph"><p><a href="https://quarkus.io/guides/http-reference">&#8594; Guide: Quarkus - HTTP Reference</a></p></div></section></section>
-<section id="_aufgabe_5_1_lesson05_security"><h2>Aufgabe 5.1 lesson05-security</h2><div class="paragraph"><p><strong>Aufgabestellung</strong></p></div>
-<div class="paragraph"><p>Beschränken Sie Aufrufe auf den Order-Service</p></div>
-<div class="ulist"><ul><li><p>Benutzer mit Rolle <code>user</code> dürfen Bestellungen erstellen</p></li><li><p>Für alle anderen Operationen ist die Rolle <code>admin</code> erforderlich</p></li><li><p>Nutzen Sie Elytron. Legen Sie Kennwörter in der .properties Datei ab.</p></li><li><p>Verschlüsseln Sie Zugriffe mit TLS</p></li></ul></div>
+<section id="_aufgabe_5_1_lesson05_security"><h2>Aufgabe 5.1 lesson05-security</h2><div class="paragraph"><p><strong>Aufgabenstellung</strong></p></div>
+<div class="paragraph"><p>Beschränken Sie Aufrufe auf den Order-Service:</p></div>
+<div class="ulist"><ul><li><p>Benutzer mit Rolle <code>user</code> dürfen Bestellungen erstellen; sonst ist die Rolle <code>admin</code> erforderlich.</p></li><li><p>Nutzen Sie Elytron. Legen Sie Kennwörter in der <code>.properties</code>-Datei ab.</p></li><li><p>Verschlüsseln Sie Zugriffe mit TLS</p></li></ul></div>
 <div class="paragraph"><p><strong>Hinweise</strong></p></div>
-<div class="ulist"><ul><li><p>Im Ordner <code>lesson05-security</code> ist ein Skelet. Es basiert auf der Beispiellösung von Aufgabe 3.1</p></li><li><p>Das Archiv <code>certs.zip</code> in <code>lesson05-security</code> enthält TLS-Zertifikate. Sie gelten für</p><div class="ulist"><ul><li><p>localhost.k.anderscore.com</p></li><li><p>order.k.anderscore.com</p></li><li><p>franchise.k.anderscore.com</p></li></ul></div></li><li><p>Im Ordner <code>solutions/lesson05-security</code> ist eine Beispiellösung. Zum Start muss das Archiv
-mit den Zertifikaten entpackt werden.</p></li></ul></div></section></div></div><script src="reveal.js-3.9.2/lib/js/head.min.js"></script><script src="reveal.js-3.9.2/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+<div class="ulist"><ul><li><p>Im Ordner <code>lesson05-security</code> ist ein Skelett. Es basiert auf der Beispiellösung von Aufgabe 3.1</p></li><li><p>Das Archiv <code>certs.zip</code> in <code>lesson05-security</code> enthält ein TLS-Zertifikat. Es gilt für:</p><div class="ulist"><ul><li><p><code>localhost.k.anderscore.com</code></p></li><li><p><code>order.k.anderscore.com</code></p></li><li><p><code>franchise.k.anderscore.com</code></p></li></ul></div></li><li><p>Im Ordner <code>solutions/lesson05-security</code> ist eine Beispiellösung. Zum Start muss das Archiv
+mit den Zertifikaten entpackt werden.</p></li></ul></div>
+<div class="paragraph"><p><a href="index.html#/_agenda">&#8594; Zurück zur Übersicht</a></p></div></section></div></div><script src="reveal.js-3.9.2/lib/js/head.min.js"></script><script src="reveal.js-3.9.2/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
 Reveal.initialize({
   // Display controls in the bottom right corner
   controls: true,
@@ -241,7 +242,7 @@ Reveal.initialize({
   // Enable the slide overview mode
   overview: true,
   // Vertical centering of slides
-  center: true,
+  center: false,
   // Enables touch navigation on devices with touch input
   touch: true,
   // Loop the presentation
