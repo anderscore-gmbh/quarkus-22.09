@@ -87,7 +87,7 @@ Vor einer erneuten Durchführung kann die Schulung in diesen Punkten verbessert 
 Fehler finden und beheben. Folgende (!) Aufgaben im Beispiel-Code und im Skelett anpassen.
 3. Das Kubernetes-Kapitel ist recht "hackish" und geht auf OpenShift aus dem Buch "Hands-On Cloud-Native Applications with Java and Quarkus: Build high performance, Kubernetes-native Java serverless applications (English Edition)" zurück.
 Besser wäre wohl minikube nach dem Quarkus-Guide
-4. Die Folien zu GraalVM haben z.T. recht wenig Inhalt. 
+4. Jan findet: Die Folien zu GraalVM haben z.T. recht wenig Inhalt. Dafür gibt es recht viele. Jan fände es besser, weniger Folien mit dem gleichen Inhalt. da wären.
 5. Gut wäre noch ein Kapitel zu CDI-Grundlagen - insb. zu den Teilen, die von ArC (Build time CI) unterstützt werden. Jan hat bei der Schulung Dependency-Injetion mit einem 
 Ascii-Editor erklärt. Vorlage evtl. nach dem Buch "Quarkus Framework: Build Cloud-Native Enterprise Java Applications and Microservices (English Edition) 1. Auflage" - dort gibt es ein Kapitel zu CDI - oder dem Quarkus Guide: https://quarkus.io/guides/cdi-reference
 6. Die Kafka-Folien (Powerpoint) nach Reveal-JS übernehmen. Redundanz entfernen.
@@ -95,3 +95,5 @@ Ascii-Editor erklärt. Vorlage evtl. nach dem Buch "Quarkus Framework: Build Clo
 Geschickter wäre, die Aufgaben von Anfang an mit Postgres zu machen und die Datenbank über Docker zu starten - die Postgres-Variante ist - stand 2020/10 - nur für die 
 Native-Testing Aufgabe in Kapitel 6 vorgesehen.
 8. Z.T. fehlen Links in die Unterkapitel. Links zu den einzelnen Punkten bspw. der Microprofile API wären nett. Ebenso links im Microprofile-Kapitel.
+9. Für die Kafka-Aufgabe hat Jan einen Broker auf einer Hetzner-VM nach dem Kafka Getting Started Guide aufgesetzt. Das kann Jan machen, da er wie die Sysops Zugang zu der Hetzner-Cloud haben. Generell wäre es aber besser, wenn die Teilnehmer Ihren Server selber starten können. Die Idee wäre hier: Ein Docker-Compose-File für die Schulung, dass neben dem kafka-Broker auch den Postgres-Server aufsetzen könnte.
+10. die TLS-Zertifikate für localhost.k.anderscore.com, order.k.anderscore.com, franchise.k.anderscore.com hat Jan auf seinem Hetzner Server gemacht. Das kann Jan machen, weil er wegen einer Goldschmiede von 2019 noch eine DNS-Delegation in seinen privaten DNS-Account hat. Besser wäre, ein Zertfikat für localhost.training.anderscore.com mit der anderScore-CI zu erzeugen.
