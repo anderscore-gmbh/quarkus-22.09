@@ -7,7 +7,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
@@ -15,7 +14,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Path("orders")
+@Path("/orders")
 @ApplicationScoped
 @Produces("application/json")
 @Consumes("application/json")
@@ -48,7 +47,7 @@ public class OrderResource {
 
     // Read
     @GET
-    @Path("{id}")
+    @Path("/{id}")
     public Response read(@PathParam("id") Long id){
         Order order = this.repository.findById(id);
         if(order == null){

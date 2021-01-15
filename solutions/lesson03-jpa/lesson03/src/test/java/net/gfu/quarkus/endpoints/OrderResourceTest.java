@@ -1,15 +1,11 @@
 package net.gfu.quarkus.endpoints;
 
-import data.model.Order;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 
 import javax.json.Json;
 import javax.json.JsonObject;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Date;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
@@ -18,7 +14,6 @@ import static org.hamcrest.Matchers.*;
 @QuarkusTest
 @TestHTTPEndpoint(OrderResource.class)
 public class OrderResourceTest {
-
 
     @Test
     public void testNoOrder4711(){
@@ -55,7 +50,7 @@ public class OrderResourceTest {
                 .add("totalPrize", "7").build();
         given().contentType("application/json")
                 .body(obj)
-                .when().post("/")
+                .when().post("/orders")
                 .then().statusCode(201).body(is(emptyString()));
 
 
