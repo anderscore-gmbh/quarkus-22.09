@@ -1,36 +1,15 @@
-# Eclipse
-.project
-.classpath
-.settings/
-bin/
+# ignore Maven specific files
+**/target/
 
-# IntelliJ
-.idea
-*.ipr
-*.iml
-*.iws
+# ignore Eclipse specific files
+**/.settings/
+**/.project
+**/.classpath
+**/.factorypath
 
-# NetBeans
-nb-configuration.xml
+# ignore IDEA specific files
+**/out/
+**/.idea/
+**/*.iml
 
-# Visual Studio Code
-.vscode
-.factorypath
-
-# OSX
-.DS_Store
-
-# Vim
-*.swp
-*.swo
-
-# patch
-*.orig
-*.rej
-
-# Maven
-target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-release.properties
+**/build/
