@@ -207,15 +207,15 @@ public class OrderRepository {
 
 == Hibernate Panache
 
-* Plain-JPA: Repository händisch Implementieren
+* Plain-JPA: Repository händisch implementieren
 * Idee: Framework generiert Operationen
 ** Ruby On Rails Active Record / Grails ORM: Active Record Pattern
-** spring-data: Repository Interface vom Framework verwaltet: Repository Pattern
-** Quarkus: Hibernate Panache: Repository oder Active Record Pattern
+** Spring Data: Repository Interface vom Framework verwaltet: Repository Pattern
+** Quarkus + Hibernate Panache: Repository oder Active Record Pattern
 * Zusätzliche Features
 ** Vereinfachung der Abfrage-Sprache
-** Konventionen &amp; für Paging
-** Sonst. Hilfsmethoden
+** Paging
+** Konventionen &amp; diverse Hilfsmethoden
 
 https://www.martinfowler.com/eaaCatalog/activeRecord.html[
 -> Martin Fowler: Active Record]

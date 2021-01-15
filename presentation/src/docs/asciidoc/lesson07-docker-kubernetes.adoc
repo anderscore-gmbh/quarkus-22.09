@@ -10,18 +10,19 @@ Was fällt Ihnen zu Containern ein?
 ** Container
 ** Dockerfiles
 ** Images
-** Docker compose
+** Docker Compose
 * Kubernetes
+** Minikube
 ** OpenShift
 
 
 Referenzen
 
-* https://www.docker.com/
-* https://docs.docker.com/engine/reference/commandline/image/
-* https://docs.docker.com/compose/
-* https://kubernetes.io/
-* https://www.openshift.com/
+* https://www.docker.com
+* https://docs.docker.com/engine/reference/commandline/image
+* https://docs.docker.com/compose
+* https://kubernetes.io
+* https://www.openshift.com
 
 == Kennen Sie Docker Hello World?
 
@@ -71,19 +72,19 @@ image:uebersicht_container.png[]
 
 == Was ist Kubernetes?
 --
-* "Application-Server" (Cluster für docker und rkt)
-* Google-Projekt (auch: k8s, k8),
-* Erstes Release 7. Juni 2014, Aktuell 1.19.2 (16. September 2020)
+* Cluster für Docker und rkt
+* "Application Server" für Container
+* Google-Projekt (auch: k8s, k8)
 * Konzepte
 ** Node: Maschine im Cluster
 ** Pod:
 *** Kleinste Einheit, 1-n Container
 *** 1 Host, Ressource-Sharing
-** Controller: Mind. Einer pro Cluster
+** Controller: Mind. einer pro Cluster
 ** Service:
-*** Vers. Pods, e.g. ein Tier einer Application
-*** Adressierung über DNS über ENV-Variablen
-** Vers. Distributionen: z.B. OpenShift
+*** Facade für Pods, z.B. ein Tier einer Application
+*** Adressierung mittels DNS über ENV-Variablen
+** Verschiedene Distributionen: z.B. OpenShift
 --
 --
 image:kubernetes.png[width=400]
@@ -96,14 +97,13 @@ image:Kubernetes_archi.png[]
 
 Bildquelle: https://en.wikipedia.org/wiki/Kubernetes#/media/File:Kubernetes.png, Khtan66, CC-BY SA 4.0
 
-
-== Docker Image mit Quarkus erzeugen
+== Docker Image mit Quarkus erzeugen (manuell)
 
 *Maven Artefakt erstellen*
 
 [source]
 ----
-$ mvn install
+$ mvn package
 # ...
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
@@ -174,130 +174,161 @@ $ curl http://localhost:4321/orders
 [{"customerId":42,"orderDateTime":"2020-10-25T18:04:25.295Z[UTC]","orderId":1,"pizzaList":["Funghi"],"status":"LOST","totalPrice":6.5}]
 ----
 
-== OKD (OpenShift Community Distribution of Kubernetes)
+== Kubernetes Extension
 
-_"OKD is a distribution of Kubernetes optimized for continuous application development and multi-tenant deployment.
-OKD also serves as the upstream code base upon which Red Hat OpenShift Online and Red Hat OpenShift Container Platform are built."_
-https://docs.okd.io/
+* Generierung von kubernetes.yaml und kubernetes.json
+* Beeinflussung durch Properties möglich
+* JIB: Alternative für automatisches Bauen von Images
+
+[source,xml]
+----
+<dependency>
+  <groupId>io.quarkus</groupId>
+  <artifactId>quarkus-kubernetes</artifactId>
+</dependency>
+<dependency>
+  <groupId>io.quarkus</groupId>
+  <artifactId>quarkus-container-image-jib</artifactId>
+</dependency>
+----
+
+== Kubernetes Extension
+
+application.properties:
+
+[source]
+----
+quarkus.container-image.build=true
+quarkus.container-image.group=quarkus                     #optional, default to the system user name
+quarkus.container-image.name=demo-app                     #optional, defaults to the application name
+quarkus.container-image.tag=1.0                           #optional, defaults to the application version
+quarkus.kubernetes.mounts.my-volume.path=/where/to/mount  #optional
+
+----
+
+https://quarkus.io/guides/deploying-to-kubernetes
+
+== Minikube
+
+* Minimalistisches Kubernetes Cluster (1 Node)
+* Lokale Tests und Entwicklung
+* Treiber zur Virtualisierung benötigt (z.B. virtualbox, kvm2, Docker)
+
+https://kubernetes.io/de/docs/setup/minikube
+https://minikube.sigs.k8s.io/docs/start
+
+*Installation auf Ubuntu*
+
+[source,bash]
+----
+# KVM
+$ sudo apt install qemu-kvm libvirt-daemon-system
+$ sudo adduser $USER libvirt
+$ sudo systemctl enable virtlogd.socket
+$ sudo systemctl restart virtlogd.socket
+$ exec sudo su -l $USER
+
+# Minikube
+$ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+$ sudo dpkg -i minikube_latest_amd64.deb
+
+# kubectl
+$ sudo snap install kubectl --classic
+----
+
+== Minikube
 
 *Starten*
 
-[source]
+[source,bash]
 ----
-$ cd minishift-1.34.3-linux-amd64
-$ sudo ./minishift start
-# ...
-OpenShift server started.
+$ minikube start --driver=kvm2
 
-The server is accessible via web console at:
-    https://192.168.42.166:8443/console
-
-You are logged in as:
-    User:     developer
-    Password: <any value>
-
-To login as administrator:
-    oc login -u system:admin
+😄  minikube v1.16.0 auf Ubuntu 20.04
+✨  Using the kvm2 driver based on existing profile
+👍  Starting control plane node minikube in cluster minikube
+🔄  Restarting existing kvm2 VM for "minikube" ...
+🐳  Vorbereiten von Kubernetes v1.20.0 auf Docker 20.10.0...
+🔎  Verifying Kubernetes components...
+🌟  Enabled addons: storage-provisioner, default-storageclass
+🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
 
 ----
 
-_Tipp: `oc` in den Path aufnehmen:_
-
-[source]
+[source,bash]
 ----
-$ export PATH=$PATH:~/minishift-1.34.3-linux-amd64/:~/.minishift/cache/oc/v3.11.0/linux/
-----
+$ kubectl get pods -A
 
-=== Deployment nach OKD: 1. Projekt erstellen und Build konfigurieren
+kube-system       coredns-74ff55c5b-nhmkn            1/1     Running   2          100m
+kube-system       etcd-minikube                      1/1     Running   2          100m
+kube-system       kube-apiserver-minikube            1/1     Running   2          100m
+kube-system       kube-controller-manager-minikube   1/1     Running   2          100m
+kube-system       kube-proxy-5972h                   1/1     Running   2          100m
+kube-system       kube-scheduler-minikube            1/1     Running   2          100m
+kube-system       storage-provisioner                1/1     Running   4          100m
 
-[source]
-----
-# Namespace für das Projekt erstellen
-$ oc new-project lesson03-test
-
-# Build für das Projekt erstellen
-$ oc new-build --binary --name=lesson03-test -l app=lesson03-test
-    * A Docker build using binary input will be created
-      * The resulting image will be pushed to image stream tag "lesson03-test:latest"
-      * A binary build was created, use 'start-build --from-dir' to trigger a new build
-
---> Creating resources with label app=lesson03-test ...
-    imagestream.image.openshift.io "lesson03-test" created
-    buildconfig.build.openshift.io "lesson03-test" created
---> Success
-
-# Überprüfen
-$ oc get bc
-NAME            TYPE      FROM      LATEST
-lesson03-test   Docker    Binary    0
 ----
 
+== Minikube Extension
 
-=== Deployment nach OKD: 2. Build konfigurieren und ausführen
+* Vereinfachung des Deployments nach Minikube
+* Keine externe Docker Registry
+* NodePort statt Ingress
+* Generierung von minikube.yaml und minikube.json
+
+[source,xml]
+----
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-minikube</artifactId>
+</dependency>
+----
+
+=== Deployment nach Minikube
 
 [source]
 ----
-# Dockerfile referenzieren
-$ oc patch bc/lesson03-test -p '{"spec":{"strategy":{"dockerStrategy":{"dockerfilePath": "src/main/docker/Dockerfile.native"}}}}'
-buildconfig.build.openshift.io/lesson03-test patched
 
-# Verifizieren
-$ oc describe bc/lesson03-test
-$ oc describe bc/lesson03-test
-Name:           lesson03-test
-Namespace:      lesson03-test
-# ...
+# Namespace anlegen
+$ kubectl create namespace lesson07-docker
+namespace/lesson07-docker created
 
-# Build ausführen
-$ oc start-build lesson03-test --from-dir=. --follow
+# In neuen Namespace wechseln
+$ kubectl config set-context --current --namespace=lesson07-docker
+Context "minikube" modified.
 
-# Ergebnis verifizieren
-$ oc get is
-NAME            DOCKER REPO                                   TAGS      UPDATED
-lesson03-test   172.30.1.1:5000/lesson03-test/lesson03-test   latest    42 seconds ago
+# Minikube Docker Daemon verwenden
+$ eval $(minikube -p minikube docker-env)
+
+# Projekt und Image bauen
+$ mvn package
+
+# Projekt deployen
+$ kubectl apply -f target/kubernetes/kubernetes.json
+# bzw.
+$ kubectl apply -f target/kubernetes/minikube.json
+
+# Deployment prüfen
+$ kubectl get deployments
+$ kubectl get pods
+$ kubectl get services
+
+# Ermitteln der Adresse (bei Minikube Extension -> NodePort)
+$ minikube service list
 ----
-
-Hinweis: `Dockerfile.native` ist z.T. fehlerhaft. Zeilen 22-23 lauten korrekt
-[source]
-----
-COPY target/*-runner /work/application
-RUN chown -R 1001:root /work/application
-----
-
-=== Deployment nach OKD: 3. Anwendung starten und einbinden
-
-[source]
-----
-# App und Image-Stream erstellen
-$ oc new-app --image-stream=lesson03-test:latest
---> Found image a5637f4 (2 minutes old) in image stream "lesson03-test/lesson03-test" under tag "latest" for "lesson03-test:latest"
-# ...
-
-# Route anlegen
-$ oc expose svc/lesson03-test
-route.route.openshift.io/lesson03-test exposed
-
-# Adresse abfragen
-$ oc get route lesson03-test -o jsonpath --template="{.spec.host}"
-lesson03-test.192.168.42.166.nip.io
-----
-
-Die Anwendung ist nun unter lesson03-test.192.168.42.166.nip.io (ggf. abweichend) erreichbar.
-
-_Vorsicht bei link:https://forum.openwrt.org/t/nip-io-doesnt-work-for-local-network-behind-lede-solved-dns-rebind-protection/7766[-> DNS Rebind Protection]_
 
 == Aufgabe lesson07-docker
 
 *Aufgabenstellung*
 
-* Starten Sie OKD / minishift
-* Legen Sie Anwendung "order" aus lesson04-checks dort ab.
-** Erweitern Sie die Anwendung zuvor um einen Endpunkt, der Umgebungsvariablen ausgibt
+* Binden Sie die Minikube und JIB Extensions in das Projekt lesson04-checks ein, konfigurieren und bauen Sie es.
+* Starten Sie Minikube
+* Legen Sie das Image von lesson04-checks dort als Deployment ab.
 * Erzeugen Sie 10 Pods
 
 *Hinweise*
 
-* Sie können weitere Pod-Instanzen wie folgt erzeugen `$ oc scale --replicas=10 dc/lesson03-rest`
+* Sie können weitere Pod-Instanzen wie folgt erzeugen: `$ kubectl scale --replicas=3 deployment lesson07`
 * Optional: Liefern Sie beide Anwendungen aus Aufgabe 4 aus. Wie können Sie die URL für den RestClient konfigurieren?
 
 

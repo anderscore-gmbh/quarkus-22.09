@@ -4,14 +4,16 @@
 == Jakarta EE Microservices mit Quarkus & MicroProfile
 
 [.center]
-19.10. - 21.10.20 +
+18.01. - 20.01.21 +
 [.center]
-Jan Lühr
+{revealjs_speaker}
 
 image::anderscore/GFU.svg[height=300]
 
 [.columns]
 == Vorstellung
+
+////
 
 --
 [.heading]
@@ -25,11 +27,28 @@ Jan Lühr (B.Sc. Computer Science)
 ** Network- and Security-Techniques
 ** Trainings, Artikel, Vorträge
 ** Java, JavaScript, Ruby, …
-
-
 --
 
 image::anderscore/user-jluehr.png[pdfwidth=7cm]
+
+////
+
+--
+[.heading]
+Daniel Krämer (M.Sc. Informatik)
+
+* Software Engineer
+* Schwerpunkte
+** Software-Architektur
+** Integration und Migration
+** Web Engineering
+** Clean Code
+** Testautomatisierung
+** Trainings, Artikel, Vorträge
+* Java, Spring, Quarkus, Wicket, Microservices, …
+--
+
+image::anderscore/user-dkraemer.jpg[]
 
 [.columns.text-center]
 == Unternehmen
@@ -44,7 +63,6 @@ image::anderscore/user-jluehr.png[pdfwidth=7cm]
 
 image:anderscore/anderScore_white.jpg[height=100]
 --
-
 
 == Inhalt und Ziel
 
@@ -74,13 +92,14 @@ Voraussetzungen::
 
 == Remote Training
 
-* Video-Konferenz über BigBlueButton (BBB)
-** Bildschirmfreigabe / Folien: Jetzt testen :-)
+* Video-Konferenz über Zoom
+** Bildschirmfreigabe für Folien
 ** Breakout Rooms für Übungen
 ** Lautsprecher + Mikrophon benötigt, Kamera empfehlenswert
-* Entwicklung: Remote Desktop Protocol (RDP) zur GfU
+* Entwicklung: Remote Desktop Protocol (RDP) zur GFU
 ** Praktische Übungen
-** Aufschaltung über BBB möglich
+** Ubuntu VM (Docker, Kubernetes)
+** Aufschaltung über Zoom möglich
 * Material auf GitHub
 
 === Vereinbarungen
@@ -89,7 +108,7 @@ Voraussetzungen::
 ** Gemeinsam zu vorgegebenen Zeiten
 ** Individuell während der Übungen
 * Erreichbarkeit Dozent
-** BigBlueButton (Chat, Mikrophon)
+** Zoom (Chat, Mikrophon)
 ** E-Mail
 ** Handy
 ** Kamera aus: gerade nicht anwesend bzw. ansprechbar
@@ -101,10 +120,10 @@ Voraussetzungen::
 == Material
 
 * Quarkus Guides +
-https://quarkus.io/guides/
+https://quarkus.io/guides
 
 * Quarkus Cheatsheet(s) +
-https://lordofthejars.github.io/quarkus-cheat-sheet/
+https://lordofthejars.github.io/quarkus-cheat-sheet
 
 * GitHub QuarkusIO +
 https://github.com/quarkusio/quarkus
@@ -125,31 +144,32 @@ Jetzt sind Sie dran!
 image::anybody.jpg[float=right, pdfwidth=4cm]
 
 == Ihre Umgebung
+
 * OpenJDK 11
 * Apache Maven
 * Gradle
 * GraalVM Community Edition
 * NodeJS
 * IntelliJ Community Edition
-* Docker CU
-* Minishift
+* Docker Community Edition
+* Minikube
 * Postman
 * Git
-
-_Demo_
 
 == Aufgabe 0.1
 
 Aufgabenstellung:
 
 * Verbinden Sie sich per RDP in Ihre Umgebung
-* Überprüfen Sie, dass OpenJDK 11 installiert ist `java -version`
+* Melden Sie sich an der Ubuntu VM an
+* Überprüfen Sie, dass OpenJDK 11 installiert ist: `java -version`
 * Laden Sie die Unterlagen zum Kurs herunter
 * Blenden Sie die Index-Folie (index.html) auf
-[source,shell script,indent=4]
+
+[source,bash,indent=4]
 ----
-$ git clone https://github.com/anderscore-gmbh/quarkus-2020.10.git
-Cloning into 'quarkus-2020.10'...
+$ git clone https://github.com/anderscore-gmbh/quarkus-2021.01.git
+Cloning into 'quarkus-2021.01'...
 remote: Enumerating objects: 378, done.
 remote: Counting objects: 100% (378/378), done.
 remote: Compressing objects: 100% (193/193), done.

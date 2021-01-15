@@ -1,10 +1,10 @@
 [state=no-title-footer]
-== Die Microprofile API
+== Die MicroProfile API
 
 [.center]
 Ein Standard für Microservices
 
-== Microprofile API
+== MicroProfile API
 
 --
 image::microprofile.png[width=700]
@@ -45,15 +45,15 @@ image::kumuluz.png[width=250]
 1. *Configuration*:
 Einheitlicher Ansatz zur Konfiguration.
 2. *Health*:
-Endpunkt für Health, liveness und readiness Checks
+Endpunkte für Health, liveness und readiness Checks
 3. *Fault Tolerance*:
 Ausfall-Strategie (z.B. Timeouts, Retry Policy, Fallback, Circuit Breaker)
 4. *Metrics*:
-Benchmarks auf Fach- und Anwendungsebene
+Metriken, Benchmarks auf Fach- und Anwendungsebene
 5. *OpenAPI*:
 Beschreibung der REST-Schnittstelle
 6. *Rest Client*
-Aufbauend auf JAX-RS, client-funktionalität
+Aufbauend auf JAX-RS, client-Funktionalität
 7. *OpenTracing*:
 Intrumentation für JAX-RS und CDI
 
@@ -159,7 +159,7 @@ link:https://quarkus.io/guides/config[Guide: Quarkus - Configuring your applicat
 === Konfiguration nach Profilen
 
 * dev - `quarkus:dev`
-* test - Automatische Tests
+* test - Automatisierte Tests
 * prod - Default
 
 *Eigene Profile Definieren: quarkus.profile*
@@ -260,7 +260,7 @@ Aufruf des Checks
 Konzept:
 
 * *Readiness*: Der Service kann aktuell (temporär) Daten verarbeiten / nicht verarbeiten.
-* *Liveness*: Der Service is aktiv oder dauerhaft gestört.
+* *Liveness*: Der Service is grundsätzlich aktiv oder dauerhaft nicht erreichbar.
 
 Eigenschaften:
 
@@ -385,9 +385,9 @@ API Documentation]
 
 Der Circuit-Breaker definiert Zustände:
 
-* *Closed state*: Der Stromkreis ist geschlossen, Requests werden bearbeitet
-* *Half-open state*: Einige Fehler treten auf, Requests werden in der Mehrzahl bearbeitet
-* *Open state*: Zu viele Fehler treten auf. Anfragen werden temporär zurück gewiesen
+* *Closed state*: Der Stromkreis ist geschlossen, Requests werden bearbeitet.
+* *Open state*: Requests werden nicht mehr beantwortet -> Anfragen werden zurückgewiesen.
+* *Half-open state*: Anfragen werden teilweise wieder durchgelassen, Requests werden in der Mehrzahl bearbeitet.
 
 == 3. Fault Tolerance: Circuit Breaker: Verwendung
 
@@ -411,7 +411,7 @@ public Response create(/* ... */)){
 
 *Half open* - so lange bis:
 
-* `successThreshold = 5` Requests hintereinander erfolgreich waren oder (-> Closed state)
+* `successThreshold = 5` Requests hintereinander erfolgreich waren (-> Closed state)
 * Alternativ: Open state auslöst
 
 link:https://download.eclipse.org/microprofile/microprofile-fault-tolerance-2.0.2/apidocs/index.html?org/eclipse/microprofile/faulttolerance/Retry.html[-> org.eclipse.microprofile.faulttolerance.CircuitBreaker]
@@ -480,7 +480,7 @@ erfolgreichen Annahmen, steht die Annahme wieder voll zur Verfügung.
 *Abfrage*
 
 * `curl -H"Accept: application/json" http://localhost:8080/metrics/application`
-* `curl -H"Accept: application/json" http://localhost:8080/metics` (auch System-Metrics)
+* `curl -H"Accept: application/json" http://localhost:8080/metrics` (auch System-Metrics)
 
 link:https://quarkus.io/guides/microprofile-metrics[
 -> Quarkus Metrics]
@@ -574,7 +574,7 @@ Implementieren Sie verschiedene Metriken für die `Order Resource`
 1. Im Ordner `lesson04-metrics/lesson04` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 4.1.
 2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-metrics/lesson04`
 
-== 5. OpenApi / Swagger UI
+== 5. OpenAPI / Swagger UI
 
 [.center]
 image:swagger.png[width=1200]
@@ -589,7 +589,7 @@ image:swagger.png[width=1200]
 * Tool-Sammlung
 * Auf OpenAPI aufbauend
 
-== OpenApi / Swagger UI: Verwendung
+== OpenAPI / Swagger UI: Verwendung
 
 *Dependency*
 [source,xml]
@@ -649,7 +649,7 @@ link:https://quarkus.io/guides/openapi-swaggerui[-> Guide: Quarkus Using OpenAPI
 
 *Aufgabenstellung*
 
-* Erstellen Sie ein aussagekräftige Dokumentation für die Orderesources
+* Erstellen Sie ein aussagekräftige Dokumentation für die OrderResource
 * Überprüfen Sie das Ergebnis in der Swagger UI
 
 *Hinweise*
@@ -759,8 +759,8 @@ public class MyResource {
 
 1. Der Eintrag *`quarkus.http.port=8080`* in der Datei `application.properties` bestimmt den HTTP-Port ‒
 *`mvn compile quarkus:dev -Ddebug=5006`* den Debug-Port.
-1. Im Ordner `lesson04-restclient/lesson04` befindet sich bereits ein Skelett, jedoch nur für einen Service
-2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-restclient/`. Das Beispiel enthält beide Projekte
+2. Im Ordner `lesson04-restclient/lesson04` befindet sich bereits ein Skelett, jedoch nur für einen Service
+3. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-restclient/`. Das Beispiel enthält beide Projekte
 
 == 7. OpenTracing API
 
@@ -857,9 +857,9 @@ Verfolgen Sie requests zwischen Franchise und Order-Service aus der letzten Ausg
 
 1. Der Eintrag *`quarkus.http.port=8080`* in der Datei `application.properties` bestimmt den HTTP-Port ‒
 *`mvn compile quarkus:dev -Ddebug=5006`* den Debug-Port.
-1. Im Ordner `lesson04-tracing/lesson04` befindet sich bereits ein Skelett, basierend auf der vorherigen Aufgabe.
+2. Im Ordner `lesson04-tracing/lesson04` befindet sich bereits ein Skelett, basierend auf der vorherigen Aufgabe.
 Es enthält den Franchise- und den Order-Service.
-2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-tracing/`.
-3. Integration von Jaeger in Elastic-Search: https://logz.io/blog/jaeger-and-the-elk-stack/
+3. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-tracing/`.
+4. Integration von Jaeger in Elastic-Search: https://logz.io/blog/jaeger-and-the-elk-stack/
 
 link:index.html#/_agenda[-> Zurück zur Übersicht]

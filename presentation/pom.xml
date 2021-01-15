@@ -16,9 +16,9 @@
 
     <properties>
         <presentation.title>Jakarta EE Microservices mit Quarkus &amp; MicroProfile</presentation.title>
-        <presentation.speaker>Jan Lühr</presentation.speaker>
+        <presentation.speaker>Daniel Krämer</presentation.speaker>
         <presentation.speaker.jobtitle>Senior Software Engineer</presentation.speaker.jobtitle>
-        <presentation.date>19.10. - 21.10.2020</presentation.date>
+        <presentation.date>18.01. - 20.01.2021</presentation.date>
         <!--values: gfu,individual Defines which schedule will be used for the training -->
         <presentation.promoter>gfu</presentation.promoter>
 

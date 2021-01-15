@@ -220,14 +220,14 @@ seit Servlet API 3.0
 == REST mit JSR 370 / JAX-RS 2.1
 
 [.heading]
-JSR 370: JavaTM API for RESTful Web Services (JAX-RS 2.1)
+JSR 370: Java API for RESTful Web Services (JAX-RS 2.1)
 
 * Vormals JSR-339, JSR-311
-* Packet `java.ws.rs`
+* Paket `java.ws.rs`
 * Implementierungen:
 ** Project Jersey (http://jersey.java.net), _Referenz_
 ** RESTEasy (https://resteasy.github.io/), _In Quarkus verwendet_
-* Pfade, HTTP-"verben", etc. als Annotationen
+* Pfade, HTTP-Verben, etc. als Annotationen
 
 [source,java,indent=0]
 ----

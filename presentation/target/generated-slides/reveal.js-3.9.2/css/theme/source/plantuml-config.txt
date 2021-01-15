@@ -1,5 +1,0 @@
-skinparam class {
- BackgroundColor #DDEEE8
- BorderColor #225C4D
- ArrowColor #225C4D
- }

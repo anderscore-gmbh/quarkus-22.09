@@ -283,7 +283,7 @@ Im Rahmen der Anforderungserhebung wurden bereits einige User Stories ermittelt.
 * *US-09*: Als Pförtner möchte ich die Schranke mit einem auf dem Dauerparkausweis aufgedruckten Code öffnen können, falls der Chip auf dem Ausweis selbst nicht mehr lesbar ist.
 * *US-10*: Als Kunde möchte ich einen Dauerparkausweis online für ein weiteres Parkhaus des Betreibers freischalten, um dort künftig mein Auto abstellen zu können.
 
-== Domain Driven Design: Übung
+== Aufgabe 2 - Domain Driven Design
 
 * *US-11*: Als Parkhausbetreiber möchte ich online eine Statistik über die durchschnittliche Parkdauer an einem Standort erhalten, um meine Angebote besser zuschneiden zu können.
 * *US-12*: Als Kunde möchte ich ein Ticket am Automaten bar bezahlen können, um anschließend aus dem Parkhaus herausfahren zu können.
@@ -519,7 +519,7 @@ include::sources/SampleResource.java[]
 ** Docker
 ** Kubernetes oder Docker Swarm
 * Zentrales Monitoring und Logging
-** Prometheus, Grafana
+** Prometheus, Grafana, Instana
 ** ElasticSearch, LogStash, Kibana
 
 == Rahmenbedingungen für Quarkus: The Twelve-Factor App
@@ -537,7 +537,7 @@ include::sources/SampleResource.java[]
 11. *Logs*:  Logs als Strom von Ereignissen behandeln
 12. *Admin processes*: Admin/Management-Aufgaben als einmalige Vorgänge behandeln
 
-Siehe auch: https://12factor.net/
+Siehe auch: https://12factor.net
 
 == Zusammenfassung Microservices
 
@@ -547,7 +547,6 @@ Siehe auch: https://12factor.net/
 * Abgrenzung mittels Bounded Contexts und Context Map
 * Vielseitige Integrationsmöglichkeiten
 * Microservice API Patterns
+* Cloud: Twelve-Factor Apps
 
 link:index.html#/_agenda[-> Zurück zur Übersicht]
-
-// include::closing.adoc[]

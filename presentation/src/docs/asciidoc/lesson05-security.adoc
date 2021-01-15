@@ -179,8 +179,8 @@ link:https://quarkus.io/guides/security-keycloak-authorization[-> Guide: Using O
 Was kann Quarkus?
 
 * Basic und formular-basiert (auch LDAP)
-* OpenID connect (auch OAuth2; d.h. Authorization)
-* Json Web Token (JWT) ohne OpenID connect workflow
+* OpenID Connect (auch OAuth2; d.h. Authorization)
+* JSON Web Token (JWT) ohne OpenID Connect Workflow
 * TLS Zertifikate (X.509)
 
 link:https://quarkus.io/guides/security[-> Quarkus Security Architecture and Guides]
@@ -275,9 +275,9 @@ public class UsersResource {
 
 === Plain-JWT
 
-* Json-Web-Token (JWT) als Ersatz für ein Kennwort
+* JSON Web Token (JWT) als Ersatz für ein Kennwort
 * Token intern validierbar
-* Auch: Validierung über keycloak möglich
+* Auch: Validierung über Keycloak möglich
 
 [source,xml]
 ----
@@ -289,7 +289,7 @@ public class UsersResource {
 === Plain-JWT: Einbindung
 [source,java]
 ----
-Path("/secured")
+@Path("/secured")
 @RequestScoped
 public class TokenSecuredResource {
     @Inject
@@ -352,7 +352,7 @@ Beschränken Sie Aufrufe auf den Order-Service:
 
 * Benutzer mit Rolle `user` dürfen Bestellungen erstellen; sonst ist die Rolle `admin` erforderlich.
 * Nutzen Sie Elytron. Legen Sie Kennwörter in der `.properties`-Datei ab.
-* Verschlüsseln Sie Zugriffe mit TLS
+* Verschlüsseln Sie Zugriffe mit TLS.
 
 *Hinweise*
 

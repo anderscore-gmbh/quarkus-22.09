@@ -120,7 +120,11 @@ link:https://quarkus.io/guides/kafka[-> Guide: Using Apache Kafka with Reactive 
 
 *Aufgabenstellung*
 
-Zur Integration in das Franchise soll der Pizza-Service Aufträge per Kafka in JSON abwickeln:
+Arbeiten Sie das Tutorial link:https://medium.com/big-data-engineering/hello-kafka-world-the-complete-guide-to-kafka-with-docker-and-python-f788e2588cfc[Hello Kafka World!] bis einschließlich "Hello Consumer" durch.
+
+Legen Sie die Topics `order-v1-incoming` und `order-v1-delivery` auf Ihrem lokalen Kafka Broker an.
+
+Zur Integration in das Franchise soll der Pizza-Service Aufträge anschließend per Kafka in JSON abwickeln:
 
 * `order-v1-incoming` wird konsumiert. Hier gehen Bestellungen ein.
 * `order-v1-delivery` wird produziert. Hier gehen Bestellungen an die Lieferabteilung
@@ -129,12 +133,12 @@ Zur Integration in das Franchise soll der Pizza-Service Aufträge per Kafka in J
 *Hinweise*
 
 * Ein Skelett liegt in lesson08-kafka. Es basiert auf `lesson03-panache`. Eine Beispiellösung liegt im
-Ordner `solutions/lesson03-kafka`.
-* Der Broker ist unter `kafka.k.anderscore.com:9092` erreichbar (ohne Zugangsdaten).
+Ordner `solutions/lesson08-kafka`.
+* Der Broker ist unter `localhost:9092` erreichbar (ohne Zugangsdaten).
 * Erzeugen: +
-`kafkacat -b kafka.k.anderscore.com:9092 -t order-v1-incoming -T -P order.json`
+`kafkacat -b localhost:9092 -t order-v1-incoming -T -P order.json`
 * Lesen : +
-`kafkacat -b kafka.k.anderscore.com:9092 -t order-v1-delivery`
+`kafkacat -b localhost:9092 -t order-v1-delivery`
 
 https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/2.2/emitter/emitter.html[
 -> Emitter - Senden ohne @Outgoing] | link:index.html#/_agenda[-> Zurück zur Übersicht]
