@@ -150,12 +150,12 @@ Business Service definieren und injizieren (CDI)
 [source,java]
 .GreetingService.java
 ----
-include::sources/lessen01-intro-business-service.java[]
+include::sources/lesson01-intro-business-service.java[]
 ----
 [source,java]
 .GreetingResource.java (ergänzen)
 ----
-include::sources/lessen01-intro-extend-resouce.java[]
+include::sources/lesson01-intro-extend-resouce.java[]
 ----
 
 == Guide: Getting started
@@ -179,7 +179,7 @@ __  ____  __  _____   ___  __ ____  ______
 
 .Shell #2
 ----
-$ curl -w "\n" http://localhost:8080/hello/greeting/GfU
+$ curl -w "\n" http://localhost:8080/echo/GfU
 hello GfU
 ----
 

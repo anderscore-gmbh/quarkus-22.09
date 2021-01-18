@@ -26,7 +26,8 @@ link:greeting.html[Begrüßung]
 . link:lesson01-intro.html[Einführung]
 . link:lesson02-microservices.html[µService Grundlagen]
 . Erstellung eines Services
-    (link:lesson03-rest.html[REST / JAX-RS],
+    (link:lesson03-cdi.html[CDI],
+    link:lesson03-rest.html[REST / JAX-RS],
     link:lesson03-jpa.html[JPA])
 . link:lesson04-microprofile.html[MicroProfile im Detail]
 . link:lesson05-security.html[Security: Authentication & Authorization]

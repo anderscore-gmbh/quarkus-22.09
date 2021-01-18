@@ -1,0 +1,168 @@
+﻿== Dependency Injection
+
+[.heading]
+Herausforderung
+
+[plantuml, di-context, svg, align=center, width=1200, height=600, pdfwidth=8cm]
+....
+class MyService
+interface UsedService
+
+MyService -> UsedService
+UsedService <|-- ImplA
+UsedService <|-- ImplB
+UsedService <|-- ImplC
+....
+
+=== Dependency Injection (DI)
+
+[plantuml, di, svg, align=center, width=600, height=200, pdfwidth=6cm]
+....
+class MyService {
+    getUsedService(): UsedService
+    setUsedService(service: UsedService)
+}
+....
+
+=== Service Locator
+
+[plantuml, service-locator, svg, align=center, width=1200, height=300, pdfwidth=8cm]
+....
+class MyService
+class ServiceLocator {
+    getUsedService(): UsedService
+}
+
+MyService -> ServiceLocator
+....
+
+=== Inversion of Control
+
+[plantuml, ioc, svg, align=center, width=1200, height=600, pdfwidth=10cm]
+....
+skinparam handwritten true
+
+class "Inversion of Control (IoC)" as ioc
+class "Dependency Injection" as di
+class "Service Locator" as sl
+
+ioc <|-- di
+ioc <|-- sl
+
+hide members
+hide circle
+....
+
+== Hypothetisches Anwendungsbeispiel
+
+Wiederverwendbare Bibliothek zum Speichern von
+benutzerspezifischen Voreinstellungen:
+
+[source,java]
+.PreferencesService.java
+----
+public interface PreferencesService {
+    void savePreference(String key, String value);
+    String loadPreference(String key);
+}
+----
+
+=== Präzisierung der Anforderungen
+
+- Anwendungen müssen eine Referenz auf den PreferencesService bekommen
+- PreferencesService benötigt ID des aktuellen Users
+- Persistenzschicht muss zum Anwendungskontext passen
+
+=== Entwurf
+
+[plantuml, draft, svg, width=1600, height=350, align=center]
+....
+@startuml
+
+interface UserProvider
+UserProvider : getCurrentUserId(): String
+
+interface PreferencesService
+PreferencesService : savePreference(key : String, value: String)
+PreferencesService : loadPreference(key : String): String
+
+UserProvider <-- PreferencesServiceImpl
+PreferencesService <|.. PreferencesServiceImpl
+PreferencesRepository <-- PreferencesServiceImpl
+
+interface PreferencesRepository
+PreferencesRepository : savePreference(userId : String, key : String, value: String)
+PreferencesRepository : loadPreference(userId : String, key : String): String
+
+@enduml
+....
+
+.Problemstellungen:
+
+. Wie kommt die Anwendung an den PreferencesService?
+. Wie kommt der PreferencesService an UserProvider und PreferencesRepository?
+
+=== Lösung 1: Service Locator
+
+[source,java,indent=0]
+----
+    ServiceRegistry registry = ServiceRegistryFactory
+            .newInstance().getServiceRegistry();
+
+    @Override
+    public String loadPreference(String key) {
+        String userId = registry
+                .getUserProvider()
+                .getUserId();
+        return registry
+                .getPreferencesRepository()
+                .loadPreference(userId, key);
+    }
+----
+
+=== Lösung 2: Dependency Injection
+
+[source,java,indent=0]
+----
+    private FxUserProvider userProvider;
+    private JdbcPreferencesRepository preferencesRepository;
+    private PreferencesServiceImpl preferencesService;
+
+    private void plumb() {
+        userProvider = new FxUserProvider();
+        preferencesRepository = new JdbcPreferencesRepository();
+        preferencesService = new PreferencesServiceImpl();
+        preferencesService.setUserProvider(userProvider);
+        preferencesService.setPreferencesRepository(preferencesRepository);
+    }
+----
+
+=== CDI
+
+* Contexts and Dependency Injection
+* Seit 2009 Teil von JEE
+* Dependency Injection über Annotationen
+* Decorators, Interceptors
+
+[source,java,indent=0]
+----
+@ApplicationScoped
+public class MyService {
+
+    @Inject
+    private UsedService usedService;
+}
+----
+
+=== Scopes
+
+* @ApplicationScoped
+* @SessionScoped
+* @ConversationScoped
+* @RequestScoped
+
+== Dependency Injection
+[.heading]
+Fragen?
+
+link:index.html#/_agenda[-> Zurück zur Übersicht]
