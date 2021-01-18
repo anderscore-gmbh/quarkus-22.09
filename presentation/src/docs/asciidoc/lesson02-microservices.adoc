@@ -34,7 +34,7 @@ Was sind die Anforderung an das Quarkus Framework? +
 Warum modularisieren wir?
 
 * Beherrschung der Komplexität
-* Parallelsierung der Entwicklung
+* Parallelisierung der Entwicklung
 * Auffindbarkeit von Code
 * Erleichterung der Wartung
 
@@ -170,16 +170,6 @@ image::lesson02/SCS.png[pdfwidth=60%,height=500]
 == Architektur
 
 [.heading]
-Mikro-Architektur
-
-* Wie sollte ein Service aufgebaut sein?
-* Welche Technologien nutzen wir im Detail?
-* Wie setzen wir Autorisierung um?
-
-
-== Architektur
-
-[.heading]
 Makro-Architektur
 
 * _Welche Services brauchen wir?_
@@ -191,7 +181,6 @@ Ansatz: _Fachlicher Schnitt_
 
 == Domain Driven Design
 
-
 [.heading]
 Wie klein (oder groß) soll ein µService sein?
 
@@ -200,7 +189,6 @@ Wie klein (oder groß) soll ein µService sein?
 * [x] Wie groß sollte ein Service sein?
 * [x] Wie viele Services brauchen wir?
 * [x] Wie sollen die Schnittstellen aussehen?
-
 
 [.columns]
 == Domain Driven Design
@@ -218,7 +206,6 @@ Siehe auch:
 
 * https://www.heise.de/developer/artikel/Der-perfekte-Microservice-3091905.html
 * https://www.heise.de/developer/artikel/Microservices-Warum-ein-Domain-Model-in-die-verkehrte-Richtung-fuehren-kann-4142695.html
-
 
 == Domain Driven Design: Elemente
 
@@ -291,6 +278,15 @@ Im Rahmen der Anforderungserhebung wurden bereits einige User Stories ermittelt.
 * *US-14*: Als Kunde möchte ich die verschlossene Eingangstür zum Parkhaus mit meinem Ticket oder Dauerparkausweis öffnen können.
 * *US-15*: Als Kunde möchte ich meinen Dauerparkausweis monatlich per Kreditkarte bezahlen, um nicht in Verzug zu geraten.
 * *US-16*: Als Kunde möchte ich die hinterlegte eMail-Adresse zu meinem Dauerparkausweis ändern, um zeitnah über neue AGB benachrichtigt zu werden.
+
+== Architektur
+
+[.heading]
+Mikro-Architektur
+
+* Wie sollte ein Service aufgebaut sein?
+* Welche Technologien nutzen wir im Detail?
+* Wie setzen wir Autorisierung um?
 
 == API Design
 
@@ -483,28 +479,6 @@ include::sources/SampleResource.java[]
 * Orientierung an Use Cases und DDD Services
 * Verwendung von Patterns
 . Dokumentation
-
-// == Übung
-
-//. Implementieren Sie den `AbrechnungService`:
-// * Erstellen Sie einen REST Microservice
-// * Stellen Sie eine API bereit, mit der ein Parkticket vom Automaten als bezahlt deklariert werden kann.
-// * Sehen Sie eine API vor, mit welcher sich die erfolgte Bezahlung eines Tickets überprüfen lässt.
-//. Erstellen Sie den `ZugangskontrollService`
-//* Generieren Sie einen weiteren Microservice.
-//* Bieten Sie der Schranke eine API zum Prüfen eines Tickets an. Das Ergebnis kann "EXIT GRANTED" oder "EXIT DENIED" lauten.
-//* Fragen Sie zur Ermittlung des Ergebnisses die Bezahlung beim `AbrechnungService` ab.
-//* Was passiert, wenn der `AbrechnungService` nicht verfügbar ist? Wie gehen Sie damit um?
-//. Testen Sie ihre Anwendung mit cURL oder SoapUI.
-//. Bonus: Dokumentieren Sie die APIs mit OpenAPI.
-//. Bonus: Implementieren Sie auch den Rest der Parkhausanwendung!
-
-//== Übung
-
-//[.heading]
-//Context Map
-
-//image::lesson02/ContextMapParkhaus.png[height=400]
 
 == Microservices im Unternehmenseinsatz: Gesamtarchitektur
 

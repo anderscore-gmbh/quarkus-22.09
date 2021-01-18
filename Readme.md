@@ -57,9 +57,9 @@ Bei der GfU haben wir die Installation folgender Komponenten angefragt:
 2. Apache Maven
 3. GraalVM Community Edition - bitte in das Homeverz. des Benutzers und die env-variable GRAALVM_HOME entsprechend setzen. Bitte auch in den Path aufnehmen.
 4. NodeJS, Version 10 oder neuer; gerne systemweit
-5. IntelliJ Community Edition
+5. IntelliJ Community Edition + Quarkus Tools + Quarkus Run Configs
 6. Docker CE - der Benutzer des Teilnehmenden sollte in der Docker-Gruppe sein, d.h. den Daemon aufrufen können
-7. Minikube und KVM
+7. Minikube + KVM
 8. git
 9. Postman (https://www.postman.com/downloads/)
 10. Quarkus IntelliJ Plugin (https://plugins.jetbrains.com/plugin/13234-quarkus-tools)

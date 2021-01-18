@@ -43,16 +43,16 @@ image::kumuluz.png[width=250]
 == Microprofile API: Relevante Bestandteile
 
 1. *Configuration*:
-Einheitlicher Ansatz zur Konfiguration.
+Einheitlicher Ansatz zur Konfiguration
 2. *Health*:
-Endpunkte für Health, liveness und readiness Checks
+Endpunkte für Health, Liveness und Readiness Checks
 3. *Fault Tolerance*:
 Ausfall-Strategie (z.B. Timeouts, Retry Policy, Fallback, Circuit Breaker)
 4. *Metrics*:
 Metriken, Benchmarks auf Fach- und Anwendungsebene
 5. *OpenAPI*:
 Beschreibung der REST-Schnittstelle
-6. *Rest Client*
+6. *Rest Client*:
 Aufbauend auf JAX-RS, client-Funktionalität
 7. *OpenTracing*:
 Intrumentation für JAX-RS und CDI
@@ -164,7 +164,7 @@ link:https://quarkus.io/guides/config[Guide: Quarkus - Configuring your applicat
 
 *Eigene Profile Definieren: quarkus.profile*
 
-* System property: `-Dquarkus.profile`
+* System Property: `-Dquarkus.profile`
 * Umgebungs-Variable: `QUARKUS_PROFILE`
 
 Property-Syntax:
@@ -385,9 +385,9 @@ API Documentation]
 
 Der Circuit-Breaker definiert Zustände:
 
-* *Closed state*: Der Stromkreis ist geschlossen, Requests werden bearbeitet.
-* *Open state*: Requests werden nicht mehr beantwortet -> Anfragen werden zurückgewiesen.
-* *Half-open state*: Anfragen werden teilweise wieder durchgelassen, Requests werden in der Mehrzahl bearbeitet.
+* *Closed State*: Der Stromkreis ist geschlossen, Requests werden bearbeitet.
+* *Open State*: Requests werden nicht mehr beantwortet -> Anfragen werden zurückgewiesen.
+* *Half-open State*: Anfragen werden teilweise wieder durchgelassen, Requests werden in der Mehrzahl bearbeitet.
 
 == 3. Fault Tolerance: Circuit Breaker: Verwendung
 
@@ -407,9 +407,9 @@ public Response create(/* ... */)){
 * Für `delay = 1000 ms`, falls
 * Von den letzten `requestVolumeThreshold = 4`
 * 75% (d.h. `failureRatio = 0.75`) fehlerhaft sind.
-* Danach: Half open
+* Danach: Half-open
 
-*Half open* - so lange bis:
+*Half-open* - so lange bis:
 
 * `successThreshold = 5` Requests hintereinander erfolgreich waren (-> Closed state)
 * Alternativ: Open state auslöst
@@ -554,7 +554,7 @@ public void doSth() {
 }
 ----
 
-* "Recommended" im Quarkus-Guide, aber nicht Teil von Microprofile
+* "Recommended" im Quarkus-Guide, aber nicht Teil von MicroProfile
 
 link:https://quarkus.io/guides/micrometer[-> Guide: Quarkus Micrometer]
 
@@ -710,7 +710,7 @@ public interface HelloWordService {
     @GET
     @Path("{name}")
     @Produces("application/json")
-    GreetingMsg getByName(@PathParam String name);
+    GreetingMsg getByName(@PathParam("name") String name);
 
     public static class GreetingMsg {
         public String message;

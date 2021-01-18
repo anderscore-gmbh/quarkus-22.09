@@ -80,14 +80,14 @@ System-Voraussetzungen
 [.heading]
 IDE Unterstützung
 
-* Eclipse: Teil der JBoss Tools: https://tools.jboss.org & Code Ready Studio (Redhat Support)
+* Eclipse: JBoss Tools (https://tools.jboss.org) & Code Ready Studio (Redhat Support)
 * IntelliJ
-** Quarkus Tools (Redhat): https://plugins.jetbrains.com/plugin/13234-quarkus-tools
+** Quarkus Tools: https://plugins.jetbrains.com/plugin/13234-quarkus-tools
+** Quarkus Run Configs: https://plugins.jetbrains.com/plugin/14242-quarkus-run-configs
 ** Quarkus (Ultimate Edition): https://www.jetbrains.com/help/idea/quarkus.html
-* Quarkus Tools for Microsoft Visual Studio Code
-**  https://marketplace.visualstudio.com/items?itemName=redhat.vscode-quarkus
+* Microsoft Visual Studio Code: Quarkus Tools (https://marketplace.visualstudio.com/items?itemName=redhat.vscode-quarkus)
 
-_Die Beispiele verwenden IntelliJ/Quarkus Tools. Sie sind jedoch frei in der Wahl Ihrer IDE._
+_Die Beispiele verwenden IntelliJ + Quarkus Tools + Quarkus Run Configs. Sie sind jedoch frei in der Wahl Ihrer IDE._
 
 == Guide: Getting started
 
@@ -108,7 +108,7 @@ Projekt generieren
 $ mvn io.quarkus:quarkus-maven-plugin:1.10.5.Final:create \
   -DprojectGroupId=net.gfu.quarkus \
   -DprojectArtifactId=hello \
-  -DclassName="net.gfu.quarkus.hello.GreetingResource" \
+  -DclassName="net.gfu.quarkus.hello.HelloResource" \
   -Dpath="/hello"
 ----
 {nbsp}
@@ -135,30 +135,30 @@ Artefakte
     * *Dockerfile.jvm* - Container mit OpenJDK
     * *Dockerfile.fast-jar* - _fast-jar_-Variante, Container mit OpenJDK
     * *Dockerfile.native* - Container mit _ahead-of-time-compilation_ native image (GraalVM)
-. src/main/java/net.gfu.quarkus.hello.*GreetingResource.java* - Java Implementation
+. src/main/java/net.gfu.quarkus.hello.*HelloResource.java* - Java Implementation
 . src/main/resources/META-INF
     * *application.properties* - Zentrale Konfiguration
     * resources/*index.html* - Freundliche Index-Seite
 . src/test/java/net.gfu.quarkus.hello
-    * *GreetingResourceTest* - Einfacher Integrationstest (REST-assured)
-    * *NativeGreetingResourceIT* - Integrationstest im _ahead-of-time-compilation_ Setup
+    * *HelloResourceTest* - Einfacher Integrationstest (REST-assured)
+    * *NativeHelloResourceIT* - Integrationstest im _ahead-of-time-compilation_ Setup
 . *pom.xml* - Maven Konfiguration - Quarkus Version z.T. abweichend vom ArcheType
 
 == Guide: Getting started - Projekt erweitern
 [.heading]
 Business Service definieren und injizieren (CDI)
 [source,java]
-.GreetingService.java
+.HelloService.java
 ----
 include::sources/lesson01-intro-business-service.java[]
 ----
 [source,java]
-.GreetingResource.java (ergänzen)
+.HelloResource.java (ergänzen)
 ----
 include::sources/lesson01-intro-extend-resouce.java[]
 ----
 
-== Guide: Getting started
+== Guide: Getting started - Projekt erweitern
 
 [.heading]
 Erweitertes Projekt testen
@@ -179,7 +179,7 @@ __  ____  __  _____   ___  __ ____  ______
 
 .Shell #2
 ----
-$ curl -w "\n" http://localhost:8080/echo/GfU
+$ curl -w "\n" http://localhost:8080/hello/GfU
 hello GfU
 ----
 
@@ -190,7 +190,7 @@ Aufgabe 1.1 - Quarkus Echo
 
 Erzeugen Sie neues Quarkus Projekt und definieren Sie eine Resource echo mit folgender Ausgabe:
 ----
-$ curl -w "\n" http://localhost:8080/echo/Quarkus4711
+$ curl -w "\n" http://localhost:8080/hello/Quarkus4711
 Quarkus4711
 ----
 

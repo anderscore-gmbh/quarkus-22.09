@@ -1,4 +1,10 @@
-﻿== Dependency Injection
+﻿[state=no-title-footer]
+== CDI
+
+[.center]
+Was hat es damit auf sich?
+
+== Dependency Injection
 
 [.heading]
 Herausforderung
@@ -22,18 +28,6 @@ class MyService {
     getUsedService(): UsedService
     setUsedService(service: UsedService)
 }
-....
-
-=== Service Locator
-
-[plantuml, service-locator, svg, align=center, width=1200, height=300, pdfwidth=8cm]
-....
-class MyService
-class ServiceLocator {
-    getUsedService(): UsedService
-}
-
-MyService -> ServiceLocator
 ....
 
 === Inversion of Control
@@ -102,25 +96,7 @@ PreferencesRepository : loadPreference(userId : String, key : String): String
 . Wie kommt die Anwendung an den PreferencesService?
 . Wie kommt der PreferencesService an UserProvider und PreferencesRepository?
 
-=== Lösung 1: Service Locator
-
-[source,java,indent=0]
-----
-    ServiceRegistry registry = ServiceRegistryFactory
-            .newInstance().getServiceRegistry();
-
-    @Override
-    public String loadPreference(String key) {
-        String userId = registry
-                .getUserProvider()
-                .getUserId();
-        return registry
-                .getPreferencesRepository()
-                .loadPreference(userId, key);
-    }
-----
-
-=== Lösung 2: Dependency Injection
+=== Lösung: Dependency Injection
 
 [source,java,indent=0]
 ----

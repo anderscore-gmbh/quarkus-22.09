@@ -1,7 +1,7 @@
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class GreetingService {
+public class HelloService {
     public String greeting(String name) {
         return "hello " + name;
     }

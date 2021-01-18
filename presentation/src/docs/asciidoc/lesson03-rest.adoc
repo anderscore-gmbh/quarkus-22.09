@@ -187,36 +187,6 @@ unterstützten Methoden enthalten, z. B. `Allow: GET, PUT`
 
 * JSON-API
 
-== Webanwendungen mit Java
-
-* Servlet-API seit 1996 (aktuell 4.0 seit Sept. 2017 als Teil von JavaEE 8)
-* Servlets können aus Java Server Pages (JSPs) erzeugt werden
-* Werden als WAR deployed
-* Ausführbar auf Servlet Container (z.B. Tomcat) oder Application Server (z.B. GlassFish)
-
-=== Einfaches Servlet
-
-[source,java,indent=0]
-----
-include::sources/HelloServlet.java[tags=servlet]
-----
-
-=== Zugehörige WEB-INF/web.xml
-
-[source,xml,indent=0]
-----
-include::sources/web.xml[]
-----
-
-=== Servlet ohne web.xml
-
-[source,java,indent=0]
-----
-include::sources/HelloServletAnno.java[tags=servlet]
-----
-
-seit Servlet API 3.0
-
 == REST mit JSR 370 / JAX-RS 2.1
 
 [.heading]
@@ -360,7 +330,7 @@ https://jaxenter.de/wie-man-ein-zentralisiertes-rest-api-exception-handling-mit-
 ** Kaum Integration in IDE und CI/CD
 * Alternativ Integrationstest mit `@QuarkusTest`
 ** Start eines HTTP-Service zur Testausführung
-** Integration in maven.
+** Integration in Maven
 
 == Beispiel REST-APIs: Beispiel `@QuarkusTest`
 
@@ -369,7 +339,7 @@ https://jaxenter.de/wie-man-ein-zentralisiertes-rest-api-exception-handling-mit-
 @QuarkusTest
 public class StaticContentTest {
 
-    @TestHTTPEndpoint(GreetingResource.class)
+    @TestHTTPEndpoint(HelloResource.class)
     @TestHTTPResource
     URL url;
 
@@ -386,7 +356,7 @@ public class StaticContentTest {
     }
 }
 ----
-`@QuarkusTest`: Start eines HTTP-Service zur Testausführung, Integration in maven (surefire)
+`@QuarkusTest`: Start eines HTTP-Service zur Testausführung, Integration in mMven (Surefire)
 
 `@TestHTTPResource`, `@TestHTTPEndpoint:(GreetingResource.class)`: URL-Injection, Referenz
 
@@ -406,8 +376,8 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
-@TestHTTPEndpoint(GreetingResource.class)
-public class GreetingResourceTest {
+@TestHTTPEndpoint(HelloResource.class)
+public class HelloResourceTest {
 
     @Test
     public void testHelloEndpoint() {
