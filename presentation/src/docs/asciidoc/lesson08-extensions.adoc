@@ -120,21 +120,26 @@ link:https://quarkus.io/guides/kafka[-> Guide: Using Apache Kafka with Reactive 
 
 *Aufgabenstellung*
 
-Arbeiten Sie das Tutorial link:https://medium.com/big-data-engineering/hello-kafka-world-the-complete-guide-to-kafka-with-docker-and-python-f788e2588cfc[Hello Kafka World!] bis einschließlich "Hello Consumer" durch und legen Sie die Topics `order-v1-incoming` und `order-v1-delivery` auf Ihrem lokalen Kafka Broker an.
+Arbeiten Sie das Tutorial link:https://medium.com/big-data-engineering/hello-kafka-world-the-complete-guide-to-kafka-with-docker-and-python-f788e2588cfc[Hello Kafka World!] bis einschließlich "Hello Consumer" durch.
 
-Zur Integration in das Franchise soll der Pizza-Service Aufträge anschließend per Kafka in JSON abwickeln:
+Legen Sie anschließend die Topics `order-v1-incoming` und `order-v1-delivery` auf Ihrem lokalen Kafka Broker an.
+
+Zur Integration in das Franchise soll der Pizza-Service Aufträge danach per Kafka in JSON abwickeln:
 
 * `order-v1-incoming` wird konsumiert. Hier gehen Bestellungen ein.
 * `order-v1-delivery` wird produziert. Hier gehen Bestellungen an die Lieferabteilung
 ** Eine Bestellung ist lieferbereit, wenn per REST der Status auf `IN_DELIVERY` gesetzt wird
 
+== lesson08-kafka
+
 *Hinweise*
 
 * Ein Skelett liegt in lesson08-kafka. Es basiert auf `lesson03-panache`. Eine Beispiellösung liegt im
 Ordner `solutions/lesson08-kafka`.
-* Der Broker ist unter `localhost:9092` erreichbar (ohne Zugangsdaten).
-* Erzeugen: `kafkacat -b localhost:9092 -t order-v1-incoming -T -P order.json`
-* Lesen : `kafkacat -b localhost:9092 -t order-v1-delivery`
+* Ein einzelner Kafka Broker sowie ein Topic ohne Partitionierung und Replizierung ist ausreichend.
+* Port des lokalen Brokers: `$ docker port $(docker ps | grep 9092 | awk '{print $1}') 9092`
+* Erzeugen: `kafkacat -b localhost:<PORT> -t order-v1-incoming -T -P order.json`
+* Lesen : `kafkacat -b localhost:<PORT> -t order-v1-delivery`
 
 https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/2.2/emitter/emitter.html[
 -> Emitter - Senden ohne @Outgoing] | link:index.html#/_agenda[-> Zurück zur Übersicht]
