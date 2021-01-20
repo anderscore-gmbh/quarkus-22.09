@@ -26,7 +26,7 @@ Die GfU stellt Workstations für die Teilnehmer zur Verfügung - auch remote. Zu
 Für die Durchführung wird Docker (bzw. Linux benötigt). Da die GfU gerne RDP verwendet (ist angeblich schneller), gab es auf den Windows-Geräten (wegen RDP)
 eine vmware-VM mit Ubuntu Linux.
 
-Für die Schulung werden gültige TLS-Zertifikate benötigt. Let's encrypt Zertifikate liegen in der Datei certs.zip (Kennwort: GFUquarkus202010) - Ende der Gültigkeit 01/2021.
+Für die Schulung werden gültige TLS-Zertifikate benötigt. Let's encrypt Zertifikate liegen in der Datei certs.zip (Kennwort: GFUquarkus202101) - Ende der Gültigkeit 01/2021.
 
 Da sich Quarkus recht schnell entwickelt, muss vor einer Schulung die Folie mit den Versionsnummern angepasst werden.
 Es bietet sich darüber hinaus an, die Beispiele mit der aktuellen Version zu testen. Da die MicroProfile-API eher konservativ ist, sollte es eher wenig Probleme geben.
