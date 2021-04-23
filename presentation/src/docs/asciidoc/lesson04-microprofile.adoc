@@ -233,7 +233,7 @@ Vor Microprofile 3.0
 [.heading]
 Aufruf des Checks
 
-`curl http://127.0.0.1:8080/health`
+`curl http://127.0.0.1:8080/q/health`
 
 [source,json]
 ----
@@ -266,10 +266,10 @@ Eigenschaften:
 
 * Feinere Granularität
 * Aufruf:
-** `curl http://127.0.0.1:8080/health` (kombiniert)
-** `curl http://127.0.0.1:8080/health/live`
-** `curl http://127.0.0.1:8080/health/ready`
-** `chrome http://127.0.0.1:8080/health-ui` (kein Standard)
+** `curl http://127.0.0.1:8080/q/health` (kombiniert)
+** `curl http://127.0.0.1:8080/q/health/live`
+** `curl http://127.0.0.1:8080/q/health/ready`
+** `chrome http://127.0.0.1:8080/q/health-ui` (kein Standard)
 
 link:https://quarkus.io/guides/microprofile-health[-> Quarkus Microprofile Health]
 
@@ -414,7 +414,7 @@ public Response create(/* ... */)){
 * `successThreshold = 5` Requests hintereinander erfolgreich waren (-> Closed state)
 * Alternativ: Open state auslöst
 
-link:https://download.eclipse.org/microprofile/microprofile-fault-tolerance-2.0.2/apidocs/index.html?org/eclipse/microprofile/faulttolerance/Retry.html[-> org.eclipse.microprofile.faulttolerance.CircuitBreaker]
+link:https://download.eclipse.org/microprofile/microprofile-fault-tolerance-2.0.2/apidocs/index.html?org/eclipse/microprofile/faulttolerance/CircuitBreaker.html[-> org.eclipse.microprofile.faulttolerance.CircuitBreaker]
 
 == 3. Fault Tolerance: Bulkhead
 
