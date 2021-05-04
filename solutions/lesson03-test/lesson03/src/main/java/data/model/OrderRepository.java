@@ -3,6 +3,7 @@ package data.model;
 import javax.enterprise.context.ApplicationScoped;
 import java.math.BigDecimal;
 import java.util.*;
+import java.time.ZonedDateTime;
 
 /**
  * Einfaches, in-memory repository fuer Bestellungen
@@ -16,7 +17,7 @@ public class OrderRepository {
     static {
         Long id = 1L;
         db.put(id, new Order(
-                id, new Date(), 42L, Status.LOST, Arrays.asList("Funghi"), new BigDecimal(6.5)
+                id, ZonedDateTime.now(), 42L, Status.LOST, Arrays.asList("Funghi"), new BigDecimal(6.5)
         ));
     }
 
