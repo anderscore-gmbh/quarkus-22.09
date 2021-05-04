@@ -15,7 +15,6 @@ import static org.hamcrest.Matchers.*;
 @TestHTTPEndpoint(OrderResource.class)
 public class OrderResourceTest {
 
-
     @Test
     public void testNoOrder4711(){
         given()
@@ -30,7 +29,6 @@ public class OrderResourceTest {
                 .then().statusCode(200)
                 .body("status", equalTo("LOST"));
     }
-
 
     @Test
     public void testCannotCreateOrderWithGivenID(){
@@ -53,7 +51,5 @@ public class OrderResourceTest {
                 .body(obj)
                 .when().post("/")
                 .then().statusCode(201).body(is(emptyString()));
-
-
     }
 }
