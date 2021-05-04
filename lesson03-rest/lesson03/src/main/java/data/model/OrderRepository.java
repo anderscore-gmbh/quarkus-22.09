@@ -1,20 +1,23 @@
 package data.model;
 
+import javax.enterprise.context.ApplicationScoped;
 import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 /**
  * Einfaches, in-memory repository fuer Bestellungen
  */
+@ApplicationScoped
 public class OrderRepository {
 
     private static Long nonce = 1L;
 
     private static Map<Long,Order> db = new HashMap<>();
     static {
-        Long id = generateID();
+        Long id = 1L;
         db.put(id, new Order(
-                id, new Date(), 42L, Status.LOST, Arrays.asList("Funghi"), new BigDecimal(6.5)
+                id, ZonedDateTime.now(), 42L, Status.LOST, Arrays.asList("Funghi"), new BigDecimal(6.5)
         ));
     }
 
