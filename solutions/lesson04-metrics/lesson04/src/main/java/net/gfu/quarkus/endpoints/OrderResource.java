@@ -1,104 +1,80 @@
 package net.gfu.quarkus.endpoints;
 
-import data.model.Order;
-import data.model.OrderRepository;
-import io.quarkus.runtime.annotations.RegisterForReflection;
-import org.eclipse.microprofile.metrics.MetricUnits;
-import org.eclipse.microprofile.metrics.annotation.Counted;
-import org.eclipse.microprofile.metrics.annotation.Gauge;
-import org.eclipse.microprofile.metrics.annotation.Timed;
+import data.model.Status;
+import io.quarkus.test.common.http.TestHTTPEndpoint;
+import io.quarkus.test.junit.QuarkusTest;
+import org.junit.jupiter.api.Test;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.transaction.Transactional;
-import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
+import javax.json.Json;
+import javax.json.JsonObject;
+import java.time.ZonedDateTime;
 
-@Path("orders")
-@Produces("application/json")
-@Consumes("application/json")
-public class OrderResource {
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.*;
 
-    long gau = 42L;
+@QuarkusTest
+@TestHTTPEndpoint(OrderResource.class)
+public class OrderResourceTest {
 
-    // CRUD repository
-    @Inject
-    private OrderRepository repository;
-
-    // Create
-    @POST
-    @Transactional
-    @Counted(description = "Anzahl Bestellungen", absolute = true)
-    public Response create(Order o, @Context UriInfo uriInfo){
-        if(o == null) {
-            return Response.status(402).build();
-        }
-        if(o.getOrderId() != null) {
-            return Response.status(422).build();
-        }
-        this.repository.persist(o);
-
-        URI newUri;
-        try {
-            String path = uriInfo.getAbsolutePath().toString() + "/" + o.getOrderId();
-            newUri = new URI(path);
-        } catch (URISyntaxException e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-        }
-        return Response.created(newUri).build();
+    @Test
+    public void testNoOrder4711(){
+        given()
+                .when().get("4711")
+                .then().statusCode(404);
     }
 
-    // Read
-    @GET
-    @Path("{id}")
-    @Transactional
-    public Response read(@PathParam("id") Long id){
-        Order order = this.repository.findById(id);
-        if(order == null){
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-        return Response.ok(order).build();
+    @Test
+    public void testHasOrder1(){
+        // Creating JSON-Order Object
+        JsonObject obj = Json.createObjectBuilder()
+                .add("orderDateTime", ZonedDateTime.now().toString())
+                .add("customerId", 42L)
+                .add("status", Status.LOST.toString())
+                .add("pizzaList",Json.createArrayBuilder()
+                        .add(Json.createObjectBuilder()
+                                .add("name", "Funghi")
+                                .add("price", "6.5"))
+                        .build())
+                .add("totalPrize", "6.5").build();
+        given().contentType("application/json").body(obj).when().post("/");
+
+        // Test
+        given()
+                .when().get("1")
+                .then().statusCode(200)
+                .body("status", equalTo("LOST"));
     }
 
-    // Update
-    @PATCH
-    @Transactional
-    public Response update(Order o){
-        if(o.getOrderId() == null || this.repository.findById(o.getOrderId()) == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-        this.repository.persist(o);
-        return Response.noContent().build();
+    @Test
+    public void testCannotCreateOrderWithGivenID(){
+        JsonObject obj = Json.createObjectBuilder()
+                .add("customerId", 42L)
+                .add("orderId",42L).build();
+        given().contentType("application/json")
+                .body(obj)
+                .when().post("/")
+                .then().statusCode(422).body(is(emptyString()));
     }
 
-    // Delete
-    @DELETE
-    @Transactional
-    @Path("{id}")
-    public Response delete(@PathParam("id") Long id){
-        Order o = this.repository.findById(id);
-        if(o == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-        this.repository.delete(o);
-        return Response.noContent().build();
+    @Test
+    public void testCreateOrder(){
+        // Creating JSON
+        JsonObject obj = Json.createObjectBuilder()
+                .add("orderDateTime", ZonedDateTime.now().toString())
+                .add("customerId", 42L)
+                .add("status", Status.LOST.toString())
+                .add("pizzaList",Json.createArrayBuilder()
+                        .add(Json.createObjectBuilder()
+                                .add("name", "Funghi")
+                                .add("price", "6.5"))
+                        .build())
+                .add("totalPrize", "6.5").build();
+
+        // Test
+        given().contentType("application/json")
+                .body(obj)
+                .when().post("/")
+                .then().statusCode(201).body(is(emptyString()));
     }
-
-    // Index
-    @GET
-    @Transactional
-    @Timed(name = "listenAufruf", description = "Ladezeit Startseite", unit = MetricUnits.MILLISECONDS)
-    public List<Order> index(){
-        return this.repository.listAll();
-    }
-
-
-
-    
 }
-
