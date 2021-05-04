@@ -70,7 +70,6 @@ public class OrderResourceTest {
                                 .add("price", "6.5"))
                         .build())
                 .add("totalPrize", "6.5").build();
-        System.out.println(ZonedDateTime.now().toString());
         // Test
         given().contentType("application/json")
                 .body(obj)
