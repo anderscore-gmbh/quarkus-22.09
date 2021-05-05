@@ -7,13 +7,9 @@ import org.eclipse.microprofile.openapi.annotations.info.License;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Application;
 
-
-
-@Path("orders")
 @Produces("application/json")
 @Consumes("application/json")
 @OpenAPIDefinition(
