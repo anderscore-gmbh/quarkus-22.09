@@ -1,121 +1,80 @@
-package data.model;
+package net.gfu.quarkus.endpoints;
 
+import data.model.Status;
+import io.quarkus.test.common.http.TestHTTPEndpoint;
+import io.quarkus.test.junit.QuarkusTest;
+import org.junit.jupiter.api.Test;
 
-import org.slf4j.LoggerFactory;
+import javax.json.Json;
+import javax.json.JsonObject;
+import java.time.ZonedDateTime;
 
-import javax.json.bind.annotation.JsonbTransient;
-import javax.persistence.*;
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.*;
 
-@Entity
-@Table(name = "pizza_order")
-public class Order implements Serializable {
+@QuarkusTest
+@TestHTTPEndpoint(OrderResource.class)
+public class OrderResourceTest {
 
-
-    public Order(){
-
+    @Test
+    public void testNoOrder4711(){
+        given()
+                .when().get("4711")
+                .then().statusCode(404);
     }
 
-    public Order(Long orderId, Date orderDateTime, Long customerId, Status status, List<Pizza> pizzaList, BigDecimal totalPrice) {
-        this.orderId = orderId;
-        this.orderDateTime = orderDateTime;
-        this.customerId = customerId;
-        this.status = status;
-        this.pizzaList = pizzaList;
-        this.totalPrice = totalPrice;
+    @Test
+    public void testHasOrder1(){
+        // Creating JSON-Order Object
+        JsonObject obj = Json.createObjectBuilder()
+                .add("orderDateTime", ZonedDateTime.now().toString())
+                .add("customerId", 42L)
+                .add("status", Status.LOST.toString())
+                .add("pizzaList",Json.createArrayBuilder()
+                        .add(Json.createObjectBuilder()
+                                .add("name", "Funghi")
+                                .add("price", "6.5"))
+                        .build())
+                .add("totalPrize", "6.5").build();
+        given().contentType("application/json").body(obj).when().post("/");
+
+        // Test
+        given()
+                .when().get("1")
+                .then().statusCode(200)
+                .body("status", equalTo("LOST"));
     }
 
-    @Id
-    @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderId;
-
-    private Date orderDateTime;
-
-    private Long customerId;
-    private Status status;
-
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    private List<Pizza> pizzaList;
-
-    private BigDecimal totalPrice;
-
-    public Long getOrderId() {
-        return orderId;
+    @Test
+    public void testCannotCreateOrderWithGivenID(){
+        JsonObject obj = Json.createObjectBuilder()
+                .add("customerId", 42L)
+                .add("orderId",42L).build();
+        given().contentType("application/json")
+                .body(obj)
+                .when().post("/")
+                .then().statusCode(422).body(is(emptyString()));
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
-    }
+    @Test
+    public void testCreateOrder(){
+        // Creating JSON
+        JsonObject obj = Json.createObjectBuilder()
+                .add("orderDateTime", ZonedDateTime.now().toString())
+                .add("customerId", 42L)
+                .add("status", Status.LOST.toString())
+                .add("pizzaList",Json.createArrayBuilder()
+                        .add(Json.createObjectBuilder()
+                                .add("name", "Funghi")
+                                .add("price", "6.5"))
+                        .build())
+                .add("totalPrize", "6.5").build();
 
-    public Date getOrderDateTime() {
-        return orderDateTime;
-    }
-
-    public void setOrderDateTime(Date orderDateTime) {
-        this.orderDateTime = orderDateTime;
-    }
-
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public List<Pizza> getPizzaList() {
-        return pizzaList;
-    }
-
-    public void setPizzaList(List<Pizza> pizzaList) {
-        this.pizzaList = pizzaList;
-    }
-
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Order order = (Order) o;
-        return Objects.equals(orderId, order.orderId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(orderId);
-    }
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "orderId=" + orderId +
-                ", orderDateTime=" + orderDateTime +
-                ", customerId=" + customerId +
-                ", status=" + status +
-                ", pizzaList=" + pizzaList +
-                ", totalPrice=" + totalPrice +
-                '}';
+        // Test
+        given().contentType("application/json")
+                .body(obj)
+                .when().post("/")
+                .then().statusCode(201).body(is(emptyString()));
     }
 }
