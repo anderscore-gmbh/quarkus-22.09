@@ -28,7 +28,6 @@ public class OrderResourceTest {
     @Test
     public void testHasOrder1(){
         // Creating JSON-Order Object
-        JsonObject obj2 = Json.createObjectBuilder().build();
         JsonObject obj = Json.createObjectBuilder()
                 .add("orderDateTime", ZonedDateTime.now().toString())
                 .add("customerId", 42L)
