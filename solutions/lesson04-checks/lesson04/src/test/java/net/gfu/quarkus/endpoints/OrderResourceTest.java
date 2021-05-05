@@ -3,6 +3,7 @@ package net.gfu.quarkus.endpoints;
 import data.model.Status;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.mapper.ObjectMapperType;
 import org.junit.jupiter.api.Test;
 
 import javax.json.Json;
@@ -27,6 +28,7 @@ public class OrderResourceTest {
     @Test
     public void testHasOrder1(){
         // Creating JSON-Order Object
+        JsonObject obj2 = Json.createObjectBuilder().build();
         JsonObject obj = Json.createObjectBuilder()
                 .add("orderDateTime", ZonedDateTime.now().toString())
                 .add("customerId", 42L)
@@ -37,7 +39,8 @@ public class OrderResourceTest {
                                 .add("price", "6.5"))
                         .build())
                 .add("totalPrize", "6.5").build();
-        given().contentType("application/json").body(obj).when().post("/");
+        given().contentType("application/json")
+                .body(obj, ObjectMapperType.JSONB).when().post("/");
 
         // Test
         given()
@@ -52,7 +55,7 @@ public class OrderResourceTest {
                 .add("customerId", 42L)
                 .add("orderId",42L).build();
         given().contentType("application/json")
-                .body(obj)
+                .body(obj, ObjectMapperType.JSONB)
                 .when().post("/")
                 .then().statusCode(422).body(is(emptyString()));
     }
@@ -73,7 +76,7 @@ public class OrderResourceTest {
 
         // Test
         given().contentType("application/json")
-                .body(obj)
+                .body(obj, ObjectMapperType.JSONB)
                 .when().post("/")
                 .then().statusCode(201).body(is(emptyString()));
     }
