@@ -5,19 +5,19 @@ import java.util.List;
 
 public class FranchiseStatus implements Serializable {
 
-    private List<PizzaOrder> pizzaOrders;
+    private List<Order> orders;
 
     public FranchiseStatus(){}
 
-    public FranchiseStatus(List<PizzaOrder> pizzaOrders){
-        this.pizzaOrders = pizzaOrders;
+    public FranchiseStatus(List<Order> orders){
+        this.orders = orders;
     }
 
-    public List<PizzaOrder> getPizzaOrders() {
-        return pizzaOrders;
+    public List<Order> getPizzaOrders() {
+        return orders;
     }
 
-    public void setPizzaOrders(List<PizzaOrder> pizzaOrders) {
-        this.pizzaOrders = pizzaOrders;
+    public void setPizzaOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

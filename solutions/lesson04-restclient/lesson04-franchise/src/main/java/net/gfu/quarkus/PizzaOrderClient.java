@@ -1,6 +1,6 @@
 package net.gfu.quarkus;
 
-import net.gfu.quarkus.model.PizzaOrder;
+import net.gfu.quarkus.model.Order;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 import javax.ws.rs.GET;
@@ -11,5 +11,5 @@ import java.util.List;
 public interface PizzaOrderClient {
     @GET
     @Produces("application/json")
-    List<PizzaOrder> orders();
+    List<Order> orders();
 }

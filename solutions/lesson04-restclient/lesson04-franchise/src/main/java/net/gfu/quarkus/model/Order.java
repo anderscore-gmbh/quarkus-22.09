@@ -6,13 +6,13 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 
-public class PizzaOrder implements Serializable {
+public class Order implements Serializable {
 
-    public PizzaOrder(){
+    public Order(){
 
     }
 
-    public PizzaOrder(Long orderId, ZonedDateTime orderDateTime, Long customerId, Status status, List<Pizza> pizzaList, BigDecimal totalPrice) {
+    public Order(Long orderId, ZonedDateTime orderDateTime, Long customerId, Status status, List<Pizza> pizzaList, BigDecimal totalPrice) {
         this.orderId = orderId;
         this.orderDateTime = orderDateTime;
         this.customerId = customerId;
@@ -84,7 +84,7 @@ public class PizzaOrder implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PizzaOrder order = (PizzaOrder) o;
+        Order order = (Order) o;
         return Objects.equals(orderId, order.orderId);
     }
 
