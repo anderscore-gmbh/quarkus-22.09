@@ -42,19 +42,19 @@ image::kumuluz.png[width=250]
 
 == Microprofile API: Relevante Bestandteile
 
-1. *Configuration*:
+1. link:lesson04-microprofile.html#/_1_configuration[*Configuration*]:
 Einheitlicher Ansatz zur Konfiguration
-2. *Health*:
+2. link:lesson04-microprofile.html#/_2_health[*Health*]:
 Endpunkte für Health, Liveness und Readiness Checks
-3. *Fault Tolerance*:
+3. link:lesson04-microprofile.html#/_3_fault_tolerance_api[*Fault Tolerance*]:
 Ausfall-Strategie (z.B. Timeouts, Retry Policy, Fallback, Circuit Breaker)
-4. *Metrics*:
+4. link:lesson04-microprofile.html#/_4_metrics_api_monitoring_auf_anwendungs_und_fachebene[*Metrics*]:
 Metriken, Benchmarks auf Fach- und Anwendungsebene
-5. *OpenAPI*:
+5. link:lesson04-microprofile.html#/_5_openapi_swagger_ui[*OpenAPI*]:
 Beschreibung der REST-Schnittstelle
-6. *Rest Client*:
+6. link:lesson04-microprofile.html#/_6_rest_client[*Rest Client*]:
 Aufbauend auf JAX-RS, client-Funktionalität
-7. *OpenTracing*:
+7. link:lesson04-microprofile.html#/_7_opentracing_api[*OpenTracing*]:
 Intrumentation für JAX-RS und CDI
 
 == 1. Configuration
