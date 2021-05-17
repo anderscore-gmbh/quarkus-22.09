@@ -27,14 +27,16 @@ image::lesson06/graalvm_architecture.jpg[width=1400]
 * Geringerer Speicherverbrauch
 * Polyglotte Anwendungen
 
-== Installation
+== Installation und Verwendung
 
-*1. GraalVM CE herunterladen:*
+*Installation*
 
+. GraalVM CE herunterladen:
++
 https://github.com/graalvm/graalvm-ce-builds/releases
 
-*2. GraalVM CE installieren (Linux):*
-
+. GraalVM CE installieren (Linux):
++
 [source, bash]
 ----
 tar -xzf <graalvm-archive>.tar.gz
@@ -42,15 +44,17 @@ export PATH=<graalvm>/bin:$PATH
 export JAVA_HOME=<graalvm>
 ----
 
-*3. Native Image installieren (Linux):*
-
+. Native Image installieren (Linux):
++
 [source, bash]
 ----
 sudo apt-get install build-essential libz-dev zlib1g-dev
 gu install native-image
 ----
 
-== Verwendung
+'''
+
+*Native Executable erzeugen*
 
 [source, bash]
 ----
@@ -78,7 +82,9 @@ Was fällt Ihnen auf?
 
 image::lesson06/native-executable-process.png[width=1200]
 
-== Native Executables
+== Native Executables und Startup
+
+*Native Executable*
 
 * App + Quarkus Runtime + SubstrateVM
 * Deutliche Reduktion der Startup Time
@@ -89,7 +95,9 @@ image::lesson06/native-executable-process.png[width=1200]
 ./mvnw package -Pnative -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true
 ----
 
-== Startup
+'''
+
+*Startup*
 
 [source, bash]
 ----
@@ -105,20 +113,24 @@ smallrye-health, smallrye-metrics, smallrye-openapi]
 
 == Einschränkungen
 
+*Einschränkungen*
+
 * Reflection (@RegisterForReflection)
 * JDK DynamicProxy
 * Resources
 * JNI
 * Statische Initialisierung (durch Heap Snapshots)
 
-== Nicht unterstützt
+'''
+
+*Nicht unterstützt*
 
 * Dynamisches Class Loading (z.B. JRebel)
 * Manipulationen des Bytecodes (z.B. Lombok, Profiler)
 * Java Debugger (nur GDB)
 * InvokeDynamic, MethodHandles
 
-== ArC
+== Quarkus ArC
 
 * Problem: CDI 2.0 (Weld) nutzt Reflection
 * ArC: Built Time CDI
@@ -126,10 +138,9 @@ smallrye-health, smallrye-metrics, smallrye-openapi]
 * "Hardcoding" der Metadaten
 * Eingeschränkungen bei BeanManager
 
-== ArC
+'''
 
-[.heading]
-Nicht unterstützt
+*Nicht unterstützt*:
 
 * @Interceptor
 * @Decorator

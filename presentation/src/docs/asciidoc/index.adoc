@@ -40,7 +40,7 @@ link:lesson04-microprofile.html#/_6_rest_client[REST Client],
 link:lesson04-microprofile.html#/_7_opentracing_api[Tracing])
 . link:lesson05-security.html[Security: Authentication & Authorization]
 . link:lesson06-application-building.html[Application Building: Graal VM]
-. link:lesson07-docker-kubernetes.html[Deployment Docker, Kubernetes und die Cloud]
+. link:lesson07-docker-kubernetes.html#/_lektion_7_container[Deployment Docker, Kubernetes und die Cloud]
 . link:lesson08-extensions.html[Extensions: Messaging & Kafka]
 . link:lesson09-distributed-system.html[Übung: Verteiltes System]
 
