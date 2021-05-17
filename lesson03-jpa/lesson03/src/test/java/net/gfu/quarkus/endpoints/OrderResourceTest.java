@@ -1,15 +1,11 @@
 package net.gfu.quarkus.endpoints;
 
-import data.model.Order;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 
 import javax.json.Json;
 import javax.json.JsonObject;
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Date;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
