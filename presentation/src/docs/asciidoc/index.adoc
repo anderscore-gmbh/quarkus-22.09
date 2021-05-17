@@ -30,6 +30,14 @@ link:greeting.html[Begrüßung]
     link:lesson03-rest.html[REST / JAX-RS],
     link:lesson03-jpa.html[JPA])
 . link:lesson04-microprofile.html[MicroProfile im Detail]
++ 
+(link:lesson04-microprofile.html#/_1_configuration[Configuration],
+link:lesson04-microprofile.html#/_2_health[Health],
+link:lesson04-microprofile.html#/_3_fault_tolerance_api[Fault Tolerance],
+link:lesson04-microprofile.html#/_4_metrics_api_monitoring_auf_anwendungs_und_fachebene[Metrics],
+link:lesson04-microprofile.html#/_5_openapi_swagger_ui[OpenAPI],
+link:lesson04-microprofile.html#/_6_rest_client[REST Client],
+link:lesson04-microprofile.html#/_7_opentracing_api[Tracing])
 . link:lesson05-security.html[Security: Authentication & Authorization]
 . link:lesson06-application-building.html[Application Building: Graal VM]
 . link:lesson07-docker-kubernetes.html[Deployment Docker, Kubernetes und die Cloud]
