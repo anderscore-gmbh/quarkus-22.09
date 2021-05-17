@@ -74,14 +74,8 @@ auf dem Host ausgewichen.
 
 Vor einer erneuten Durchführung kann die Schulung in diesen Punkten verbessert werden (Priorität aus Sicht von Daniel):
 
-1. Ein Großteil der Integration Tests läuft nicht fehlerfrei durch und muss gefixt werden.
-2. Die in der Musterlösung lesson04-openapi enthaltenen Annotationen an der OrderResource finden sich zur Laufzeit nicht in der OpenAPI Beschreibung wieder. Dies ist zu prüfen.
-3. Versionen in den Startern und Musterlösungen sind mittlerweile veraltet und sollten aktualisiert werden.
-4. Die TLS-Zertifikate für localhost.k.anderscore.com, order.k.anderscore.com, franchise.k.anderscore.com hat Jan auf seinem Hetzner Server gemacht. Das kann Jan machen, weil er wegen einer Goldschmiede von 2019 noch eine DNS-Delegation in seinen privaten DNS-Account hat. Besser wäre, ein Zertfikat für localhost.training.anderscore.com mit der anderScore-CI zu erzeugen.
-5. Übungsaufgaben nutzen H2-in-memory, was wegen native-executables eher ungeschickt ist. Gleichzeitig ist es recht aufwändig, einen H2-Server lokal zu installieren.
+1. Übungsaufgaben nutzen H2-in-memory, was wegen native-executables eher ungeschickt ist. Gleichzeitig ist es recht aufwändig, einen H2-Server lokal zu installieren.
 Geschickter wäre, die Aufgaben von Anfang an mit Postgres zu machen und die Datenbank über Docker zu starten - die Postgres-Variante ist - Stand 2021/01 - nur für die 
 Native-Testing Aufgabe in Kapitel 6 vorgesehen.
-6. Die Kafka-Folien (Powerpoint) nach Reveal-JS übernehmen. Redundanz entfernen.
-7. Das Kapitel zu CDI kann noch ausgebaut werden - insb. zu den Teilen, die von ArC (Build Time CDI) unterstützt werden. Vorlage evtl. nach dem Buch "Quarkus Framework: Build Cloud-Native Enterprise Java Applications and Microservices (English Edition) 1. Auflage" - dort gibt es ein Kapitel zu CDI - oder dem Quarkus Guide: https://quarkus.io/guides/cdi-reference
-8. Links zu den einzelnen Punkten bspw. der MicroProfile API wären nett. Ebenso links im MicroProfile-Kapitel.
-9. Jan findet: Die Folien zu GraalVM haben z.T. recht wenig Inhalt. Dafür gibt es recht viele. Jan fände es besser, weniger Folien mit dem gleichen Inhalt da wären.
+2. Die Kafka-Folien (Powerpoint) nach Reveal-JS übernehmen. Redundanz entfernen.
+3. Das Kapitel zu CDI kann noch ausgebaut werden - insb. zu den Teilen, die von ArC (Build Time CDI) unterstützt werden. Vorlage evtl. nach dem Buch "Quarkus Framework: Build Cloud-Native Enterprise Java Applications and Microservices (English Edition) 1. Auflage" - dort gibt es ein Kapitel zu CDI - oder dem Quarkus Guide: https://quarkus.io/guides/cdi-reference
