@@ -12,10 +12,9 @@ public class FranchiseResourceTest {
     @Test
     public void testHelloEndpoint() {
         given()
-          .when().get("/lesson04-franchise")
+          .when().get("/franchise")
           .then()
-             .statusCode(200)
-             .body(is("hello"));
+                .statusCode(200)
+                .body(is("{\"pizzaOrders\":[]}"));
     }
-
 }

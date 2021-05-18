@@ -6,6 +6,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
@@ -16,6 +17,10 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+@Path("orders")
+@ApplicationScoped
+@Produces("application/json")
+@Consumes("application/json")
 public class OrderResource {
 
     // CRUD repository
@@ -108,9 +113,5 @@ public class OrderResource {
     public List<Order> index(){
         return this.repository.listAll();
     }
-
-
-
-    
 }
 

@@ -1,5 +1,5 @@
 [state=no-title-footer]
-== Lektion 6 - Container
+== Lektion 7 - Container
 
 [.center]
 Was fällt Ihnen zu Containern ein?

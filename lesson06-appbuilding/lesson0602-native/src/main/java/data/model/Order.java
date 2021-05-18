@@ -7,7 +7,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Entity
@@ -24,7 +24,7 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
-    private Date orderDateTime;
+    private ZonedDateTime orderDateTime;
 
     private Long customerId;
     private Status status;

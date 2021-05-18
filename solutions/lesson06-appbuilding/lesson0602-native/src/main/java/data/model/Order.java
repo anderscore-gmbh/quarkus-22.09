@@ -8,7 +8,7 @@ import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -24,7 +24,7 @@ public class Order implements Serializable {
 
     }
 
-    public Order(Long orderId, Date orderDateTime, Integer customerId, Status status, List<Pizza> pizzaList, BigDecimal totalPrice) {
+    public Order(Long orderId, ZonedDateTime orderDateTime, Integer customerId, Status status, List<Pizza> pizzaList, BigDecimal totalPrice) {
         this.orderId = orderId;
         this.orderDateTime = orderDateTime;
         this.customerId = customerId;
@@ -38,7 +38,7 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
-    private Date orderDateTime;
+    private ZonedDateTime orderDateTime;
 
     private Integer customerId;
     private Status status;
@@ -56,11 +56,11 @@ public class Order implements Serializable {
         this.orderId = orderId;
     }
 
-    public Date getOrderDateTime() {
+    public ZonedDateTime getOrderDateTime() {
         return orderDateTime;
     }
 
-    public void setOrderDateTime(Date orderDateTime) {
+    public void setOrderDateTime(ZonedDateTime orderDateTime) {
         this.orderDateTime = orderDateTime;
     }
 
