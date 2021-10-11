@@ -10,48 +10,9 @@
 
 image::anderscore/GFU.svg[height=300]
 
-[.columns]
-== Vorstellung
 
-////
-
---
-[.heading]
-Jan Lühr (B.Sc. Computer Science)
-
-* Fokus
-** IT-Trainer
-** Pragmatic Architect
-** Software Development
-** Build- and Deployment Engineering
-** Network- and Security-Techniques
-** Trainings, Artikel, Vorträge
-** Java, JavaScript, Ruby, …
---
-
-image::anderscore/user-jluehr.png[pdfwidth=7cm]
-
-////
-
---
-[.heading]
-Daniel Krämer (M.Sc. Informatik)
-
-* Software Engineer
-* Schwerpunkte
-** Software-Architektur
-** Integration und Migration
-** Web Engineering
-** Clean Code
-** Testautomatisierung
-** Trainings, Artikel, Vorträge
-* Java, Spring, Quarkus, Wicket, Microservices, …
---
-
-image::anderscore/user-dkraemer.jpg[]
-
-
-include::../../../generated-src/anderScore1Slide.adoc[]
+include::{basedir}/generated-src/speaker.adoc[]
+include::{basedir}/generated-src/anderScore1Slide.adoc[]
 
 == Inhalt und Ziel
 
