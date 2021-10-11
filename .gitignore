@@ -13,3 +13,4 @@
 **/*.iml
 
 **/build/
+**/generated-src/

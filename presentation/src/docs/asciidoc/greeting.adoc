@@ -50,19 +50,8 @@ Daniel Krämer (M.Sc. Informatik)
 
 image::anderscore/user-dkraemer.jpg[]
 
-[.columns.text-center]
-== Unternehmen
 
---
-* Standort: Köln (mit Rheinblick...)
-* Individuelle Softwareentwicklung
-* Consulting und Festpreis
-* Gesamter Application Life Cycle
-* Konferenzen und Artikel
-* Öffentliche Trainings
-
-image:anderscore/anderScore_white.jpg[height=100]
---
+include::../../../generated-src/anderScore1Slide.adoc[]
 
 == Inhalt und Ziel
 
