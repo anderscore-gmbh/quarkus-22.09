@@ -17,15 +17,44 @@
     <properties>
         <presentation.title>Jakarta EE Microservices mit Quarkus &amp; MicroProfile</presentation.title>
         <!-- FIXME Sprecher ändern (angezeigt auf den Folien)-->
-		    <presentation.speaker>Daniel Krämer</presentation.speaker>
+		    <presentation.speaker>Jan Lühr</presentation.speaker>
 		    <!-- FIXME Sprecher (Kurzform) hinzufügen, getrennt durch Komma z.B. vnachname -->
-		    <presentation.speaker.short>dkraemer</presentation.speaker.short>
+		    <presentation.speaker.short>jluehr</presentation.speaker.short>
         <presentation.speaker.jobtitle>Senior Software Engineer</presentation.speaker.jobtitle>
         <presentation.date>13.10. - 15.10.2021</presentation.date>
         <!--values: gfu,individual Defines which schedule will be used for the training -->
         <presentation.promoter>gfu</presentation.promoter>
 
     </properties>
+
+    <repositories>
+  		<repository>
+  			<id>revealJS-presentation</id>
+  			<url>https://gitlab.ads.anderscore.com/api/v4/projects/6/packages/maven</url>
+  			<releases>
+  				<updatePolicy>always</updatePolicy>
+  			</releases>
+  			<snapshots>
+  				<updatePolicy>always</updatePolicy>
+  			</snapshots>
+  		</repository>
+  	</repositories>
+
+    <dependencies>
+      <dependency>
+  			<groupId>com.anderscore.presentation</groupId>
+  			<artifactId>revealjs-pom</artifactId>
+  			<version>4.0-SNAPSHOT</version>
+  			<type>pom</type>
+  		</dependency>
+    </dependencies>
+
+  	<pluginRepositories>
+  		<pluginRepository>
+  			<id>revealjs-server</id>
+  			<url>https://gitlab.ads.anderscore.com/api/v4/projects/62/packages/maven</url>
+  		</pluginRepository>
+  	</pluginRepositories>
 
     <build>
         <plugins>

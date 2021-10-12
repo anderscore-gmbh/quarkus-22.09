@@ -1,13 +1,11 @@
 package net.gfu.quarkus.endpoints;
 
-import org.eclipse.microprofile.health.Health;
-import org.eclipse.microprofile.health.HealthCheck;
-import org.eclipse.microprofile.health.HealthCheckResponse;
-import org.eclipse.microprofile.health.HealthCheckResponseBuilder;
+import org.eclipse.microprofile.health.*;
 
 import javax.enterprise.context.ApplicationScoped;
 
-@Health
+@Liveness
+@Readiness
 @ApplicationScoped
 public class OldStyleHealthCheck implements HealthCheck {
 

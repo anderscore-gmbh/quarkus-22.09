@@ -2,6 +2,9 @@ package data.model;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.Clock;
+import java.time.Instant;
 import java.util.*;
 import java.time.ZonedDateTime;
 
@@ -17,7 +20,12 @@ public class OrderRepository {
     static {
         Long id = 1L;
         db.put(id, new Order(
-                id, ZonedDateTime.now(), 42L, Status.LOST, Arrays.asList("Funghi"), new BigDecimal(6.5)
+                id,
+                Timestamp.from(Instant.now(Clock.systemUTC())),
+                42L,
+                Status.LOST,
+                List.of("Funghi"),
+                new BigDecimal("6.5")
         ));
     }
 
@@ -26,7 +34,7 @@ public class OrderRepository {
         if(o.getOrderId() == null){
             o.setOrderId(generateID());
         }
-        db.put(o.getOrderId(),o);
+        db.put(o.getOrderId(), o);
     }
 
     // Nach Id suchen
