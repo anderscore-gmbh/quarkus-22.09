@@ -25,11 +25,11 @@ import java.util.List;
 public class OrderResource {
 
     @Inject
-    private OrderKafka orderKafka;
+    OrderKafka orderKafka;
 
     // CRUD repository
     @Inject
-    private OrderRepository repository;
+    OrderRepository repository;
 
     // Create
     @POST

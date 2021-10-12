@@ -193,67 +193,6 @@ Motivation
 * Monitoring durch Application-Server (kubernetes, ...)
 * Steuerung durch Application-Server
 
-== 2. Health: Klassischer Health-Check (deprecated)
-
-Dependency
-
-[source, xml]
-----
-<dependency>
-  <groupId>io.quarkus</groupId>
-  <artifactId>quarkus-smallrye-health</artifactId>
-</dependency>
-----
-
-Implementierung
-[source, java]
-----
-@Health
-@ApplicationScoped
-public class OldStyleHealthCheck implements HealthCheck {
-
-    @Override
-    public HealthCheckResponse call() {
-        double dice = Math.random();
-        HealthCheckResponseBuilder builder = HealthCheckResponse.named("dice");
-        if(dice >= 0.5) {
-            builder.up();
-        } else {
-            builder.down().withData("valueOfDice", "" + dice);
-        }
-        return builder.build();
-    }
-}
-----
-
-Vor Microprofile 3.0
-
-== 2. Health: Klassischer Health-Check (deprecated)
-
-[.heading]
-Aufruf des Checks
-
-`curl http://127.0.0.1:8080/q/health`
-
-[source,json]
-----
-{
-    "status": "DOWN",
-    "checks": [
-        {
-            "name": "dice",
-            "status": "DOWN",
-            "data": {
-                "valueOfDice": "0.19585549288164417"
-            }
-        },
-        {
-            "name": "Database connections health check",
-            "status": "UP"
-        }
-    ]
-}
-----
 
 == 2. Health: Liveness and Readiness checks (Microprofile 3.0)
 

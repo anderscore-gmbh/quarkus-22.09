@@ -8,12 +8,10 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Path("orders")
@@ -24,7 +22,7 @@ public class OrderResource {
 
     // CRUD repository
     @Inject
-    private OrderRepository repository;
+    OrderRepository repository;
 
     // Create
     @POST
