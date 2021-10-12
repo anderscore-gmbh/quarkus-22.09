@@ -21,16 +21,15 @@ image::quarkus.jpg[width=400]
 |Datum|Version|Neuigkeit
 |12/2018|0.0.1| Erster Github Tag
 |11/2019|1.0|Erstes Release
-|12/2019|1.1|Template engine, YAML configuration
-|01/2020|1.2|GraalVM 19.3.1 support, Metrics, Cache extension
-|03/2020|1.3|New class loader infrastructure, GraalVM 20
-|04/2020|1.4|Command mode, HTTP 2, New FaaS framework, Mocking
 |06/2020|1.5|fast-jar packaging format, Picocli, gRPC, GraphQL
-|07/2020|1.6|AppCDS, Google Cloud Functions, GraalVM 20.1.0
-|08/2020|1.7|Elasticsearch and Redis clients, Reactive routes and Funqy improvements
-|09/2020|1.8|Multiple Persistence Units, Micrometer, jbang, GraalVM 20.2
-|10/2020|1.9|Micrometer extension maturing, multiple Redis clients, Quarkiverse
 |12/2020|1.10|JSON as default, Multiple reactive datasources, new Micrometer registries
+|01/2021|1.11|RESTEasy Reactive, Dev UI
+|02/2021|1.12|Fast jar as default, Multipart support for RESTEasy
+|03/2021|1.13|DevService, Kubernetes Service Binding, OpenTelemetry
+|06/2021|2.0|Vert.x 4, MicroProfile 4, Continuous Testing
+|07/2021|2.1|Dev Service for Keycloak, Reactive SQL, Server extension, Kotlin 1.5
+|08/2021|2.2|GrallVM 21.2, MongoDB service binding, Narayana LRA
+|10/2021|2.3|Dev Service for Neo4J, Logging with Panache, Testing CLI applications
 
 |===
 

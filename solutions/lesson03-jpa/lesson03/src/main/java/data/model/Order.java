@@ -1,11 +1,8 @@
 package data.model;
 
-import org.slf4j.LoggerFactory;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,7 +15,7 @@ public class Order implements Serializable {
 
     }
 
-    public Order(Long orderId, ZonedDateTime orderDateTime, Long customerId, Status status, List<Pizza> pizzaList, BigDecimal totalPrice) {
+    public Order(Long orderId, String orderDateTime, Long customerId, Status status, List<Pizza> pizzaList, BigDecimal totalPrice) {
         this.orderId = orderId;
         this.orderDateTime = orderDateTime;
         this.customerId = customerId;
@@ -32,7 +29,7 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
-    private ZonedDateTime orderDateTime;
+    private String orderDateTime;
 
     private Long customerId;
     private Status status;
@@ -50,11 +47,11 @@ public class Order implements Serializable {
         this.orderId = orderId;
     }
 
-    public ZonedDateTime getOrderDateTime() {
+    public String getOrderDateTime() {
         return orderDateTime;
     }
 
-    public void setOrderDateTime(ZonedDateTime orderDateTime) {
+    public void setOrderDateTime(String orderDateTime) {
         this.orderDateTime = orderDateTime;
     }
 
