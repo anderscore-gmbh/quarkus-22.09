@@ -15,7 +15,7 @@ import javax.inject.Inject;
 public class PizzaCapacityCheck implements HealthCheck {
 
     @Inject
-    private OrderRepository repository;
+    OrderRepository repository;
 
     @Override
     public HealthCheckResponse call() {

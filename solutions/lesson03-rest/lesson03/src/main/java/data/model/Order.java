@@ -3,7 +3,7 @@ package data.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.ZonedDateTime;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +13,7 @@ public class Order implements Serializable {
 
     }
 
-    public Order(Long orderId, ZonedDateTime orderDateTime, Long customerId, Status status, List<String> pizzaList, BigDecimal totalPrice) {
+    public Order(Long orderId, Timestamp orderDateTime, Long customerId, Status status, List<String> pizzaList, BigDecimal totalPrice) {
         this.orderId = orderId;
         this.orderDateTime = orderDateTime;
         this.customerId = customerId;
@@ -24,7 +24,7 @@ public class Order implements Serializable {
 
     private Long orderId;
 
-    private ZonedDateTime orderDateTime;
+    private Timestamp orderDateTime;
 
     private Long customerId;
 
@@ -42,11 +42,11 @@ public class Order implements Serializable {
         this.orderId = orderId;
     }
 
-    public ZonedDateTime getOrderDateTime() {
+    public Timestamp getOrderDateTime() {
         return orderDateTime;
     }
 
-    public void setOrderDateTime(ZonedDateTime orderDateTime) {
+    public void setOrderDateTime(Timestamp orderDateTime) {
         this.orderDateTime = orderDateTime;
     }
 

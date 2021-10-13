@@ -27,6 +27,35 @@
 
     </properties>
 
+    <repositories>
+  		<repository>
+  			<id>revealJS-presentation</id>
+  			<url>https://gitlab.ads.anderscore.com/api/v4/projects/6/packages/maven</url>
+  			<releases>
+  				<updatePolicy>always</updatePolicy>
+  			</releases>
+  			<snapshots>
+  				<updatePolicy>always</updatePolicy>
+  			</snapshots>
+  		</repository>
+  	</repositories>
+
+    <dependencies>
+      <dependency>
+  			<groupId>com.anderscore.presentation</groupId>
+  			<artifactId>revealjs-pom</artifactId>
+  			<version>4.0-SNAPSHOT</version>
+  			<type>pom</type>
+  		</dependency>
+    </dependencies>
+
+  	<pluginRepositories>
+  		<pluginRepository>
+  			<id>revealjs-server</id>
+  			<url>https://gitlab.ads.anderscore.com/api/v4/projects/62/packages/maven</url>
+  		</pluginRepository>
+  	</pluginRepositories>
+
     <build>
         <plugins>
             <plugin>

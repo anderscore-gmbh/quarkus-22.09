@@ -18,7 +18,7 @@ public class OrderKafka {
     private Logger logger = Logger.getLogger(OrderKafka.class);
 
     @Inject
-    private OrderRepository repository;
+    OrderRepository repository;
 
     @Blocking
     @Incoming("order-v1-incoming")

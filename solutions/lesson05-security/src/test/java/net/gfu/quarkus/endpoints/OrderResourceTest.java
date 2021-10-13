@@ -1,5 +1,6 @@
 package net.gfu.quarkus.endpoints;
 
+import data.model.Order;
 import data.model.Status;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
@@ -8,7 +9,12 @@ import org.junit.jupiter.api.Test;
 
 import javax.json.Json;
 import javax.json.JsonObject;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.Clock;
+import java.time.Instant;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
@@ -28,19 +34,33 @@ public class OrderResourceTest {
 
     @Test
     public void testHasOrder1(){
-        // Creating JSON-Order Object
-        JsonObject obj = Json.createObjectBuilder()
-                .add("orderDateTime", ZonedDateTime.now().toString())
-                .add("customerId", 42L)
-                .add("status", Status.LOST.toString())
-                .add("pizzaList",Json.createArrayBuilder()
-                        .add(Json.createObjectBuilder()
-                                .add("name", "Funghi")
-                                .add("price", "6.5"))
-                        .build())
-                .add("totalPrize", "6.5").build();
-        given().contentType("application/json")
-                .body(obj, ObjectMapperType.JSONB).when().post("/");
+
+        // Build Order
+        Long orderID = null;
+        Timestamp orderDateTime = Timestamp.from(Instant.now(Clock.systemUTC()));
+        Long customerID = 42L;
+        Status status = Status.LOST;
+        BigDecimal price = BigDecimal.TEN;
+
+        List<String> pizzaList = List.of("Funghi");
+        Order order = new Order(orderID, orderDateTime, customerID, status, pizzaList, price);
+
+//        JsonObject order = Json.createObjectBuilder()
+//                .add("orderDateTime", ZonedDateTime.now().toString())
+//                .add("customerId", 42L)
+//                .add("status", Status.LOST.toString())
+//                .add("pizzaList",Json.createArrayBuilder()
+//                        .add(Json.createObjectBuilder()
+//                                .add("name", "Funghi")
+//                                .add("price", "6.5"))
+//                        .build())
+//                .add("totalPrize", "6.5").build();
+
+        given()
+                .contentType("application/json")
+                .body(order, ObjectMapperType.JSONB)
+                .when()
+                .post("/");
 
         // Test
         given()
@@ -51,32 +71,56 @@ public class OrderResourceTest {
 
     @Test
     public void testCannotCreateOrderWithGivenID(){
-        JsonObject obj = Json.createObjectBuilder()
-                .add("customerId", 42L)
-                .add("orderId",42L).build();
+
+        // Build Order
+        Long orderID = 1L;
+        Timestamp orderDateTime = Timestamp.from(Instant.now(Clock.systemUTC()));
+        Long customerID = 42L;
+        Status status = Status.LOST;
+        BigDecimal price = BigDecimal.TEN;
+
+        List<String> pizzaList = List.of("Funghi");
+        Order order = new Order(orderID, orderDateTime, customerID, status, pizzaList, price);
+
+//        JsonObject order = Json.createObjectBuilder()
+//                .add("customerId", 42L)
+//                .add("orderId",42L).build();
+
+        // Test
         given().contentType("application/json")
-                .body(obj, ObjectMapperType.JSONB)
+                .body(order, ObjectMapperType.JSONB)
                 .when().post("/")
                 .then().statusCode(422).body(is(emptyString()));
     }
 
     @Test
     public void testCreateOrder(){
-        // Creating JSON
-        JsonObject obj = Json.createObjectBuilder()
-                .add("orderDateTime", ZonedDateTime.now().toString())
-                .add("customerId", 42L)
-                .add("status", Status.LOST.toString())
-                .add("pizzaList",Json.createArrayBuilder()
-                        .add(Json.createObjectBuilder()
-                                .add("name", "Funghi")
-                                .add("price", "6.5"))
-                        .build())
-                .add("totalPrize", "6.5").build();
+
+        // Build Order
+        Long orderID = null;
+        Timestamp orderDateTime = Timestamp.from(Instant.now(Clock.systemUTC()));
+        Long customerID = 42L;
+        Status status = Status.LOST;
+        BigDecimal price = BigDecimal.TEN;
+
+        List<String> pizzaList = List.of("Funghi");
+        Order order = new Order(orderID, orderDateTime, customerID, status, pizzaList, price);
+
+//        JsonObject order = Json.createObjectBuilder()
+//                .add("orderDateTime", ZonedDateTime.now().toString())
+//                .add("customerId", 42L)
+//                .add("status", Status.LOST.toString())
+//                .add("pizzaList",Json.createArrayBuilder()
+//                        .add(Json.createObjectBuilder()
+//                                .add("name", "Funghi")
+//                                .add("price", "6.5"))
+//                        .build())
+//                .add("totalPrize", "6.5").build();
 
         // Test
-        given().contentType("application/json")
-                .body(obj, ObjectMapperType.JSONB)
+        given()
+                .contentType("application/json")
+                .body(order, ObjectMapperType.JSONB)
                 .when().post("/")
                 .then().statusCode(201).body(is(emptyString()));
     }

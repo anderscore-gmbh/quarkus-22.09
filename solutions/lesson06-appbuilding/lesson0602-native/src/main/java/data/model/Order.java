@@ -2,17 +2,13 @@ package data.model;
 
 
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
-import org.slf4j.LoggerFactory;
 
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "pizza_order")
@@ -24,7 +20,7 @@ public class Order implements Serializable {
 
     }
 
-    public Order(Long orderId, ZonedDateTime orderDateTime, Integer customerId, Status status, List<Pizza> pizzaList, BigDecimal totalPrice) {
+    public Order(Long orderId, Timestamp orderDateTime, Long customerId, Status status, List<Pizza> pizzaList, BigDecimal totalPrice) {
         this.orderId = orderId;
         this.orderDateTime = orderDateTime;
         this.customerId = customerId;
@@ -38,9 +34,10 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
-    private ZonedDateTime orderDateTime;
+    private Timestamp orderDateTime;
 
-    private Integer customerId;
+    private Long customerId;
+
     private Status status;
 
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
@@ -56,19 +53,19 @@ public class Order implements Serializable {
         this.orderId = orderId;
     }
 
-    public ZonedDateTime getOrderDateTime() {
+    public Timestamp getOrderDateTime() {
         return orderDateTime;
     }
 
-    public void setOrderDateTime(ZonedDateTime orderDateTime) {
+    public void setOrderDateTime(Timestamp orderDateTime) {
         this.orderDateTime = orderDateTime;
     }
 
-    public Integer getCustomerId() {
+    public Long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Integer customerId) {
+    public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
 
