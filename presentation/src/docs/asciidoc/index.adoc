@@ -44,27 +44,3 @@ link:lesson04-microprofile.html#/_7_opentracing_api[Tracing])
 . link:lesson08-extensions.html[Extensions: Messaging & Kafka]
 . link:lesson09-distributed-system.html[Übung: Verteiltes System]
 
-[.columns.text-center]
-== Unternehmen
-
---
-* Standort: Köln (mit Rheinblick...)
-* Individuelle Softwareentwicklung
-* Consulting und Festpreis
-* Gesamter Application Life Cycle
-* Konferenzen und Artikel
-* Öffentliche Trainings
-
-image:anderscore/anderScore_white.jpg[height=100]
---
-
---
-* Technologien
-** JEE, Spring
-** Wicket, Angular
-** Docker, Kubernetes, Apache Kafka
-** ...
-* Goldschmiede@anderScore
-
-image:anderscore/goldschmiede-neu-dia.png[height=100]
---

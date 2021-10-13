@@ -4,7 +4,7 @@
 == Jakarta EE Microservices mit Quarkus & MicroProfile
 
 [.center]
-18.01. - 20.01.21 +
+13.10. - 15.10.21 +
 [.center]
 {revealjs_speaker}
 
@@ -118,14 +118,14 @@ Aufgabenstellung:
 
 [source,bash,indent=4]
 ----
-$ git clone https://github.com/anderscore-gmbh/quarkus-2021.10.git
-Cloning into 'quarkus-2021.10'...
-remote: Enumerating objects: 378, done.
-remote: Counting objects: 100% (378/378), done.
-remote: Compressing objects: 100% (193/193), done.
-remote: Total 378 (delta 82), reused 378 (delta 82), pack-reused 0
-Receiving objects: 100% (378/378), 3.69 MiB | 2.21 MiB/s, done.
-Resolving deltas: 100% (82/82), done.
+$ git clone git@github.com:anderscore-gmbh/quarkus-21.10.git
+Klone nach 'quarkus-21.10' ...
+remote: Enumerating objects: 831, done.
+remote: Counting objects: 100% (831/831), done.
+remote: Compressing objects: 100% (401/401), done.
+remote: Total 831 (delta 221), reused 828 (delta 218), pack-reused 0
+Empfange Objekte: 100% (831/831), 10.58 MiB | 2.41 MiB/s, fertig.
+Löse Unterschiede auf: 100% (221/221), fertig.
 ----
 
 link:index.html#/_agenda[-> Zurück zur Übersicht]
