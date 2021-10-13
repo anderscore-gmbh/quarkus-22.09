@@ -74,8 +74,9 @@ auf dem Host ausgewichen.
 
 Vor einer erneuten Durchführung kann die Schulung in diesen Punkten verbessert werden (Priorität aus Sicht von Daniel):
 
-1. Übungsaufgaben nutzen H2-in-memory, was wegen native-executables eher ungeschickt ist. Gleichzeitig ist es recht aufwändig, einen H2-Server lokal zu installieren.
+1. Auf der Folie Hello World / CDI fehlt eine class-Deklaration mit dem richtigem Pfad
+2. Übungsaufgaben nutzen H2-in-memory, was wegen native-executables eher ungeschickt ist. Gleichzeitig ist es recht aufwändig, einen H2-Server lokal zu installieren.
 Geschickter wäre, die Aufgaben von Anfang an mit Postgres zu machen und die Datenbank über Docker zu starten - die Postgres-Variante ist - Stand 2021/01 - nur für die 
 Native-Testing Aufgabe in Kapitel 6 vorgesehen.
-2. Die Kafka-Folien (Powerpoint) nach Reveal-JS übernehmen. Redundanz entfernen.
-3. Das Kapitel zu CDI kann noch ausgebaut werden - insb. zu den Teilen, die von ArC (Build Time CDI) unterstützt werden. Vorlage evtl. nach dem Buch "Quarkus Framework: Build Cloud-Native Enterprise Java Applications and Microservices (English Edition) 1. Auflage" - dort gibt es ein Kapitel zu CDI - oder dem Quarkus Guide: https://quarkus.io/guides/cdi-reference
+3. Die Kafka-Folien (Powerpoint) nach Reveal-JS übernehmen. Redundanz entfernen.
+4. Das Kapitel zu CDI kann noch ausgebaut werden - insb. zu den Teilen, die von ArC (Build Time CDI) unterstützt werden. Vorlage evtl. nach dem Buch "Quarkus Framework: Build Cloud-Native Enterprise Java Applications and Microservices (English Edition) 1. Auflage" - dort gibt es ein Kapitel zu CDI - oder dem Quarkus Guide: https://quarkus.io/guides/cdi-reference

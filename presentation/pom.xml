@@ -17,9 +17,9 @@
     <properties>
         <presentation.title>Jakarta EE Microservices mit Quarkus &amp; MicroProfile</presentation.title>
         <!-- FIXME Sprecher ändern (angezeigt auf den Folien)-->
-		    <presentation.speaker>Daniel Krämer</presentation.speaker>
+		    <presentation.speaker>Jan Lühr</presentation.speaker>
 		    <!-- FIXME Sprecher (Kurzform) hinzufügen, getrennt durch Komma z.B. vnachname -->
-		    <presentation.speaker.short>dkraemer</presentation.speaker.short>
+		    <presentation.speaker.short>jluehr</presentation.speaker.short>
         <presentation.speaker.jobtitle>Senior Software Engineer</presentation.speaker.jobtitle>
         <presentation.date>13.10. - 15.10.2021</presentation.date>
         <!--values: gfu,individual Defines which schedule will be used for the training -->
