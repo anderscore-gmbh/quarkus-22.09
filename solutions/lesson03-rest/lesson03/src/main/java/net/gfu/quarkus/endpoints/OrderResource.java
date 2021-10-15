@@ -19,7 +19,7 @@ public class OrderResource {
 
     // CRUD repository
     @Inject
-    private OrderRepository repository;
+    OrderRepository repository;
 
     // Create
     @POST

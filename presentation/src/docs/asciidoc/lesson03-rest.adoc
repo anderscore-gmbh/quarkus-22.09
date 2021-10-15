@@ -241,6 +241,8 @@ Alternativen:
 
 * Im Ordner `lesson03-rest/lesson03` befindet sich bereits ein Skelett samt Repository und Model
 * Eine Beispiellösung finden Sie im Ordner `solutions/lesson03/lesson03-rest`
+* Es sollen erstmal nur die Positivfälle behandelt und noch kein HTTP Status Code zurück gegeben werden
+* https://quarkus.io/guides/rest-json[-> Quarkus Guide]
 
 == REST-APIs: Response Builder
 
@@ -400,7 +402,7 @@ Vgl. https://github.com/rest-assured/rest-assured/wiki/Usage
 
 * Erweitern Sie die Pizza-Ressource um passende Status-Codes
 ** HTTP-201 (created), wenn eine Bestellung erstellt wurde
-** HTTP-204 (no content), wenn andere Operation ohne Rückgabe erfolgreich war
+** HTTP-204 (no content), wenn eine andere Operation ohne Rückgabe erfolgreich war
 ** HTTP-404 (not found), falls eine Bestellung nicht gefunden wurde
 ** HTTP-422 (unprocessable entity), falls bei `create` eine ID übermittelt wurde
 * Verifizieren Sie die Funktionsweise beispielhaft mit einem Rest-assured Test je Status-Code.

@@ -3,10 +3,10 @@ package net.gfu.quarkus.endpoints;
 public class OrderResource {
 
     // CRUD repository
-    private OrderRepository repository;
+    OrderRepository repository;
 
     // Create
-    public Response create(Order o){
+    public void create(Order o){
 
     }
 

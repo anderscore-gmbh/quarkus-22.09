@@ -13,7 +13,7 @@ image::microprofile.png[width=700]
 --
 
 --
-image::MicroProfile3.3.png[width=900]
+image::MicroProfile4.1.png[width=900]
 --
 
 [.columns.text-center]
