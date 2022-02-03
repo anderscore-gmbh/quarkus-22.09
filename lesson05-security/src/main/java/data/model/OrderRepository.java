@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.Clock;
 import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 /**
@@ -15,7 +16,7 @@ public class OrderRepository {
 
     private static Long nonce = 1L;
 
-    private static Map<Long,Order> db = new HashMap<>();
+    private final static Map<Long,Order> db = new HashMap<>();
     static {
         Long id = 1L;
         db.put(id, new Order(
@@ -50,7 +51,7 @@ public class OrderRepository {
         if(o.getOrderId() == null) {
             throw new IllegalArgumentException("Not in Database");
         } else {
-            db.remove(o);
+            db.remove(o.getOrderId());
         }
     }
 

@@ -19,7 +19,7 @@ public class PizzaLostCheck implements HealthCheck {
 
     @Override
     public HealthCheckResponse call() {
-        HealthCheckResponseBuilder builder = HealthCheckResponse.named("Queue Size");
+        HealthCheckResponseBuilder builder = HealthCheckResponse.named("Lost Pizza");
         long deliveries = orderRepository.find("status", Status.LOST).count();
         if (deliveries > 0) {
             builder.down().withData("lostPizzas", "" + deliveries);

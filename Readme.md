@@ -17,9 +17,9 @@ Inhaltlich beziehen Sich die Folien auf einen Dienstleister, einen Trainer und e
 
 Die Ascii-Doc Folien befinden sich im Ordner https://gitlab.ads.anderscore.com/trainings/quarkus/-/tree/master/presentation und können wie üblich mit
 
-`mvn clean process-resources` bzw. `mvn revealjs-server:serve` 
+`sh generate.sh` oder `mvn -s .m2/settings.xml clean process-resources` bzw. `sh server.sh` oder `mvn -s .m2/settings.xml revealjs-server:serve`
 
-gerendert bzw. live gerendert werden (da sich Jan den letzteren Befehl nicht merken kann, gibt es ein Script `run.sh`, das diesen ausführt). 
+gerendert bzw. live gerendert werden (da sich Jan den letzteren Befehl nicht merken kann, gibt es ein Script `run.sh`, das diesen ausführt).
 Die fertigen Folien liegen im Ordner `presentation/target/generated-slides`. Die sind im git abgelegt, damit sie von den Teilnehmern beachtet werden können.
 
 Die GfU stellt Workstations für die Teilnehmer zur Verfügung - auch remote. Zuletzt jedoch noch recht kleine Intel NUC Geräte.
@@ -31,15 +31,15 @@ Für die Schulung werden gültige TLS-Zertifikate benötigt. Let's encrypt Zerti
 Da sich Quarkus recht schnell entwickelt, muss vor einer Schulung die Folie mit den Versionsnummern angepasst werden.
 Es bietet sich darüber hinaus an, die Beispiele mit der aktuellen Version zu testen. Da die MicroProfile-API eher konservativ ist, sollte es eher wenig Probleme geben.
 
-## Übungsaufgaben: 
+## Übungsaufgaben:
 
-Zu praktisch jeder Übungsaufgabe gibt es ein Skelett in lesson0KAPITEL-NUMMER. Der Pfad ist auf den Folien verlinkt. 
+Zu praktisch jeder Übungsaufgabe gibt es ein Skelett in lesson0KAPITEL-NUMMER. Der Pfad ist auf den Folien verlinkt.
 Eine Beispiellösung gibt es im Unterverzeichnis solutions. Zuletzt (2021/01) gab es massive Stabilitätsprobleme mit der Kombination aus IntelliJ (Community/Ultimate) und Quarkus,
 welche vor einer erneuten Durchführung einmal zu überprüfen sind.
 
 ## Zeitplan
 
-Die Schulung ist für drei Tage angesetzt. Bei den letzten Schulungen hätte das Material aber locker für 4 Tage gelangt. 
+Die Schulung ist für drei Tage angesetzt. Bei den letzten Schulungen hätte das Material aber locker für 4 Tage gelangt.
 Es ist daher sinnvoll, Schwerpunkte zu setzen und z.T. praktische Aufgaben weg zu lassen. Am Besten also am Anfang mal Fragen, welche Schwerpunkte relevant sind.
 
 Der Ablauf war zuletzt wie folgt:
@@ -48,7 +48,7 @@ Der Ablauf war zuletzt wie folgt:
 2. Tag: Rest (Praxis), Microprofile API, Security
 3. Tag: Docker, Kubernetes und Kafka
 
-Für den Schluss gibt es nochmal eine größere Übungsaufgabe, die wir aber nicht mehr machen konnten. 
+Für den Schluss gibt es nochmal eine größere Übungsaufgabe, die wir aber nicht mehr machen konnten.
 
 ## Vorbereitung
 
@@ -67,16 +67,17 @@ Die Teilnehmer haben zuletzt das Buch Beginning "Quarkus Framework: Build Cloud-
 gibt es beim nächsten Mal aber ein aktuelleres oder schönes Buch auf Deutsch.
 
 Hinweis: Wg. der Aufgabe zu Kubernetes muss die Umgebung VMs starten können. VM-in-VM geht nicht überall.
-Jan weiß nicht, wie zuverlässig Vagrant / Virtualbox da ist: Einerseits hat Jan im Hinterkopf, dass Virtualbox das Feature mitrbringt; andererseits ist die GfU genau deswegen auf VMWare 
+Jan weiß nicht, wie zuverlässig Vagrant / Virtualbox da ist: Einerseits hat Jan im Hinterkopf, dass Virtualbox das Feature mitrbringt; andererseits ist die GfU genau deswegen auf VMWare
 auf dem Host ausgewichen.
 
 ## Errata
 
-Vor einer erneuten Durchführung kann die Schulung in diesen Punkten verbessert werden (Priorität aus Sicht von Daniel):
+Vor einer erneuten Durchführung kann die Schulung in diesen Punkten verbessert werden:
 
-1. Auf der Folie Hello World / CDI fehlt eine class-Deklaration mit dem richtigem Pfad
-2. Übungsaufgaben nutzen H2-in-memory, was wegen native-executables eher ungeschickt ist. Gleichzeitig ist es recht aufwändig, einen H2-Server lokal zu installieren.
-Geschickter wäre, die Aufgaben von Anfang an mit Postgres zu machen und die Datenbank über Docker zu starten - die Postgres-Variante ist - Stand 2021/01 - nur für die 
+1. Übungsaufgaben nutzen H2-in-memory, was wegen native-executables eher ungeschickt ist. Gleichzeitig ist es recht aufwändig, einen H2-Server lokal zu installieren.
+Geschickter wäre, die Aufgaben von Anfang an mit Postgres zu machen und die Datenbank über Docker zu starten - die Postgres-Variante ist - Stand 2021/01 - nur für die
 Native-Testing Aufgabe in Kapitel 6 vorgesehen.
-3. Die Kafka-Folien (Powerpoint) nach Reveal-JS übernehmen. Redundanz entfernen.
-4. Das Kapitel zu CDI kann noch ausgebaut werden - insb. zu den Teilen, die von ArC (Build Time CDI) unterstützt werden. Vorlage evtl. nach dem Buch "Quarkus Framework: Build Cloud-Native Enterprise Java Applications and Microservices (English Edition) 1. Auflage" - dort gibt es ein Kapitel zu CDI - oder dem Quarkus Guide: https://quarkus.io/guides/cdi-reference
+2. Die Kafka-Folien (Powerpoint) nach Reveal-JS übernehmen. Redundanz entfernen.
+3. Das Kapitel zu CDI kann noch ausgebaut werden - insb. zu den Teilen, die von ArC (Build Time CDI) unterstützt werden. Vorlage evtl. nach dem Buch "Quarkus Framework: Build Cloud-Native Enterprise Java Applications and Microservices (English Edition) 1. Auflage" - dort gibt es ein Kapitel zu CDI - oder dem Quarkus Guide: https://quarkus.io/guides/cdi-reference
+4. Auf der Folie Hello World / CDI fehlt eine class-Deklaration mit dem richtigem Pfad
+5. Aufgaben zu Config

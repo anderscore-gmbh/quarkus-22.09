@@ -152,7 +152,7 @@ Nach Priorität geordnet (1: Höchste Priorität)
 ** `export ORDER_CURRENCYSYMBOL=NOK  ; ./target/myapp-runner`
 3. `.env` im Working-Directory (Format wie Umgebungs-Variablen)
 4. application.properties im Working-Directory `config/application.properties`
-5. `src/main/resorces/application.property`
+5. `src/main/resorces/application.properties`
 
 link:https://quarkus.io/guides/config[Guide: Quarkus - Configuring your application]
 
@@ -192,6 +192,15 @@ Motivation
 * Monitoring ermöglichen (icinga, nagios, ...)
 * Monitoring durch Application-Server (kubernetes, ...)
 * Steuerung durch Application-Server
+
+Dependency:
+[source,xml]
+----
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-smallrye-health</artifactId>
+</dependency>
+----
 
 
 == 2. Health: Liveness and Readiness checks (Microprofile 3.0)
@@ -418,8 +427,8 @@ erfolgreichen Annahmen, steht die Annahme wieder voll zur Verfügung.
 
 *Abfrage*
 
-* `curl -H"Accept: application/json" http://localhost:8080/metrics/application`
-* `curl -H"Accept: application/json" http://localhost:8080/metrics` (auch System-Metrics)
+* `curl -H"Accept: application/json" http://localhost:8080/q/metrics/application`
+* `curl -H"Accept: application/json" http://localhost:8080/q/metrics` (auch System-Metrics)
 
 link:https://quarkus.io/guides/microprofile-metrics[
 -> Quarkus Metrics]
@@ -457,8 +466,6 @@ Ergebnis:
         "create": 0
     }
 ----
-
-* Hinweis: Gauge ist aktuell buggy und wird nicht aufgenommen
 
 == 4. Metrics API Alternative: Micrometer
 
@@ -540,8 +547,8 @@ image:swagger.png[width=1200]
 ----
 *Aufruf*
 
-* `chrome http://localhost:8080/swagger-ui` (GUI)
-* `curl http://localhost:8080/openapi` (Abruf)
+* `chrome http://localhost:8080/q/swagger-ui` (GUI)
+* `curl http://localhost:8080/q/openapi` (Abruf)
 
 *Ergebnis*
 

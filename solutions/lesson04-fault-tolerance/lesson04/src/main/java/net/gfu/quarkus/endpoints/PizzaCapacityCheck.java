@@ -21,7 +21,7 @@ public class PizzaCapacityCheck implements HealthCheck {
     public HealthCheckResponse call() {
         HealthCheckResponseBuilder builder = HealthCheckResponse.named("Queue Size");
         long deliveries = repository.find("status", Status.IN_PROGRESS).count();
-        if (deliveries > 42) {
+        if (deliveries >= 42) {
             builder.down().withData("queue", "" + deliveries);
         } else {
             builder.up().withData("queue", "" + deliveries);
