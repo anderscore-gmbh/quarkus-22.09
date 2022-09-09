@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="201px" preserveAspectRatio="none" style="width:845px;height:201px;" version="1.1" viewBox="0 0 845 201" width="845px" zoomAndPan="magnify"><defs><filter height="300%" id="f1wjqzk1dlligo" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[615787437c5f23b61c90c6d240d4b67f]
+class UserProvider--><rect fill="#DDEEE8" filter="url(#f1wjqzk1dlligo)" height="60.8047" id="UserProvider" style="stroke: #225C4D; stroke-width: 1.5;" width="160" x="6" y="14.5"/><ellipse cx="43.5" cy="30.5" fill="#B4A7E5" rx="11" ry="11" style="stroke: #225C4D; stroke-width: 1.0;"/><path d="M39.4219,26.2656 L39.4219,24.1094 L46.8125,24.1094 L46.8125,26.2656 L44.3438,26.2656 L44.3438,34.3438 L46.8125,34.3438 L46.8125,36.5 L39.4219,36.5 L39.4219,34.3438 L41.8906,34.3438 L41.8906,26.2656 L39.4219,26.2656 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="78" x="62.5" y="34.6543">UserProvider</text><line style="stroke: #225C4D; stroke-width: 1.5;" x1="7" x2="165" y1="46.5" y2="46.5"/><line style="stroke: #225C4D; stroke-width: 1.5;" x1="7" x2="165" y1="54.5" y2="54.5"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="148" x="12" y="68.7104">getCurrentUserId(): String</text><!--MD5=[b04e628ee490501bae4d7f13dc58167e]
+class PreferencesService--><rect fill="#DDEEE8" filter="url(#f1wjqzk1dlligo)" height="73.6094" id="PreferencesService" style="stroke: #225C4D; stroke-width: 1.5;" width="254" x="201" y="8"/><ellipse cx="264.25" cy="24" fill="#B4A7E5" rx="11" ry="11" style="stroke: #225C4D; stroke-width: 1.0;"/><path d="M260.1719,19.7656 L260.1719,17.6094 L267.5625,17.6094 L267.5625,19.7656 L265.0938,19.7656 L265.0938,27.8438 L267.5625,27.8438 L267.5625,30 L260.1719,30 L260.1719,27.8438 L262.6406,27.8438 L262.6406,19.7656 L260.1719,19.7656 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="119" x="284.75" y="28.1543">PreferencesService</text><line style="stroke: #225C4D; stroke-width: 1.5;" x1="202" x2="454" y1="40" y2="40"/><line style="stroke: #225C4D; stroke-width: 1.5;" x1="202" x2="454" y1="48" y2="48"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="242" x="207" y="62.2104">savePreference(key : String, value: String)</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="201" x="207" y="75.0151">loadPreference(key : String): String</text><!--MD5=[8257c574f4d5ec53ac9f25872b58838d]
+class PreferencesServiceImpl--><rect fill="#DDEEE8" filter="url(#f1wjqzk1dlligo)" height="48" id="PreferencesServiceImpl" style="stroke: #225C4D; stroke-width: 1.5;" width="178" x="239" y="142"/><ellipse cx="254" cy="158" fill="#ADD1B2" rx="11" ry="11" style="stroke: #225C4D; stroke-width: 1.0;"/><path d="M256.9688,163.6406 Q256.3906,163.9375 255.75,164.0781 Q255.1094,164.2344 254.4063,164.2344 Q251.9063,164.2344 250.5781,162.5938 Q249.2656,160.9375 249.2656,157.8125 Q249.2656,154.6875 250.5781,153.0313 Q251.9063,151.375 254.4063,151.375 Q255.1094,151.375 255.75,151.5313 Q256.4063,151.6875 256.9688,151.9844 L256.9688,154.7031 Q256.3438,154.125 255.75,153.8594 Q255.1563,153.5781 254.5313,153.5781 Q253.1875,153.5781 252.5,154.6563 Q251.8125,155.7188 251.8125,157.8125 Q251.8125,159.9063 252.5,160.9844 Q253.1875,162.0469 254.5313,162.0469 Q255.1563,162.0469 255.75,161.7813 Q256.3438,161.5 256.9688,160.9219 L256.9688,163.6406 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="146" x="268" y="162.1543">PreferencesServiceImpl</text><line style="stroke: #225C4D; stroke-width: 1.5;" x1="240" x2="416" y1="174" y2="174"/><line style="stroke: #225C4D; stroke-width: 1.5;" x1="240" x2="416" y1="182" y2="182"/><!--MD5=[5fbeefd74a1287e403846b1225257a40]
+class PreferencesRepository--><rect fill="#DDEEE8" filter="url(#f1wjqzk1dlligo)" height="73.6094" id="PreferencesRepository" style="stroke: #225C4D; stroke-width: 1.5;" width="344" x="490" y="8"/><ellipse cx="587.75" cy="24" fill="#B4A7E5" rx="11" ry="11" style="stroke: #225C4D; stroke-width: 1.0;"/><path d="M583.6719,19.7656 L583.6719,17.6094 L591.0625,17.6094 L591.0625,19.7656 L588.5938,19.7656 L588.5938,27.8438 L591.0625,27.8438 L591.0625,30 L583.6719,30 L583.6719,27.8438 L586.1406,27.8438 L586.1406,19.7656 L583.6719,19.7656 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="140" x="608.25" y="28.1543">PreferencesRepository</text><line style="stroke: #225C4D; stroke-width: 1.5;" x1="491" x2="833" y1="40" y2="40"/><line style="stroke: #225C4D; stroke-width: 1.5;" x1="491" x2="833" y1="48" y2="48"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="332" x="496" y="62.2104">savePreference(userId : String, key : String, value: String)</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="291" x="496" y="75.0151">loadPreference(userId : String, key : String): String</text><!--MD5=[4e2d6eca63c20da7fe6dee96b29a2ec4]
+reverse link UserProvider to PreferencesServiceImpl--><path d="M151.08,78 C192.1,98.17 244.12,123.75 281.11,141.94 " fill="none" id="UserProvider&lt;-PreferencesServiceImpl" style="stroke: #225C4D; stroke-width: 1.0;"/><polygon fill="#225C4D" points="146.13,75.57,152.4586,83.1164,150.6219,77.7661,155.9723,75.9294,146.13,75.57" style="stroke: #225C4D; stroke-width: 1.0;"/><!--MD5=[7c48efe09af127d32a3c248c79514e82]
+reverse link PreferencesService to PreferencesServiceImpl--><path d="M328,102.07 C328,116.12 328,130.43 328,141.85 " fill="none" id="PreferencesService&lt;-PreferencesServiceImpl" style="stroke: #225C4D; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="321,102.03,328,82.03,335,102.03,321,102.03" style="stroke: #225C4D; stroke-width: 1.0;"/><!--MD5=[fd53641daafe5f4a3af3780d09de14b2]
+reverse link PreferencesRepository to PreferencesServiceImpl--><path d="M556.05,83.75 C502.42,102.86 439.04,125.44 392.72,141.94 " fill="none" id="PreferencesRepository&lt;-PreferencesServiceImpl" style="stroke: #225C4D; stroke-width: 1.0;"/><polygon fill="#225C4D" points="560.88,82.03,551.06,81.2768,556.169,83.7053,553.7405,88.8144,560.88,82.03" style="stroke: #225C4D; stroke-width: 1.0;"/><!--MD5=[1531654d50f6d28b13453b1b1091e895]
+@startuml
+skinparam class {
+ BackgroundColor #DDEEE8
+ BorderColor #225C4D
+ ArrowColor #225C4D
+ }
+
+interface UserProvider
+UserProvider : getCurrentUserId(): String
+
+interface PreferencesService
+PreferencesService : savePreference(key : String, value: String)
+PreferencesService : loadPreference(key : String): String
+
+UserProvider <- - PreferencesServiceImpl
+PreferencesService <|.. PreferencesServiceImpl
+PreferencesRepository <- - PreferencesServiceImpl
+
+interface PreferencesRepository
+PreferencesRepository : savePreference(userId : String, key : String, value: String)
+PreferencesRepository : loadPreference(userId : String, key : String): String
+
+@enduml
+
+PlantUML version 1.2019.12(Sun Nov 03 11:24:54 CET 2019)
+(APACHE source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 17.0.4+8-Ubuntu-122.04
+Operating System: Linux
+Default Encoding: UTF-8
+Language: de
+Country: DE
+--></g></svg>

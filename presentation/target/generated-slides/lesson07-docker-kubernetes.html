@@ -1,0 +1,311 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Lektion 7 - Container</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="reveal.js-3.9.2/css/reveal.css" rel="stylesheet"><link href="reveal.js-3.9.2/plugin/title-footer/title-footer.css" rel="stylesheet"><link rel="stylesheet" href="reveal.js-3.9.2/css/theme/anderscore.css" id="theme"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"><style>/* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+pre.CodeRay{background:#f7f7f8}
+.CodeRay .line-numbers{border-right:1px solid currentColor;opacity:.35;padding:0 .5em 0 0}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.75em}
+.CodeRay .line-numbers strong{color:#000}
+table.CodeRay{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.CodeRay td{vertical-align:top;line-height:inherit}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.code{padding:0 0 0 .75em}
+.CodeRay .debug{color:#fff !important;background:#000080 !important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:#000080}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:#008080}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#000}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:#008080}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:#008080}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}</style><link href="reveal.js-3.9.2/lib/css/zenburn.css" rel="stylesheet"><script>document.write( '<link rel="stylesheet" href="reveal.js-3.9.2/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script></head><body><div class="reveal"><div class="slides"><section id="_lektion_7_container" data-state="no-title-footer"><h2>Lektion 7 - Container</h2><div class="paragraph center"><p>Was fällt Ihnen zu Containern ein?</p></div></section>
+<section id="_kennen_sie"><h2>Kennen Sie?</h2><div class="ulist"><ul><li><p>Docker</p><div class="ulist"><ul><li><p>Container</p></li><li><p>Dockerfiles</p></li><li><p>Images</p></li><li><p>Docker Compose</p></li></ul></div></li><li><p>Kubernetes</p><div class="ulist"><ul><li><p>Minikube</p></li><li><p>OpenShift</p></li></ul></div></li></ul></div>
+<div class="paragraph"><p>Referenzen</p></div>
+<div class="ulist"><ul><li><p><a href="https://www.docker.com" class="bare">https://www.docker.com</a></p></li><li><p><a href="https://docs.docker.com/engine/reference/commandline/image" class="bare">https://docs.docker.com/engine/reference/commandline/image</a></p></li><li><p><a href="https://docs.docker.com/compose" class="bare">https://docs.docker.com/compose</a></p></li><li><p><a href="https://kubernetes.io" class="bare">https://kubernetes.io</a></p></li><li><p><a href="https://www.openshift.com" class="bare">https://www.openshift.com</a></p></li></ul></div></section>
+<section><section id="_kennen_sie_docker_hello_world"><h2>Kennen Sie Docker Hello World?</h2><pre class="CodeRay listingblock"><code>$ docker run --rm  hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+0e03bdcc26d7: Pull complete
+Digest: sha256:8c5aeeb6a5f3ba4883347d3747a7249f491766ca1caa47e5da5dfcf6b9b717c0
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the &quot;hello-world&quot; image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/</code></pre></section><section id="_docker_bietet"><h2>Docker bietet</h2><div class="ulist"><ul><li><p>Prozess-Isolation</p></li><li><p>Virtuelle Netzwerke</p></li><li><p>Kommandozeilen-Werkzeuge</p></li></ul></div></section></section>
+<section id="_übersicht_container_und_virtualisierung"><h2>Übersicht: Container und Virtualisierung</h2><div class="paragraph"><p><span class="image"><img src="images/uebersicht_container.png" alt="uebersicht container"></span></p></div></section>
+<section><section id="_was_ist_kubernetes" class="columns"><h2>Was ist Kubernetes?</h2><div class="openblock"><div class="content"><div class="ulist"><ul><li><p>Cluster für Docker und rkt</p></li><li><p>"Application Server" für Container</p></li><li><p>Google-Projekt (auch: k8s, k8)</p></li><li><p>Konzepte</p><div class="ulist"><ul><li><p>Node: Maschine im Cluster</p></li><li><p>Pod:</p><div class="ulist"><ul><li><p>Kleinste Einheit, 1-n Container</p></li><li><p>1 Host, Ressource-Sharing</p></li></ul></div></li><li><p>Controller: Mind. einer pro Cluster</p></li><li><p>Service:</p><div class="ulist"><ul><li><p>Facade für Pods, z.B. ein Tier einer Application</p></li><li><p>Adressierung mittels DNS über ENV-Variablen</p></li></ul></div></li><li><p>Verschiedene Distributionen: z.B. OpenShift</p></li></ul></div></li></ul></div></div></div><div class="openblock"><div class="content"><div class="paragraph"><p><span class="image"><img src="images/kubernetes.png" alt="kubernetes" width="400"></span></p></div></div></div></section><section id="_architektur"><h2>Architektur</h2><div class="paragraph center"><p><span class="image"><img src="images/Kubernetes_archi.png" alt="Kubernetes archi"></span></p></div>
+<div class="paragraph"><p>Bildquelle: <a href="https://en.wikipedia.org/wiki/Kubernetes#/media/File:Kubernetes.png" class="bare">https://en.wikipedia.org/wiki/Kubernetes#/media/File:Kubernetes.png</a>, Khtan66, CC-BY SA 4.0</p></div></section></section>
+<section><section id="_docker_image_mit_quarkus_erzeugen_manuell"><h2>Docker Image mit Quarkus erzeugen (manuell)</h2><div class="paragraph"><p><strong>Maven Artefakt erstellen</strong></p></div><pre class="CodeRay listingblock"><code>$ mvn package
+# ...
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.617 s
+[INFO] Finished at: 2020-10-25T18:51:25+01:00
+[INFO] ------------------------------------------------------------------------</code></pre><div class="paragraph"><p><strong>Image erzeugen</strong></p></div><pre class="CodeRay listingblock"><code>$ docker build -t quarkus/lesson03-rest -f src/main/docker/Dockerfile.jvm .
+# ...
+Successfully tagged quarkus/lesson03-rest:latest</code></pre><div class="paragraph"><p><strong>Container starten</strong></p></div><pre class="CodeRay listingblock"><code>$ docker run -it -p 4321:8080 --rm quarkus/lesson03-rest</code></pre><div class="paragraph"><p><strong>Test</strong></p></div><pre class="CodeRay listingblock"><code>$ curl -s http://localhost:4321/orders
+[{&quot;customerId&quot;:42,&quot;orderDateTime&quot;:&quot;2020-10-25T17:57:44.659Z[UTC]&quot;,&quot;orderId&quot;:1,&quot;pizzaList&quot;:[&quot;Funghi&quot;],&quot;status&quot;:&quot;LOST&quot;,&quot;totalPrice&quot;:6.5}]</code></pre></section><section id="_variante_native_build"><h2>Variante: Native Build</h2><pre class="CodeRay listingblock"><code>$ mvn package -Pnative -Dnative-image.docker-build=true
+# ....
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  02:25 min
+[INFO] Finished at: 2020-10-25T19:05:36+01:00
+[INFO] ------------------------------------------------------------------------</code></pre>
+<div class="paragraph"><p><strong>Image erzeugen</strong></p></div>
+<pre class="CodeRay listingblock"><code>$ docker build -t quarkus/lesson03-rest-native -f src/main/docker/Dockerfile.native .
+# ...
+Successfully tagged quarkus/lesson03-rest-native:latest</code></pre>
+<div class="paragraph"><p><strong>Container starten</strong></p></div>
+<pre class="CodeRay listingblock"><code>$ docker run -it -p 4321:8080 --rm quarkus/lesson03-rest</code></pre>
+<div class="paragraph"><p><strong>Test</strong></p></div>
+<pre class="CodeRay listingblock"><code>$ curl http://localhost:4321/orders
+[{&quot;customerId&quot;:42,&quot;orderDateTime&quot;:&quot;2020-10-25T18:04:25.295Z[UTC]&quot;,&quot;orderId&quot;:1,&quot;pizzaList&quot;:[&quot;Funghi&quot;],&quot;status&quot;:&quot;LOST&quot;,&quot;totalPrice&quot;:6.5}]</code></pre></section></section>
+<section id="_kubernetes_extension"><h2>Kubernetes Extension</h2><div class="ulist"><ul><li><p>Generierung von kubernetes.yaml und kubernetes.json</p></li><li><p>Beeinflussung durch Properties möglich</p></li><li><p>JIB: Alternative für automatisches Bauen von Images</p></li></ul></div>
+<pre class="CodeRay listingblock"><code class="xml language-xml"><span class="tag">&lt;dependency&gt;</span>
+  <span class="tag">&lt;groupId&gt;</span>io.quarkus<span class="tag">&lt;/groupId&gt;</span>
+  <span class="tag">&lt;artifactId&gt;</span>quarkus-kubernetes<span class="tag">&lt;/artifactId&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span>
+<span class="tag">&lt;dependency&gt;</span>
+  <span class="tag">&lt;groupId&gt;</span>io.quarkus<span class="tag">&lt;/groupId&gt;</span>
+  <span class="tag">&lt;artifactId&gt;</span>quarkus-container-image-jib<span class="tag">&lt;/artifactId&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre></section>
+<section id="_kubernetes_extension_2"><h2>Kubernetes Extension</h2><div class="paragraph"><p>application.properties:</p></div>
+<pre class="CodeRay listingblock"><code>quarkus.container-image.build=true
+quarkus.container-image.group=quarkus                     #optional, default to the system user name
+quarkus.container-image.name=demo-app                     #optional, defaults to the application name
+quarkus.container-image.tag=1.0                           #optional, defaults to the application version
+quarkus.kubernetes.mounts.my-volume.path=/where/to/mount  #optional</code></pre>
+<div class="paragraph"><p><a href="https://quarkus.io/guides/deploying-to-kubernetes" class="bare">https://quarkus.io/guides/deploying-to-kubernetes</a></p></div></section>
+<section id="_minikube"><h2>Minikube</h2><div class="ulist"><ul><li><p>Minimalistisches Kubernetes Cluster (1 Node)</p></li><li><p>Lokale Tests und Entwicklung</p></li><li><p>Treiber zur Virtualisierung benötigt (z.B. virtualbox, kvm2, Docker)</p></li></ul></div>
+<div class="paragraph"><p><a href="https://kubernetes.io/de/docs/setup/minikube" class="bare">https://kubernetes.io/de/docs/setup/minikube</a>
+<a href="https://minikube.sigs.k8s.io/docs/start" class="bare">https://minikube.sigs.k8s.io/docs/start</a></p></div>
+<div class="paragraph"><p><strong>Installation auf Ubuntu</strong></p></div>
+<pre class="CodeRay listingblock"><code class="bash language-bash"># KVM
+$ sudo apt install qemu-kvm libvirt-daemon-system
+$ sudo adduser $USER libvirt
+$ sudo systemctl enable virtlogd.socket
+$ sudo systemctl restart virtlogd.socket
+$ exec sudo su -l $USER
+
+# Minikube
+$ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+$ sudo dpkg -i minikube_latest_amd64.deb
+
+# kubectl
+$ sudo snap install kubectl --classic</code></pre></section>
+<section id="_minikube_2"><h2>Minikube</h2><div class="paragraph"><p><strong>Starten</strong></p></div>
+<pre class="CodeRay listingblock"><code class="bash language-bash">$ minikube start --driver=kvm2
+
+😄  minikube v1.16.0 auf Ubuntu 20.04
+✨  Using the kvm2 driver based on existing profile
+👍  Starting control plane node minikube in cluster minikube
+🔄  Restarting existing kvm2 VM for &quot;minikube&quot; ...
+🐳  Vorbereiten von Kubernetes v1.20.0 auf Docker 20.10.0...
+🔎  Verifying Kubernetes components...
+🌟  Enabled addons: storage-provisioner, default-storageclass
+🏄  Done! kubectl is now configured to use &quot;minikube&quot; cluster and &quot;default&quot; namespace by default</code></pre>
+<pre class="CodeRay listingblock"><code class="bash language-bash">$ kubectl get pods -A
+
+kube-system       coredns-74ff55c5b-nhmkn            1/1     Running   2          100m
+kube-system       etcd-minikube                      1/1     Running   2          100m
+kube-system       kube-apiserver-minikube            1/1     Running   2          100m
+kube-system       kube-controller-manager-minikube   1/1     Running   2          100m
+kube-system       kube-proxy-5972h                   1/1     Running   2          100m
+kube-system       kube-scheduler-minikube            1/1     Running   2          100m
+kube-system       storage-provisioner                1/1     Running   4          100m</code></pre></section>
+<section><section id="_minikube_extension"><h2>Minikube Extension</h2><div class="ulist"><ul><li><p>Vereinfachung des Deployments nach Minikube</p></li><li><p>Keine externe Docker Registry</p></li><li><p>NodePort statt Ingress</p></li><li><p>Generierung von minikube.yaml und minikube.json</p></li></ul></div><pre class="CodeRay listingblock"><code class="xml language-xml"><span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>io.quarkus<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>quarkus-minikube<span class="tag">&lt;/artifactId&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre></section><section id="_deployment_nach_minikube"><h2>Deployment nach Minikube</h2><pre class="CodeRay listingblock"><code># Namespace anlegen
+$ kubectl create namespace lesson07-docker
+namespace/lesson07-docker created
+
+# In neuen Namespace wechseln
+$ kubectl config set-context --current --namespace=lesson07-docker
+Context &quot;minikube&quot; modified.
+
+# Minikube Docker Daemon verwenden
+$ eval $(minikube -p minikube docker-env)
+
+# Projekt und Image bauen
+$ mvn package
+
+# Projekt deployen
+$ kubectl apply -f target/kubernetes/kubernetes.json
+# bzw.
+$ kubectl apply -f target/kubernetes/minikube.json
+
+# Deployment prüfen
+$ kubectl get deployments
+$ kubectl get pods
+$ kubectl get services
+
+# Ermitteln der Adresse (bei Minikube Extension -&gt; NodePort)
+$ minikube service list</code></pre></section></section>
+<section id="_aufgabe_lesson07_docker"><h2>Aufgabe lesson07-docker</h2><div class="paragraph"><p><strong>Aufgabenstellung</strong></p></div>
+<div class="ulist"><ul><li><p>Binden Sie die Minikube und JIB Extensions in das Projekt lesson04-checks ein, konfigurieren und bauen Sie es.</p></li><li><p>Starten Sie Minikube</p></li><li><p>Legen Sie das Image von lesson04-checks dort als Deployment ab.</p></li><li><p>Erzeugen Sie 10 Pods</p></li></ul></div>
+<div class="paragraph"><p><strong>Hinweise</strong></p></div>
+<div class="ulist"><ul><li><p>Sie können weitere Pod-Instanzen wie folgt erzeugen: <code>$ kubectl scale --replicas=3 deployment lesson07</code></p></li><li><p>Optional: Liefern Sie beide Anwendungen aus Aufgabe 4 aus. Wie können Sie die URL für den RestClient konfigurieren?</p></li></ul></div>
+<div class="paragraph"><p><a href="index.html#/_agenda">&#8594; Zurück zur Übersicht</a></p></div></section></div></div><script src="reveal.js-3.9.2/lib/js/head.min.js"></script><script src="reveal.js-3.9.2/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+Reveal.initialize({
+  // Display controls in the bottom right corner
+  controls: true,
+  // Display a presentation progress bar
+  progress: true,
+  // Display the page number of the current slide
+  slideNumber: true,
+  // Push each slide change to the browser history
+  history: true,
+  // Enable keyboard shortcuts for navigation
+  keyboard: true,
+  // Enable the slide overview mode
+  overview: true,
+  // Vertical centering of slides
+  center: true,
+  // Enables touch navigation on devices with touch input
+  touch: true,
+  // Loop the presentation
+  loop: false,
+  // Change the presentation direction to be RTL
+  rtl: false,
+  // Turns fragments on and off globally
+  fragments: true,
+  // Flags if the presentation is running in an embedded mode,
+  // i.e. contained within a limited portion of the screen
+  embedded: false,
+  // Number of milliseconds between automatically proceeding to the
+  // next slide, disabled when set to 0, this value can be overwritten
+  // by using a data-autoslide attribute on your slides
+  autoSlide: 0,
+  // Stop auto-sliding after user input
+  autoSlideStoppable: true,
+  // Enable slide navigation via mouse wheel
+  mouseWheel: true,
+  // Hides the address bar on mobile devices
+  hideAddressBar: true,
+  // Opens links in an iframe preview overlay
+  previewLinks: false,
+  // Theme (e.g., beige, black, league, night, serif, simple, sky, solarized, white)
+  // NOTE setting the theme in the config no longer works in reveal.js 3.x
+  //theme: Reveal.getQueryHash().theme || 'anderscore',
+  // Transition style (e.g., none, fade, slide, convex, concave, zoom)
+  transition: Reveal.getQueryHash().transition || 'linear',
+  // Transition speed (e.g., default, fast, slow)
+  transitionSpeed: 'default',
+  // Transition style for full page slide backgrounds (e.g., none, fade, slide, convex, concave, zoom)
+  backgroundTransition: 'fade',
+  // Number of slides away from the current that are visible
+  viewDistance: 3,
+  // Parallax background image (e.g., "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'")
+  parallaxBackgroundImage: '',
+  // Parallax background size in CSS syntax (e.g., "2100px 900px")
+  parallaxBackgroundSize: '',
+
+  // The "normal" size of the presentation, aspect ratio will be preserved
+  // when the presentation is scaled to fit different resolutions. Can be
+  // specified using percentage units.
+  width: 1728,
+  height: 972,
+
+  // Factor of the display size that should remain empty around the content
+  margin: 0.1,
+
+  // Bounds for smallest/largest possible scale to apply to content
+  minScale: 0.2,
+  maxScale: 1.5,
+
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+      { src: 'reveal.js-3.9.2/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'reveal.js-3.9.2/plugin/title-footer/title-footer.js', async: true, callback: function()
+          {title_footer.initialize('Jakarta EE Microservices mit Quarkus & MicroProfile', 'MJohenneken, ALambertz', 'anderScore GmbH • Frankenwerft 35 • 50667 Köln');}},
+      { src: 'reveal.js-3.9.2/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'reveal.js-3.9.2/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      
+      { src: 'reveal.js-3.9.2/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'reveal.js-3.9.2/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+});</script></body></html>

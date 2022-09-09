@@ -1,0 +1,220 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Lektion 6 - Application Building: GraalVM</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="reveal.js-3.9.2/css/reveal.css" rel="stylesheet"><link href="reveal.js-3.9.2/plugin/title-footer/title-footer.css" rel="stylesheet"><link rel="stylesheet" href="reveal.js-3.9.2/css/theme/anderscore.css" id="theme"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"><style>/* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+pre.CodeRay{background:#f7f7f8}
+.CodeRay .line-numbers{border-right:1px solid currentColor;opacity:.35;padding:0 .5em 0 0}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.75em}
+.CodeRay .line-numbers strong{color:#000}
+table.CodeRay{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.CodeRay td{vertical-align:top;line-height:inherit}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.code{padding:0 0 0 .75em}
+.CodeRay .debug{color:#fff !important;background:#000080 !important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:#000080}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:#008080}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#000}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:#008080}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:#008080}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}</style><link href="reveal.js-3.9.2/lib/css/zenburn.css" rel="stylesheet"><script>document.write( '<link rel="stylesheet" href="reveal.js-3.9.2/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script></head><body><div class="reveal"><div class="slides"><section id="_lektion_6_application_building_graalvm" data-state="no-title-footer"><h2>Lektion 6 - Application Building: GraalVM</h2><div class="paragraph text-center"><p>Was ist die GraalVM?<br>
+Wie kann sie zusammen mit Quarkus genutzt werden?</p></div></section>
+<section id="_einführung"><h2>Einführung</h2><div class="imageblock" style=""><img src="images/lesson06/graalvm.svg" alt="graalvm" width="800"></div>
+<div class="ulist"><ul><li><p>Alternative zu OpenJDK/HotSpot</p></li><li><p>Truffle Framework: Unterstützung anderer Sprachen über AST (Abstract-Syntax-Tree)</p></li><li><p>Native Image: Erweiterung für ahead-of-time Compilation</p></li><li><p>Graal Compiler, SubstrateVM</p></li><li><p>Entwickelt in Java</p></li><li><p>Produktiv seit 2019</p></li><li><p>Community Edition vs. Enterprise Edition</p></li></ul></div></section>
+<section id="_einführung_2"><h2>Einführung</h2><div class="imageblock" style=""><img src="images/lesson06/graalvm_architecture.jpg" alt="graalvm architecture" width="1400"></div></section>
+<section id="_vorteile"><h2>Vorteile</h2><div class="ulist"><ul><li><p>Reduzierte Startup Time</p></li><li><p>Geringerer Speicherverbrauch</p></li><li><p>Polyglotte Anwendungen</p></li></ul></div></section>
+<section id="_installation_und_verwendung"><h2>Installation und Verwendung</h2><div class="paragraph"><p><strong>Installation</strong></p></div>
+<div class="olist arabic"><ol class="arabic"><li><p>GraalVM CE herunterladen:</p><div class="paragraph"><p><a href="https://github.com/graalvm/graalvm-ce-builds/releases" class="bare">https://github.com/graalvm/graalvm-ce-builds/releases</a></p></div></li><li><p>GraalVM CE installieren (Linux):</p><pre class="CodeRay listingblock"><code class="bash language-bash">tar -xzf &lt;graalvm-archive&gt;.tar.gz
+export PATH=&lt;graalvm&gt;/bin:$PATH
+export JAVA_HOME=&lt;graalvm&gt;</code></pre></li><li><p>Native Image installieren (Linux):</p><pre class="CodeRay listingblock"><code class="bash language-bash">sudo apt-get install build-essential libz-dev zlib1g-dev
+gu install native-image</code></pre></li></ol></div>
+<hr>
+<div class="paragraph"><p><strong>Native Executable erzeugen</strong></p></div>
+<pre class="CodeRay listingblock"><code class="bash language-bash">native-image -jar my-app.jar
+./my-app</code></pre></section>
+<section id="_aufgabe_6_1_erste_schritte_mit_graalvm"><h2>Aufgabe 6.1: Erste Schritte mit GraalVM</h2><div class="paragraph"><p><strong>Aufgabenstellung</strong></p></div>
+<div class="olist arabic"><ol class="arabic"><li><p>Erstellen Sie ein leeres Maven-Projekt und legen Sie darin eine Klasse an, die "Hello GraalVM!" ausgibt.</p></li><li><p>Binden Sie das maven-jar-plugin ein und erzeugen Sie mittels <code>mvn package</code> ein Executable Jar.</p></li><li><p>Starten Sie das Jar über <code>java -jar &lt;executable-jar&gt;.jar</code>.</p></li><li><p>Installieren Sie GraalVM CE und die Erweiterung Native Image auf Ihrem Rechner, falls noch nicht geschehen.</p></li><li><p>Erzeugen Sie über <code>native-image -jar &lt;executable-jar&gt;.jar</code> ein Native Executable aus Ihrem Jar und starten Sie dieses.
+Was fällt Ihnen auf?</p></li></ol></div>
+<div class="paragraph"><p><strong>Hinweise</strong></p></div>
+<div class="ulist"><ul><li><p>Zu dieser Aufgabe gibt es kein Skelett. Verwenden Sie ein neues Projekt.</p></li><li><p>Eine Beispiellösung finden sie im Ordner <code>solutions/lesson06_1-graalvm</code></p></li></ul></div></section>
+<section id="_native_executables"><h2>Native Executables</h2><div class="imageblock" style=""><img src="images/lesson06/native-executable-process.png" alt="native executable process" width="1200"></div></section>
+<section id="_native_executables_und_startup"><h2>Native Executables und Startup</h2><div class="paragraph"><p><strong>Native Executable</strong></p></div>
+<div class="ulist"><ul><li><p>App + Quarkus Runtime + SubstrateVM</p></li><li><p>Deutliche Reduktion der Startup Time</p></li><li><p>Erstellung auch ohne lokale GraalVM</p></li></ul></div>
+<pre class="CodeRay listingblock"><code class="bash language-bash">./mvnw package -Pnative -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true</code></pre>
+<hr>
+<div class="paragraph"><p><strong>Startup</strong></p></div>
+<pre class="CodeRay listingblock"><code class="bash language-bash">./quarkus-demo-1.0-SNAPSHOT-runner</code></pre>
+<pre class="CodeRay listingblock"><code>[io.quarkus] (main) Installed features: [agroal, cdi, hibernate-orm,
+jdbc-h2,mutiny, narayana-jta,resteasy, resteasy-jsonb, smallrye-context-propagation,
+smallrye-health, smallrye-metrics, smallrye-openapi]</code></pre></section>
+<section id="_einschränkungen"><h2>Einschränkungen</h2><div class="paragraph"><p><strong>Einschränkungen</strong></p></div>
+<div class="ulist"><ul><li><p>Reflection (@RegisterForReflection)</p></li><li><p>JDK DynamicProxy</p></li><li><p>Resources</p></li><li><p>JNI</p></li><li><p>Statische Initialisierung (durch Heap Snapshots)</p></li></ul></div>
+<hr>
+<div class="paragraph"><p><strong>Nicht unterstützt</strong></p></div>
+<div class="ulist"><ul><li><p>Dynamisches Class Loading (z.B. JRebel)</p></li><li><p>Manipulationen des Bytecodes (z.B. Lombok, Profiler)</p></li><li><p>Java Debugger (nur GDB)</p></li><li><p>InvokeDynamic, MethodHandles</p></li></ul></div></section>
+<section id="_quarkus_arc"><h2>Quarkus ArC</h2><div class="ulist"><ul><li><p>Problem: CDI 2.0 (Weld) nutzt Reflection</p></li><li><p>ArC: Built Time CDI</p></li><li><p>Statische Verwendungsanalyse</p></li><li><p>"Hardcoding" der Metadaten</p></li><li><p>Eingeschränkungen bei BeanManager</p></li></ul></div>
+<hr>
+<div class="paragraph"><p><strong>Nicht unterstützt</strong>:</p></div>
+<div class="ulist"><ul><li><p>@Interceptor</p></li><li><p>@Decorator</p></li><li><p>@ConversationScoped</p></li><li><p>Passivation</p></li><li><p>Portable Extensions</p></li><li><p>beans.xml</p></li></ul></div></section>
+<section id="_aufgabe_2_native_executables"><h2>Aufgabe 2: Native Executables</h2><div class="olist arabic"><ol class="arabic"><li><p>Öffnen Sie das Projekt <code>lesson06_2-native</code>.</p></li><li><p>Erzeugen Sie mittels <code>./mvnw clean package</code> ein Executable Jar und starten Sie es über <code>java -jar &lt;executable-jar&gt;.jar -Dquarkus.http.port=8181</code>.</p></li><li><p>Erzeugen Sie mittels <code>./mvnw clean package -Pnative</code> ein Native Executable und starten Sie es über <code>./target/&lt;native-executable&gt;</code>. Wie erklären Sie sich die Ausgabe?</p></li><li><p>Optional: Welche technischen Anpassungen müssen Sie an dem Service und seiner Konfiguration vornehmen, damit dieser nativ ausgeführt werden kann? Tip: Schauen Sie sich hierzu auch einmal
+den Server Mode und die Console von H2 an.</p></li><li><p>Optional: Vergleichen Sie Startup Time und Speicherverbrauch des Native Executables mit jenen des Executable Jars.</p></li></ol></div></section>
+<section id="_quarkus_native_tests"><h2>Quarkus Native Tests</h2><div class="ulist"><ul><li><p>@NativeImageTest</p></li><li><p>Integration Test für Native Executable</p></li><li><p>Black Box Test gegen öffentliche API</p></li><li><p>Test selbst läuft auf JVM</p></li></ul></div>
+<pre class="CodeRay listingblock"><code class="java language-java"><span class="annotation">@NativeImageTest</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">NativeOrderResourceIT</span> <span class="directive">extends</span> OrderResourceTest {
+
+    <span class="comment">// Execute the same tests but in native mode.</span>
+}</code></pre></section>
+<section id="_aufgabe_6_3_native_tests"><h2>Aufgabe 6.3: Native Tests:</h2><div class="paragraph"><p><strong>Aufgabenstellung</strong></p></div>
+<div class="olist arabic"><ol class="arabic"><li><p>Bauen Sie ein Native Executable und starten Sie den PostgreSQL (alternativ: H2 Server), sofern noch nicht geschehen.</p></li><li><p>Lassen Sie den NativeOrderResourceIT laufen und vollziehen Sie die Ausgabe nach.</p></li></ol></div>
+<div class="paragraph"><p><strong>Hinweise</strong></p></div>
+<div class="ulist"><ul><li><p>Einen Postgres-Server können Sie wie folgt starten<br>
+<code>docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres</code></p><div class="ulist"><ul><li><p>User: <code>postgres</code>, Datenbank <code>postgres</code>, Kennwort: <code>mysecretpassword</code><br></p></li></ul></div></li><li><p>Das Skelett zur Aufgabe befindet sich im Ordner <code>lesson06_2-native</code></p></li><li><p>Eine Beispiellösung liegt im Ordner `solutions/lesson06_3-native</p></li></ul></div>
+<div class="paragraph"><p><a href="https://quarkus.io/guides/building-native-image">Guide: Quarkus - Building Native Image </a></p></div></section>
+<section id="_zusammenfassung_application_building"><h2>Zusammenfassung Application Building</h2><div class="ulist"><ul><li><p>GraalVM ermöglicht Native Executables</p></li><li><p>Sehr gute Unterstützung durch Quarkus</p></li><li><p>Reduktion von Startup Time und Speicherverbrauch</p></li><li><p>Einschränkungen (z.B. Reflection)</p></li><li><p>Native Integration Tests</p></li></ul></div>
+<div class="paragraph"><p><a href="index.html#/_agenda">&#8594; Zurück zur Übersicht</a></p></div></section></div></div><script src="reveal.js-3.9.2/lib/js/head.min.js"></script><script src="reveal.js-3.9.2/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+Reveal.initialize({
+  // Display controls in the bottom right corner
+  controls: true,
+  // Display a presentation progress bar
+  progress: true,
+  // Display the page number of the current slide
+  slideNumber: true,
+  // Push each slide change to the browser history
+  history: true,
+  // Enable keyboard shortcuts for navigation
+  keyboard: true,
+  // Enable the slide overview mode
+  overview: true,
+  // Vertical centering of slides
+  center: true,
+  // Enables touch navigation on devices with touch input
+  touch: true,
+  // Loop the presentation
+  loop: false,
+  // Change the presentation direction to be RTL
+  rtl: false,
+  // Turns fragments on and off globally
+  fragments: true,
+  // Flags if the presentation is running in an embedded mode,
+  // i.e. contained within a limited portion of the screen
+  embedded: false,
+  // Number of milliseconds between automatically proceeding to the
+  // next slide, disabled when set to 0, this value can be overwritten
+  // by using a data-autoslide attribute on your slides
+  autoSlide: 0,
+  // Stop auto-sliding after user input
+  autoSlideStoppable: true,
+  // Enable slide navigation via mouse wheel
+  mouseWheel: true,
+  // Hides the address bar on mobile devices
+  hideAddressBar: true,
+  // Opens links in an iframe preview overlay
+  previewLinks: false,
+  // Theme (e.g., beige, black, league, night, serif, simple, sky, solarized, white)
+  // NOTE setting the theme in the config no longer works in reveal.js 3.x
+  //theme: Reveal.getQueryHash().theme || 'anderscore',
+  // Transition style (e.g., none, fade, slide, convex, concave, zoom)
+  transition: Reveal.getQueryHash().transition || 'linear',
+  // Transition speed (e.g., default, fast, slow)
+  transitionSpeed: 'default',
+  // Transition style for full page slide backgrounds (e.g., none, fade, slide, convex, concave, zoom)
+  backgroundTransition: 'fade',
+  // Number of slides away from the current that are visible
+  viewDistance: 3,
+  // Parallax background image (e.g., "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'")
+  parallaxBackgroundImage: '',
+  // Parallax background size in CSS syntax (e.g., "2100px 900px")
+  parallaxBackgroundSize: '',
+
+  // The "normal" size of the presentation, aspect ratio will be preserved
+  // when the presentation is scaled to fit different resolutions. Can be
+  // specified using percentage units.
+  width: 1728,
+  height: 972,
+
+  // Factor of the display size that should remain empty around the content
+  margin: 0.1,
+
+  // Bounds for smallest/largest possible scale to apply to content
+  minScale: 0.2,
+  maxScale: 1.5,
+
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+      { src: 'reveal.js-3.9.2/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'reveal.js-3.9.2/plugin/title-footer/title-footer.js', async: true, callback: function()
+          {title_footer.initialize('Jakarta EE Microservices mit Quarkus & MicroProfile', 'MJohenneken, ALambertz', 'anderScore GmbH • Frankenwerft 35 • 50667 Köln');}},
+      { src: 'reveal.js-3.9.2/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'reveal.js-3.9.2/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      
+      { src: 'reveal.js-3.9.2/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'reveal.js-3.9.2/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+});</script></body></html>

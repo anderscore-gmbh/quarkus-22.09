@@ -196,7 +196,7 @@ Wie klein (oder groß) soll ein µService sein?
 --
 * Herangehensweise zur *fachlichen* Strukturierung einer Anwendung
 * Domänenmodell
-** Ubiquitious Language
+** Ubiquitous Language
 ** Ausgangsbasis der Entwicklung
 ** Klassifizierung enthaltener Elemente
 --

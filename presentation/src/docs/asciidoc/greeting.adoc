@@ -118,8 +118,8 @@ Aufgabenstellung:
 
 [source,bash,indent=4]
 ----
-$ git clone git@github.com:anderscore-gmbh/quarkus-21.10.git
-Klone nach 'quarkus-21.10' ...
+$ git clone git@github.com:anderscore-gmbh/quarkus-22.09.git
+Klone nach 'quarkus-22.09' ...
 remote: Enumerating objects: 831, done.
 remote: Counting objects: 100% (831/831), done.
 remote: Compressing objects: 100% (401/401), done.

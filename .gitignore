@@ -14,3 +14,12 @@
 
 **/build/
 **/generated-src/
+!/presentation/target/
+/presentation/target/antrun
+/presentation/target/asciidoctor-reveal.js-2.0.1
+/presentation/target/company-slides
+/presentation/target/dependency-maven-plugin-markers
+/presentation/target/sass_cache
+/presentation/target/theme
+
+**/solutions/lesson08-kafka/lesson08/kafka-docker/

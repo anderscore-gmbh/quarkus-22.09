@@ -202,8 +202,8 @@ public class OrderRepository {
 2. IDs in H2 erzeugen: `@GeneratedValue(strategy = GenerationType.IDENTITY)`
 3. Lazy-Loading über hibernate-Proxies ist nur innerhalb der Session möglich.
 `@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)`
-4. Im Ordner `lesson03-jpa/lesson03` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 3.2.
-5. Eine Beispiellösung finden Sie im Ordner `solutions/lesson03/lesson03-jpa`
+4. Im Ordner `lesson03_3-jpa/lesson03` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 3.2.
+5. Eine Beispiellösung finden Sie im Ordner `solutions/lesson03/lesson03_3-jpa`
 
 == Hibernate Panache
 
@@ -234,6 +234,7 @@ Dependency einbinden
     <dependency>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-hibernate-orm-panache</artifactId>
+        <version>2.12.0.Final</version>
     </dependency>
 ----
 
@@ -301,8 +302,9 @@ https://quarkus.io/guides/hibernate-orm-panache[
 
 *Hinweise*:
 
-1. Im Ordner `lesson03-panache/lesson03` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 3.3.
-2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson03-panache`
+1. Im Ordner `lesson03_4-panache/lesson03` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 3.3.
+2. Achten sie auf die Annotation `@Transactional`
+2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson03_4-panache`
 3. Alternativ können Sie das Active Record Pattern verwenden
 
 link:index.html#/_agenda[-> Zurück zur Übersicht]

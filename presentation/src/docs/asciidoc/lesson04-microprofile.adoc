@@ -13,11 +13,11 @@ image::microprofile.png[width=700]
 --
 
 --
-image::MicroProfile4.1.png[width=900]
+image::MicroProfile5.0.png[width=700]
 --
 
 [.columns.text-center]
-== Microprofile API
+== MicroProfile API
 --
 [.margin-bottom-wide]
 image::quarkus.jpg[width=200]
@@ -40,7 +40,7 @@ image::helidon.png[width=250]
 image::kumuluz.png[width=250]
 --
 
-== Microprofile API: Relevante Bestandteile
+== MicroProfile API: Relevante Bestandteile
 
 1. link:lesson04-microprofile.html#/_1_configuration[*Configuration*]:
 Einheitlicher Ansatz zur Konfiguration
@@ -140,21 +140,71 @@ order.envNotice=Sie arbeiten in der Entwicklung
 
 link:https://quarkus.io/guides/config[Guide: Quarkus - Configuring your application]
 
+
 === Hierarchie verschiedene Quellen
 
-Nach Priorität geordnet (1: Höchste Priorität)
+image::config-sources.png[height=300]
 
-1. System-Properties
+[start=1]
+. System-Properties
+
 ** `java -Dorder.currencySymbol=NOK -jar target/myapp-runner.jar`
 **  `./target/myapp-runner -Dorder.currencySymbol=NOK`
-2. Umgebungs-Variablen - link:https://github.com/eclipse/microprofile-config/blob/master/spec/src/main/asciidoc/configsources.asciidoc#default-configsources[-> Eclipse Microprofile Konventionen]
+
+link:https://quarkus.io/guides/config-reference[Guide: Quarkus - Configuring Reference Guide]
+
+
+=== Hierarchie verschiedene Quellen
+
+image::config-sources.png[height=300]
+
+[start=2]
+. Umgebungs-Variablen - link:https://github.com/eclipse/microprofile-config/blob/master/spec/src/main/asciidoc/configsources.asciidoc#default-configsources[-> Eclipse Microprofile Konventionen]
+
 ** `export ORDER_CURRENCYSYMBOL=NOK ; java -jar target/myapp-runner.jar`**
 ** `export ORDER_CURRENCYSYMBOL=NOK  ; ./target/myapp-runner`
-3. `.env` im Working-Directory (Format wie Umgebungs-Variablen)
-4. application.properties im Working-Directory `config/application.properties`
-5. `src/main/resorces/application.properties`
 
-link:https://quarkus.io/guides/config[Guide: Quarkus - Configuring your application]
+link:https://quarkus.io/guides/config-reference[Guide: Quarkus - Configuring Reference Guide]
+
+=== Hierarchie verschiedene Quellen
+
+image::config-sources.png[height=300]
+
+[start=3]
+. `.env` im Working-Directory (Format wie Umgebungs-Variablen)
+
+link:https://quarkus.io/guides/config-reference[Guide: Quarkus - Configuring Reference Guide]
+
+
+=== Hierarchie verschiedene Quellen
+
+image::config-sources.png[height=300]
+
+[start=4]
+. application.properties im Working-Directory `config/application.properties`
+
+link:https://quarkus.io/guides/config-reference[Guide: Quarkus - Configuring Reference Guide]
+
+
+=== Hierarchie verschiedene Quellen
+
+image::config-sources.png[height=300]
+
+[start=5]
+. `src/main/resorces/application.properties`
+
+link:https://quarkus.io/guides/config-reference[Guide: Quarkus - Configuring Reference Guide]
+
+
+=== Hierarchie verschiedene Quellen
+
+image::config-sources.png[height=300]
+
+[start=6]
+. microprofile.properties in den application dependencies, default-Werte der microservices
+
+link:https://quarkus.io/guides/config-reference[Guide: Quarkus - Configuring Reference Guide]
+
 
 === Konfiguration nach Profilen
 
@@ -183,6 +233,9 @@ QUARKUS_HTTP_PORT=9090
 _DEV_QUARKUS_HTTP_PORT=8181
 ----
 
+Alternative: `application**-profile**.properties für jedes Profil
+
+
 link:https://quarkus.io/guides/config[Guide: Quarkus - Configuring your application]
 
 == 2. Health
@@ -203,7 +256,7 @@ Dependency:
 ----
 
 
-== 2. Health: Liveness and Readiness checks (Microprofile 3.0)
+== 2. Health: Liveness and Readiness checks
 
 Konzept:
 
@@ -217,13 +270,14 @@ Eigenschaften:
 ** `curl http://127.0.0.1:8080/q/health` (kombiniert)
 ** `curl http://127.0.0.1:8080/q/health/live`
 ** `curl http://127.0.0.1:8080/q/health/ready`
-** `chrome http://127.0.0.1:8080/q/health-ui` (kein Standard)
+** `curl http://127.0.0.1:8080/q/health/started`
+** `browser http://127.0.0.1:8080/q/health-ui` (Health UI von Quarkus)
 
 link:https://quarkus.io/guides/microprofile-health[-> Quarkus Microprofile Health]
 
 link:https://download.eclipse.org/microprofile/microprofile-health-2.1/microprofile-health-spec.html[-> MicroProfile Health Specification]
 
-== 2. Health: Liveness and Readiness checks (Microprofile 3.0)
+== 2. Health: Liveness and Readiness checks
 
 *Liveness: `@Liveness`*
 
@@ -257,7 +311,7 @@ public class MyReadinessCheck implements HealthCheck {
 
 link:https://quarkus.io/guides/microprofile-health[-> Guide: Quarkus Microprofile Health]
 
-== Aufgabe 4.1: lesson04-health
+== Aufgabe 4.1: lesson04_1-health
 
 *Aufgabenstellung*:
 
@@ -270,8 +324,8 @@ link:https://quarkus.io/guides/microprofile-health[-> Guide: Quarkus Microprofil
 
 *Hinweise*:
 
-1. Im Ordner `lesson04-checks/lesson04` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 3.4.
-2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-checks/lesson04`
+1. Im Ordner `lesson04_1-health/lesson04` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 3.4.
+2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04_1-health/lesson04`
 
 link:https://quarkus.io/guides/microprofile-health[-> Guide: Quarkus Microprofile Health]
 
@@ -388,7 +442,7 @@ API Dokumentation
 
 link:https://de.wikipedia.org/wiki/Semaphor_(Informatik)[-> Wikipedia: Semaphor (Informatik)]
 
-== Aufgabe 4.2: lesson04-fault-tolerance
+== Aufgabe 4.2: lesson04_2-fault-tolerance
 
 *Aufgabenstellung*
 
@@ -402,8 +456,8 @@ erfolgreichen Annahmen, steht die Annahme wieder voll zur Verfügung.
 
 *Hinweise*:
 
-1. Im Ordner `lesson04-fault-tolerance/lesson04` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 4.1.
-2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-fault-tolerance/lesson04`
+1. Im Ordner `lesson04_2-fault-tolerance/lesson04` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 4.1.
+2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04_2-fault-tolerance/lesson04`
 
 == 4. Metrics API: Monitoring auf Anwendungs- und Fachebene
 
@@ -504,7 +558,7 @@ public void doSth() {
 
 link:https://quarkus.io/guides/micrometer[-> Guide: Quarkus Micrometer]
 
-== Aufgabe 4.3: lesson04-metrics
+== Aufgabe 4.3: lesson04_3-metrics
 
 *Aufgabenstellung*
 
@@ -517,8 +571,8 @@ Implementieren Sie verschiedene Metriken für die `Order Resource`
 
 *Hinweise*
 
-1. Im Ordner `lesson04-metrics/lesson04` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 4.1.
-2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-metrics/lesson04`
+1. Im Ordner `lesson04_3-metrics/lesson04` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 4.1.
+2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04_3-metrics/lesson04`
 
 == 5. OpenAPI / Swagger UI
 
@@ -591,7 +645,7 @@ public class MyResource {
 
 link:https://quarkus.io/guides/openapi-swaggerui[-> Guide: Quarkus Using OpenAPI and Swagger UI]
 
-== Aufgabe 4.3: lesson04-openapi
+== Aufgabe 4.4: lesson04_4-openapi
 
 *Aufgabenstellung*
 
@@ -600,8 +654,8 @@ link:https://quarkus.io/guides/openapi-swaggerui[-> Guide: Quarkus Using OpenAPI
 
 *Hinweise*
 
-1. Im Ordner `lesson04-openapi/lesson04` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 4.1.
-2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-openapi/lesson04`
+1. Im Ordner `lesson04_4-openapi/lesson04` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 4.1.
+2. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04_4-openapi/lesson04`
 
 == 6. REST Client
 
@@ -623,25 +677,19 @@ Der Quarkus Rest-Client
 ----
 <dependency>
     <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-rest-client</artifactId>
+    <artifactId>quarkus-rest-client-reactive-jsonb</artifactId>
 </dependency>
 
-<dependency>
-    <groupId>com.github.tomakehurst</groupId>
-    <artifactId>wiremock</artifactId>
-    <scope>test</scope>
-    <version>${wiremock.version}</version>
-</dependency>
-
-<!-- Auch fuer Server benoetigt, d.h. bereits vorhanden -->
 <dependency>
     <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-resteasy-jsonb</artifactId>
+    <artifactId>quarkus-resteasy-reactive-jsonb</artifactId>
 </dependency>
 
 ----
 
-link:https://quarkus.io/guides/rest-client[-> Guide: Quarkus Rest Client]
+link:https://quarkus.io/guides/rest-client[-> Guide: Quarkus Rest Client] (deprecated)
+
+link:https://quarkus.io/guides/rest-client-reactive[-> Guide: Quarkus Rest Client Reactive]
 
 == Rest Client: Verwendung
 
@@ -685,7 +733,7 @@ public class MyResource {
 }
 ----
 
-== Aufgabe 4.4: lesson04-restclient
+== Aufgabe 4.5: lesson04_5-restclient
 
 *Aufgabenstellung*
 
@@ -705,8 +753,8 @@ public class MyResource {
 
 1. Der Eintrag *`quarkus.http.port=8080`* in der Datei `application.properties` bestimmt den HTTP-Port ‒
 *`mvn compile quarkus:dev -Ddebug=5006`* den Debug-Port.
-2. Im Ordner `lesson04-restclient/lesson04` befindet sich bereits ein Skelett, jedoch nur für einen Service
-3. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-restclient/`. Das Beispiel enthält beide Projekte
+2. Im Ordner `lesson04_5-restclient/lesson04` befindet sich bereits ein Skelett, jedoch nur für einen Service
+3. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04_5-restclient/`. Das Beispiel enthält beide Projekte
 
 == 7. OpenTracing API
 
@@ -789,7 +837,7 @@ link:http://localhost:16686/[-> Jaeger UI http://localhost:16686/]
 
 link:https://www.jaegertracing.io/[-> Jaeger: open source, end-to-end distributed tracing]
 
-== Aufgabe 4.5: lesson04-tracing
+== Aufgabe 4.6: lesson04_6-tracing
 
 *Aufgabenstellung*
 
@@ -803,9 +851,9 @@ Verfolgen Sie requests zwischen Franchise und Order-Service aus der letzten Ausg
 
 1. Der Eintrag *`quarkus.http.port=8080`* in der Datei `application.properties` bestimmt den HTTP-Port ‒
 *`mvn compile quarkus:dev -Ddebug=5006`* den Debug-Port.
-2. Im Ordner `lesson04-tracing/lesson04` befindet sich bereits ein Skelett, basierend auf der vorherigen Aufgabe.
+2. Im Ordner `lesson04_6-tracing/lesson04` befindet sich bereits ein Skelett, basierend auf der vorherigen Aufgabe.
 Es enthält den Franchise- und den Order-Service.
-3. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04-tracing/`.
+3. Eine Beispiellösung finden Sie im Ordner `solutions/lesson04_6-tracing/`.
 4. Integration von Jaeger in Elastic-Search: https://logz.io/blog/jaeger-and-the-elk-stack/
 
 link:index.html#/_agenda[-> Zurück zur Übersicht]

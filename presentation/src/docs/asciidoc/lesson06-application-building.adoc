@@ -10,7 +10,7 @@ Wie kann sie zusammen mit Quarkus genutzt werden?
 image::lesson06/graalvm.svg[width=800]
 
 * Alternative zu OpenJDK/HotSpot
-* Truffle Framework: Unterstützung anderer Sprachen über AST
+* Truffle Framework: Unterstützung anderer Sprachen über AST (Abstract-Syntax-Tree)
 * Native Image: Erweiterung für ahead-of-time Compilation
 * Graal Compiler, SubstrateVM
 * Entwickelt in Java
@@ -76,7 +76,7 @@ Was fällt Ihnen auf?
 *Hinweise*
 
 * Zu dieser Aufgabe gibt es kein Skelett. Verwenden Sie ein neues Projekt.
-* Eine Beispiellösung finden sie im Ordner `solutions/lesson06-appbuilding/lesson0601-graalvm`
+* Eine Beispiellösung finden sie im Ordner `solutions/lesson06_1-graalvm`
 
 == Native Executables
 
@@ -151,9 +151,9 @@ smallrye-health, smallrye-metrics, smallrye-openapi]
 
 == Aufgabe 2: Native Executables
 
-. Öffnen Sie das Projekt `lesson0602-native`.
-. Erzeugen Sie mittels `mvn clean package` ein Executable Jar und starten Sie es über `java -jar <executable-jar>.jar -Dquarkus.http.port=8181`.
-. Erzeugen Sie mittels `mvn clean package -Pnative` ein Native Executable und starten Sie es über `./target/<native-executable>`. Wie erklären Sie sich die Ausgabe?
+. Öffnen Sie das Projekt `lesson06_2-native`.
+. Erzeugen Sie mittels `./mvnw clean package` ein Executable Jar und starten Sie es über `java -jar <executable-jar>.jar -Dquarkus.http.port=8181`.
+. Erzeugen Sie mittels `./mvnw clean package -Pnative` ein Native Executable und starten Sie es über `./target/<native-executable>`. Wie erklären Sie sich die Ausgabe?
 . Optional: Welche technischen Anpassungen müssen Sie an dem Service und seiner Konfiguration vornehmen, damit dieser nativ ausgeführt werden kann? Tip: Schauen Sie sich hierzu auch einmal
 den Server Mode und die Console von H2 an.
 . Optional: Vergleichen Sie Startup Time und Speicherverbrauch des Native Executables mit jenen des Executable Jars.
@@ -174,7 +174,7 @@ public class NativeOrderResourceIT extends OrderResourceTest {
 }
 ----
 
-== Aufgabe 6.2: Native Tests:
+== Aufgabe 6.3: Native Tests:
 
 *Aufgabenstellung*
 
@@ -186,8 +186,10 @@ public class NativeOrderResourceIT extends OrderResourceTest {
 * Einen Postgres-Server können Sie wie folgt starten +
 `docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres`
 ** User: `postgres`, Datenbank `postgres`, Kennwort: `mysecretpassword` +
-* Das Skelett zur Aufgabe befindet sich im Ordner `lesson06-appbuilding/lesson0602-native`
-* Eine Beispiellösung liegt im Ordner `solutions/lesson06-appbuilding/lesson0602-native
+* Das Skelett zur Aufgabe befindet sich im Ordner `lesson06_2-native`
+* Eine Beispiellösung liegt im Ordner `solutions/lesson06_3-native
+
+link:https://quarkus.io/guides/building-native-image[Guide: Quarkus - Building Native Image ]
 
 
 == Zusammenfassung Application Building

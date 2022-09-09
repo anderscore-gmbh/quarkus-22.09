@@ -27,9 +27,10 @@ image::quarkus.jpg[width=400]
 |02/2021|1.12|Fast jar as default, Multipart support for RESTEasy
 |03/2021|1.13|DevService, Kubernetes Service Binding, OpenTelemetry
 |06/2021|2.0|Vert.x 4, MicroProfile 4, Continuous Testing
-|07/2021|2.1|Dev Service for Keycloak, Reactive SQL, Server extension, Kotlin 1.5
-|08/2021|2.2|GrallVM 21.2, MongoDB service binding, Narayana LRA
-|10/2021|2.3|Dev Service for Neo4J, Logging with Panache, Testing CLI applications
+|05/2022|2.9|WebAuthn extension, Compression support for Reactive Routes and RESTEasy
+|06/2022|2.10|Loom's virtual threads, refinements
+|07/2022|2.11|new Redis Client API
+|08/2022|2.12|GraalVM/Mandrel22.2, Kotlin 1.7
 
 |===
 
@@ -104,7 +105,7 @@ Hello Quarkus
 
 Projekt generieren
 ----
-$ mvn io.quarkus:quarkus-maven-plugin:1.10.5.Final:create \
+$ mvn io.quarkus:quarkus-maven-plugin:2.12.1.Final:create \
   -DprojectGroupId=net.gfu.quarkus \
   -DprojectArtifactId=hello \
   -DclassName="net.gfu.quarkus.hello.HelloResource" \
@@ -134,10 +135,11 @@ Artefakte
     * *Dockerfile.jvm* - Container mit OpenJDK
     * *Dockerfile.fast-jar* - _fast-jar_-Variante, Container mit OpenJDK
     * *Dockerfile.native* - Container mit _ahead-of-time-compilation_ native image (GraalVM)
+    * *Dockerfile.native-micro* - zusätzlich _micro base image_, kleineres Container Image.
 . src/main/java/net.gfu.quarkus.hello.*HelloResource.java* - Java Implementation
 . src/main/resources/META-INF
     * *application.properties* - Zentrale Konfiguration
-    * resources/*index.html* - Freundliche Index-Seite
+    * resources/*index.html* - Index-Seite
 . src/test/java/net.gfu.quarkus.hello
     * *HelloResourceTest* - Einfacher Integrationstest (REST-assured)
     * *NativeHelloResourceIT* - Integrationstest im _ahead-of-time-compilation_ Setup
@@ -171,9 +173,10 @@ __  ____  __  _____   ___  __ ____  ______
  --/ __ \/ / / / _ | / _ \/ //_/ / / / __/
  -/ /_/ / /_/ / __ |/ , _/ ,< / /_/ /\ \
 --\___\_\____/_/ |_/_/|_/_/|_|\____/___/
-2020-10-12 18:15:46,445 INFO  [io.quarkus] (Quarkus Main Thread) hello 1.0-SNAPSHOT on JVM (powered by Quarkus 1.10) started in 1.219s. Listening on: http://0.0.0.0:8080
-2020-10-12 18:15:46,458 INFO  [io.quarkus] (Quarkus Main Thread) Profile dev activated. Live Coding activated.
-2020-10-12 18:15:46,458 INFO  [io.quarkus] (Quarkus Main Thread) Installed features: [cdi, resteasy]
+2022-09-08 09:44:08,163 INFO  [io.quarkus] (Quarkus Main Thread) hello 1.0.0-SNAPSHOT on JVM (powered by Quarkus 2.12.1.Final) started in 2.749s. Listening on: http://localhost:8080
+
+2022-09-08 09:44:08,187 INFO  [io.quarkus] (Quarkus Main Thread) Profile dev activated. Live Coding activated.
+2022-09-08 09:44:08,189 INFO  [io.quarkus] (Quarkus Main Thread) Installed features: [cdi, resteasy-reactive, smallrye-context-propagation, vertx]
 ----
 
 .Shell #2

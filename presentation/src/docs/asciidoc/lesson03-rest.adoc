@@ -239,8 +239,8 @@ Alternativen:
 
 *Hinweise*:
 
-* Im Ordner `lesson03-rest/lesson03` befindet sich bereits ein Skelett samt Repository und Model
-* Eine Beispiellösung finden Sie im Ordner `solutions/lesson03/lesson03-rest`
+* Im Ordner `lesson03_1-rest/lesson03` befindet sich bereits ein Skelett samt Repository und Model
+* Eine Beispiellösung finden Sie im Ordner `solutions/lesson03/lesson03_1-rest`
 * Es sollen erstmal nur die Positivfälle behandelt und noch kein HTTP Status Code zurück gegeben werden
 * https://quarkus.io/guides/rest-json[-> Quarkus Guide]
 
@@ -358,7 +358,7 @@ public class StaticContentTest {
     }
 }
 ----
-`@QuarkusTest`: Start eines HTTP-Service zur Testausführung, Integration in mMven (Surefire)
+`@QuarkusTest`: Start eines HTTP-Service zur Testausführung, Integration in Maven (Surefire)
 
 `@TestHTTPResource`, `@TestHTTPEndpoint:(GreetingResource.class)`: URL-Injection, Referenz
 
@@ -410,7 +410,7 @@ Vgl. https://github.com/rest-assured/rest-assured/wiki/Usage
 
 *Hinweise*:
 
-* Im Ordner `lesson03-test/lesson03` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 3.1
-* Eine Beispiellösung finden Sie im Ordner `solutions/lesson03/lesson03-test`
+* Im Ordner `lesson03_2-test/lesson03` befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 3.1
+* Eine Beispiellösung finden Sie im Ordner `solutions/lesson03/lesson03_2-test`
 
 link:index.html#/_agenda[-> Zurück zur Übersicht]

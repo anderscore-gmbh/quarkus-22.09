@@ -75,7 +75,7 @@ public class KafkaPriceProducer {
 }
 ----
 
-link:https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/2/kafka/kafka.html[
+link:https://smallrye.io/smallrye-reactive-messaging/smallrye-reactive-messaging/3.4/kafka/kafka.html[
 -> SmallRye Reactive Messaging: Kafka]
 
 == JSON-Payload

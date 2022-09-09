@@ -1,0 +1,516 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Die MicroProfile API</title><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport"><link href="reveal.js-3.9.2/css/reveal.css" rel="stylesheet"><link href="reveal.js-3.9.2/plugin/title-footer/title-footer.css" rel="stylesheet"><link rel="stylesheet" href="reveal.js-3.9.2/css/theme/anderscore.css" id="theme"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"><style>/* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+pre.CodeRay{background:#f7f7f8}
+.CodeRay .line-numbers{border-right:1px solid currentColor;opacity:.35;padding:0 .5em 0 0}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.75em}
+.CodeRay .line-numbers strong{color:#000}
+table.CodeRay{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.CodeRay td{vertical-align:top;line-height:inherit}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.code{padding:0 0 0 .75em}
+.CodeRay .debug{color:#fff !important;background:#000080 !important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:#000080}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:#008080}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#000}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:#008080}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:#008080}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}</style><link href="reveal.js-3.9.2/lib/css/zenburn.css" rel="stylesheet"><script>document.write( '<link rel="stylesheet" href="reveal.js-3.9.2/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script></head><body><div class="reveal"><div class="slides"><section id="_die_microprofile_api" data-state="no-title-footer"><h2>Die MicroProfile API</h2><div class="paragraph center"><p>Ein Standard für Microservices</p></div></section>
+<section id="_microprofile_api"><h2>MicroProfile API</h2><div class="openblock"><div class="content"><div class="imageblock" style=""><img src="images/microprofile.png" alt="microprofile" width="700"></div>
+<div class="ulist"><ul><li><p>Sammlung von Spezifikationen</p></li><li><p>Fokus auf Microservices</p></li></ul></div></div></div>
+<div class="openblock"><div class="content"><div class="imageblock" style=""><img src="images/MicroProfile5.0.png" alt="MicroProfile5.0" width="700"></div></div></div></section>
+<section id="_microprofile_api_2" class="columns text-center"><h2>MicroProfile API</h2><div class="openblock"><div class="content"><div class="imageblock margin-bottom-wide" style=""><img src="images/quarkus.jpg" alt="quarkus" width="200"></div>
+<div class="imageblock margin-bottom-wide" style=""><img src="images/thorntail.png" alt="thorntail" width="250"></div>
+<div class="imageblock margin-bottom-wide" style=""><img src="images/openliberty.png" alt="openliberty" width="250"></div></div></div>
+<div class="openblock"><div class="content"><div class="imageblock margin-bottom-wide" style=""><img src="images/payara.jpeg" alt="payara" width="250"></div>
+<div class="imageblock margin-bottom-wide" style=""><img src="images/helidon.png" alt="helidon" width="250"></div>
+<div class="imageblock margin-bottom-wide" style=""><img src="images/kumuluz.png" alt="kumuluz" width="250"></div></div></div></section>
+<section id="_microprofile_api_relevante_bestandteile"><h2>MicroProfile API: Relevante Bestandteile</h2><div class="olist arabic"><ol class="arabic"><li><p><a href="lesson04-microprofile.html#/_1_configuration"><strong>Configuration</strong></a>:
+Einheitlicher Ansatz zur Konfiguration</p></li><li><p><a href="lesson04-microprofile.html#/_2_health"><strong>Health</strong></a>:
+Endpunkte für Health, Liveness und Readiness Checks</p></li><li><p><a href="lesson04-microprofile.html#/_3_fault_tolerance_api"><strong>Fault Tolerance</strong></a>:
+Ausfall-Strategie (z.B. Timeouts, Retry Policy, Fallback, Circuit Breaker)</p></li><li><p><a href="lesson04-microprofile.html#/_4_metrics_api_monitoring_auf_anwendungs_und_fachebene"><strong>Metrics</strong></a>:
+Metriken, Benchmarks auf Fach- und Anwendungsebene</p></li><li><p><a href="lesson04-microprofile.html#/_5_openapi_swagger_ui"><strong>OpenAPI</strong></a>:
+Beschreibung der REST-Schnittstelle</p></li><li><p><a href="lesson04-microprofile.html#/_6_rest_client"><strong>Rest Client</strong></a>:
+Aufbauend auf JAX-RS, client-Funktionalität</p></li><li><p><a href="lesson04-microprofile.html#/_7_opentracing_api"><strong>OpenTracing</strong></a>:
+Intrumentation für JAX-RS und CDI</p></li></ol></div></section>
+<section><section id="_1_configuration"><h2>1. Configuration</h2><div class="paragraph heading"><p>Einheitliche Konfiguration</p></div><div class="paragraph"><p><strong>Worum geht es?</strong></p></div><div class="ulist"><ul><li><p>Quarkus-Komponenten konfigurieren - Tipp: <code>./mvnw quarkus:generate-config</code></p></li><li><p>Eigene Optionen definieren und verwenden</p></li><li><p>Optionen überschreiben (Deployment)</p></li><li><p><code>application.properties</code> je nach Umgebung auswerten</p></li></ul></div><div class="paragraph"><p>Beispiel: Undertow Konfiguration</p></div><pre class="CodeRay listingblock"><code class="properties language-properties">quarkus.http.ssl.certificate.file=/path/to/certificate
+quarkus.http.ssl.certificate.key-file=/path/to/key</code></pre></section><section id="_eigene_optionen_definieren"><h2>Eigene Optionen definieren</h2><div class="paragraph"><p><strong>Zugriff</strong></p></div>
+<pre class="CodeRay listingblock"><code class="java language-java"><span class="annotation">@ConfigProperty</span>(name = <span class="string"><span class="delimiter">&quot;</span><span class="content">order.instanceName</span><span class="delimiter">&quot;</span></span>)
+<span class="predefined-type">String</span> instanceName;
+
+<span class="annotation">@ConfigProperty</span>(name = <span class="string"><span class="delimiter">&quot;</span><span class="content">order.currencySymbol</span><span class="delimiter">&quot;</span></span>, defaultValue=<span class="string"><span class="delimiter">&quot;</span><span class="content">€</span><span class="delimiter">&quot;</span></span>)
+<span class="predefined-type">String</span> currencySymbol;
+
+<span class="annotation">@ConfigProperty</span>(name = <span class="string"><span class="delimiter">&quot;</span><span class="content">order.envNotice</span><span class="delimiter">&quot;</span></span>)
+Optional&lt;<span class="predefined-type">String</span>&gt; notice;</code></pre>
+<div class="paragraph"><p><strong>Werte in <code>application.properties</code></strong></p></div>
+<pre class="CodeRay listingblock"><code class="properties language-properties">order.instanceName=dev01
+order.currencySymbol=NOK
+order.envNotice=Sie arbeiten in der Entwicklung</code></pre>
+<div class="paragraph"><p><a href="https://quarkus.io/guides/config">Guide: Quarkus - Configuring your application </a></p></div></section><section id="_strukturierte_optionen_definieren"><h2>Strukturierte Optionen definieren</h2><pre class="CodeRay listingblock"><code class="java language-java"><span class="annotation">@ConfigProperties</span>(prefix = <span class="string"><span class="delimiter">&quot;</span><span class="content">order</span><span class="delimiter">&quot;</span></span>)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">OrderConfiguration</span> {
+    <span class="directive">private</span> <span class="predefined-type">String</span> instanceName;
+    <span class="directive">private</span> <span class="predefined-type">String</span> currencySymbol = <span class="string"><span class="delimiter">&quot;</span><span class="content">€</span><span class="delimiter">&quot;</span></span>;
+    <span class="directive">private</span> Optional&lt;<span class="predefined-type">String</span>&gt; notice;
+
+    <span class="comment">// Getter, Setter - Alternative: public statt private</span>
+    <span class="comment">// Bean-Validation wird unterstützt.</span>
+}</code></pre>
+<div class="paragraph"><p><strong>Verwendung</strong></p></div>
+<pre class="CodeRay listingblock"><code class="java language-java"><span class="annotation">@Inject</span>
+OrderConfiguration orderConfiguration;
+
+<span class="annotation">@ConfigPrefix</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">andererPrefixInApplicationProperties</span><span class="delimiter">&quot;</span></span>)
+OrderConfiguration orderConfiguration;</code></pre>
+<div class="paragraph"><p><strong>Werte in <code>application.properties</code></strong></p></div>
+<pre class="CodeRay listingblock"><code class="properties language-properties">order.instanceName=dev01
+order.currencySymbol=NOK
+order.envNotice=Sie arbeiten in der Entwicklung</code></pre>
+<div class="paragraph"><p><a href="https://quarkus.io/guides/config">Guide: Quarkus - Configuring your application</a></p></div></section><section id="_hierarchie_verschiedene_quellen"><h2>Hierarchie verschiedene Quellen</h2><div class="imageblock" style=""><img src="images/config-sources.png" alt="config sources" height="300"></div>
+<div class="olist arabic"><ol class="arabic" start="1"><li><p>System-Properties</p><div class="ulist"><ul><li><p><code>java -Dorder.currencySymbol=NOK -jar target/myapp-runner.jar</code></p></li><li><p><code>./target/myapp-runner -Dorder.currencySymbol=NOK</code></p></li></ul></div></li></ol></div>
+<div class="paragraph"><p><a href="https://quarkus.io/guides/config-reference">Guide: Quarkus - Configuring Reference Guide</a></p></div></section><section id="_hierarchie_verschiedene_quellen_2"><h2>Hierarchie verschiedene Quellen</h2><div class="imageblock" style=""><img src="images/config-sources.png" alt="config sources" height="300"></div>
+<div class="olist arabic"><ol class="arabic" start="2"><li><p>Umgebungs-Variablen - <a href="https://github.com/eclipse/microprofile-config/blob/master/spec/src/main/asciidoc/configsources.asciidoc#default-configsources">&#8594; Eclipse Microprofile Konventionen</a></p><div class="ulist"><ul><li><p><code>export ORDER_CURRENCYSYMBOL=NOK ; java -jar target/myapp-runner.jar</code>**</p></li><li><p><code>export ORDER_CURRENCYSYMBOL=NOK  ; ./target/myapp-runner</code></p></li></ul></div></li></ol></div>
+<div class="paragraph"><p><a href="https://quarkus.io/guides/config-reference">Guide: Quarkus - Configuring Reference Guide</a></p></div></section><section id="_hierarchie_verschiedene_quellen_3"><h2>Hierarchie verschiedene Quellen</h2><div class="imageblock" style=""><img src="images/config-sources.png" alt="config sources" height="300"></div>
+<div class="olist arabic"><ol class="arabic" start="3"><li><p><code>.env</code> im Working-Directory (Format wie Umgebungs-Variablen)</p></li></ol></div>
+<div class="paragraph"><p><a href="https://quarkus.io/guides/config-reference">Guide: Quarkus - Configuring Reference Guide</a></p></div></section><section id="_hierarchie_verschiedene_quellen_4"><h2>Hierarchie verschiedene Quellen</h2><div class="imageblock" style=""><img src="images/config-sources.png" alt="config sources" height="300"></div>
+<div class="olist arabic"><ol class="arabic" start="4"><li><p>application.properties im Working-Directory <code>config/application.properties</code></p></li></ol></div>
+<div class="paragraph"><p><a href="https://quarkus.io/guides/config-reference">Guide: Quarkus - Configuring Reference Guide</a></p></div></section><section id="_hierarchie_verschiedene_quellen_5"><h2>Hierarchie verschiedene Quellen</h2><div class="imageblock" style=""><img src="images/config-sources.png" alt="config sources" height="300"></div>
+<div class="olist arabic"><ol class="arabic" start="5"><li><p><code>src/main/resorces/application.properties</code></p></li></ol></div>
+<div class="paragraph"><p><a href="https://quarkus.io/guides/config-reference">Guide: Quarkus - Configuring Reference Guide</a></p></div></section><section id="_hierarchie_verschiedene_quellen_6"><h2>Hierarchie verschiedene Quellen</h2><div class="imageblock" style=""><img src="images/config-sources.png" alt="config sources" height="300"></div>
+<div class="olist arabic"><ol class="arabic" start="6"><li><p>microprofile.properties in den application dependencies, default-Werte der microservices</p></li></ol></div>
+<div class="paragraph"><p><a href="https://quarkus.io/guides/config-reference">Guide: Quarkus - Configuring Reference Guide</a></p></div></section><section id="_konfiguration_nach_profilen"><h2>Konfiguration nach Profilen</h2><div class="ulist"><ul><li><p>dev - <code>quarkus:dev</code></p></li><li><p>test - Automatisierte Tests</p></li><li><p>prod - Default</p></li></ul></div>
+<div class="paragraph"><p><strong>Eigene Profile Definieren: quarkus.profile</strong></p></div>
+<div class="ulist"><ul><li><p>System Property: <code>-Dquarkus.profile</code></p></li><li><p>Umgebungs-Variable: <code>QUARKUS_PROFILE</code></p></li></ul></div>
+<div class="paragraph"><p>Property-Syntax:</p></div>
+<pre class="CodeRay listingblock"><code class="properties language-properties">quarkus.http.port=9090
+%dev.quarkus.http.port=8181</code></pre>
+<div class="paragraph"><p>ENV-Syntax:</p></div>
+<pre class="CodeRay listingblock"><code class="shell script language-shell script">QUARKUS_HTTP_PORT=9090
+_DEV_QUARKUS_HTTP_PORT=8181</code></pre>
+<div class="paragraph"><p>Alternative: `application<strong>-profile</strong>.properties für jedes Profil</p></div>
+<div class="paragraph"><p><a href="https://quarkus.io/guides/config">Guide: Quarkus - Configuring your application</a></p></div></section></section>
+<section id="_2_health"><h2>2. Health</h2><div class="paragraph"><p>Motivation</p></div>
+<div class="ulist"><ul><li><p>Monitoring ermöglichen (icinga, nagios, &#8230;&#8203;)</p></li><li><p>Monitoring durch Application-Server (kubernetes, &#8230;&#8203;)</p></li><li><p>Steuerung durch Application-Server</p></li></ul></div>
+<div class="paragraph"><p>Dependency:</p></div>
+<pre class="CodeRay listingblock"><code class="xml language-xml"><span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>io.quarkus<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>quarkus-smallrye-health<span class="tag">&lt;/artifactId&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre></section>
+<section id="_2_health_liveness_and_readiness_checks"><h2>2. Health: Liveness and Readiness checks</h2><div class="paragraph"><p>Konzept:</p></div>
+<div class="ulist"><ul><li><p><strong>Readiness</strong>: Der Service kann aktuell (temporär) Daten verarbeiten / nicht verarbeiten.</p></li><li><p><strong>Liveness</strong>: Der Service is grundsätzlich aktiv oder dauerhaft nicht erreichbar.</p></li></ul></div>
+<div class="paragraph"><p>Eigenschaften:</p></div>
+<div class="ulist"><ul><li><p>Feinere Granularität</p></li><li><p>Aufruf:</p><div class="ulist"><ul><li><p><code>curl <a href="http://127.0.0.1:8080/q/health" class="bare">http://127.0.0.1:8080/q/health</a></code> (kombiniert)</p></li><li><p><code>curl <a href="http://127.0.0.1:8080/q/health/live" class="bare">http://127.0.0.1:8080/q/health/live</a></code></p></li><li><p><code>curl <a href="http://127.0.0.1:8080/q/health/ready" class="bare">http://127.0.0.1:8080/q/health/ready</a></code></p></li><li><p><code>curl <a href="http://127.0.0.1:8080/q/health/started" class="bare">http://127.0.0.1:8080/q/health/started</a></code></p></li><li><p><code>browser <a href="http://127.0.0.1:8080/q/health-ui" class="bare">http://127.0.0.1:8080/q/health-ui</a></code> (Health UI von Quarkus)</p></li></ul></div></li></ul></div>
+<div class="paragraph"><p><a href="https://quarkus.io/guides/microprofile-health">&#8594; Quarkus Microprofile Health</a></p></div>
+<div class="paragraph"><p><a href="https://download.eclipse.org/microprofile/microprofile-health-2.1/microprofile-health-spec.html">&#8594; MicroProfile Health Specification</a></p></div></section>
+<section id="_2_health_liveness_and_readiness_checks_2"><h2>2. Health: Liveness and Readiness checks</h2><div class="paragraph"><p><strong>Liveness: <code>@Liveness</code></strong></p></div>
+<pre class="CodeRay listingblock"><code class="java language-java"><span class="annotation">@Liveness</span>
+<span class="annotation">@ApplicationScoped</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">MyLivenessCheck</span> <span class="directive">implements</span> HealthCheck {
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> HealthCheckResponse call() {
+        <span class="comment">// Inhalt</span>
+    }
+}</code></pre>
+<div class="paragraph"><p><strong>Readiness: <code>@Readiness</code></strong></p></div>
+<pre class="CodeRay listingblock"><code class="java language-java"><span class="annotation">@Readiness</span>
+<span class="annotation">@ApplicationScoped</span>
+<span class="directive">public</span> <span class="type">class</span> <span class="class">MyReadinessCheck</span> <span class="directive">implements</span> HealthCheck {
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> HealthCheckResponse call() {
+        <span class="comment">// Inhalt</span>
+    }
+}</code></pre>
+<div class="paragraph"><p><a href="https://quarkus.io/guides/microprofile-health">&#8594; Guide: Quarkus Microprofile Health</a></p></div></section>
+<section id="_aufgabe_4_1_lesson04_1_health"><h2>Aufgabe 4.1: lesson04_1-health</h2><div class="paragraph"><p><strong>Aufgabenstellung</strong>:</p></div>
+<div class="ulist"><ul><li><p>Implementieren Sie Readiness und Liveness für den Order-Service</p><div class="ulist"><ul><li><p>Readiness: Weniger als 42 Bestellungen Status: <code>IN_PROGRESS</code></p></li><li><p>Liveness: Keine Bestellung Status: <code>LOST</code></p></li></ul></div></li><li><p>Testen Sie mit Postman oder Curl</p></li><li><p>Überprüfen Sie die Ausgabe in der Health-UI</p></li><li><p>Optional: Implementieren Sie einen klassischen Health-Check <strong><code>dice</code></strong>, der würfelt.</p></li></ul></div>
+<div class="paragraph"><p><strong>Hinweise</strong>:</p></div>
+<div class="olist arabic"><ol class="arabic"><li><p>Im Ordner <code>lesson04_1-health/lesson04</code> befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 3.4.</p></li><li><p>Eine Beispiellösung finden Sie im Ordner <code>solutions/lesson04_1-health/lesson04</code></p></li></ol></div>
+<div class="paragraph"><p><a href="https://quarkus.io/guides/microprofile-health">&#8594; Guide: Quarkus Microprofile Health</a></p></div></section>
+<section id="_3_fault_tolerance_api"><h2>3. Fault Tolerance API</h2><div class="paragraph heading"><p>Fault Tolerance API: Strategien bei Nicht-Erreichbarkeit</p></div>
+<div class="ulist"><ul><li><p><strong>Timeout</strong>: Wenn die Antwort ausbleibt</p></li><li><p><strong>Fallback</strong>: Wenn ein Fehler auftritt</p></li><li><p><strong>Retry</strong>: Wie soll ein Aufruf wiederholt werden?</p></li><li><p><strong>Bulkhead</strong>: Isolation lokaler Fehler</p></li><li><p><strong>Circuit Breaker</strong>: fast-fail: Überlast vermeiden</p></li><li><p>(<strong>Asynchronous</strong>): Verhalten bei asynchronen Aufrufen</p></li></ul></div>
+<div class="paragraph"><p>Dependency:</p></div>
+<pre class="CodeRay listingblock"><code class="xml language-xml"><span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>io.quarkus<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>quarkus-smallrye-fault-tolerance<span class="tag">&lt;/artifactId&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre>
+<div class="paragraph"><p><a href="https://quarkus.io/guides/microprofile-fault-tolerance">&#8594; Guide: Quarkus Fault Tolerance</a> |
+<a href="https://download.eclipse.org/microprofile/microprofile-fault-tolerance-2.0.4/microprofile-fault-tolerance-spec.html">&#8594; Microprofile Fault Tolerance Specification</a></p></div></section>
+<section id="_3_fault_tolerance_timeout_fallback_retries"><h2>3. Fault Tolerance: Timeout, Fallback, Retries</h2><pre class="CodeRay listingblock"><code class="java language-java"><span class="annotation">@GET</span>
+<span class="annotation">@Transactional</span>
+<span class="annotation">@Timeout</span>(<span class="integer">250</span>)
+<span class="annotation">@Fallback</span>(fallbackMethod = <span class="string"><span class="delimiter">&quot;</span><span class="content">sorry</span><span class="delimiter">&quot;</span></span>)
+<span class="annotation">@Retry</span>(maxRetries = <span class="integer">5</span>)
+<span class="directive">public</span> <span class="predefined-type">List</span> index(){
+    <span class="keyword">return</span> <span class="local-variable">this</span>.repository.listAll();
+}
+<span class="comment">// Fallback, index times out</span>
+<span class="directive">private</span> <span class="predefined-type">List</span> sorry(){
+    <span class="keyword">return</span> <span class="keyword">new</span> <span class="predefined-type">ArrayList</span>&lt;&gt;();
+}</code></pre>
+<div class="paragraph"><p>Konsequenzen</p></div>
+<div class="ulist"><ul><li><p>Nach 250ms wird ein Request abgebrochen</p></li><li><p>Es werden bis zu 5 Requests durchgeführt</p></li><li><p>Danach wird die Methode <code>sorry()</code> aufgerufen &#8594; leere Liste als Rückgabe</p></li></ul></div>
+<div class="paragraph"><p><a href="https://download.eclipse.org/microprofile/microprofile-fault-tolerance-2.0.4/microprofile-fault-tolerance-spec.html">&#8594; Microprofile Fault Tolerance Specification</a></p></div>
+<div class="paragraph"><p><a href="https://download.eclipse.org/microprofile/microprofile-fault-tolerance-2.0.2/apidocs/index.html?org/eclipse/microprofile/faulttolerance/Retry.html">&#8594;
+API Documentation</a></p></div></section>
+<section id="_3_fault_tolerance_circuit_breaker"><h2>3. Fault Tolerance: Circuit Breaker</h2><div class="paragraph"><p><strong>Ziel: Überlast in Fehler-Situationen verhindern</strong></p></div>
+<div class="paragraph"><p>Der Circuit-Breaker definiert Zustände:</p></div>
+<div class="ulist"><ul><li><p><strong>Closed State</strong>: Der Stromkreis ist geschlossen, Requests werden bearbeitet.</p></li><li><p><strong>Open State</strong>: Requests werden nicht mehr beantwortet &#8594; Anfragen werden zurückgewiesen.</p></li><li><p><strong>Half-open State</strong>: Anfragen werden teilweise wieder durchgelassen, Requests werden in der Mehrzahl bearbeitet.</p></li></ul></div></section>
+<section id="_3_fault_tolerance_circuit_breaker_verwendung"><h2>3. Fault Tolerance: Circuit Breaker: Verwendung</h2><pre class="CodeRay listingblock"><code class="java language-java"><span class="annotation">@POST</span>
+<span class="annotation">@Transactional</span>
+<span class="annotation">@CircuitBreaker</span>(successThreshold = <span class="integer">5</span>, requestVolumeThreshold = <span class="integer">4</span>,
+        failureRatio = <span class="float">0.75</span>, delay = <span class="integer">1000</span>)
+<span class="directive">public</span> Response create(<span class="comment">/* ... */</span>)){
+    <span class="comment">// ...</span>
+}</code></pre>
+<div class="paragraph"><p><strong>Open state</strong></p></div>
+<div class="ulist"><ul><li><p>Für <code>delay = 1000 ms</code>, falls</p></li><li><p>Von den letzten <code>requestVolumeThreshold = 4</code></p></li><li><p>75% (d.h. <code>failureRatio = 0.75</code>) fehlerhaft sind.</p></li><li><p>Danach: Half-open</p></li></ul></div>
+<div class="paragraph"><p><strong>Half-open</strong> - so lange bis:</p></div>
+<div class="ulist"><ul><li><p><code>successThreshold = 5</code> Requests hintereinander erfolgreich waren (&#8594; Closed state)</p></li><li><p>Alternativ: Open state auslöst</p></li></ul></div>
+<div class="paragraph"><p><a href="https://download.eclipse.org/microprofile/microprofile-fault-tolerance-2.0.2/apidocs/index.html?org/eclipse/microprofile/faulttolerance/CircuitBreaker.html">&#8594; org.eclipse.microprofile.faulttolerance.CircuitBreaker</a></p></div></section>
+<section id="_3_fault_tolerance_bulkhead"><h2>3. Fault Tolerance: Bulkhead</h2><div class="paragraph"><p>Ziel: Überlast im Normalfall verhindern</p></div>
+<pre class="CodeRay listingblock"><code class="java language-java"><span class="annotation">@Asynchronous</span>
+<span class="annotation">@Bulkhead</span>(value = <span class="integer">5</span>)
+<span class="directive">private</span> <span class="predefined-type">Future</span> doSomething(Order o) {
+    <span class="comment">// ...</span>
+}</code></pre>
+<div class="paragraph"><p>Ziel: Gleichzeitige Ausführung einschränken (semaphore)</p></div>
+<div class="ulist"><ul><li><p><strong>Mit</strong> <code>@Asynchronous</code>: <strong>Thread-Isolation</strong>, d.h. <code>value = 5</code> Threads in Pool</p></li><li><p><strong>Sonst</strong>: Zählende Semaphore, kein eigener Thread-Pool</p></li></ul></div>
+<div class="paragraph"><p>API Dokumentation</p></div>
+<div class="ulist"><ul><li><p><a href="https://download.eclipse.org/microprofile/microprofile-fault-tolerance-2.0.2/apidocs/index.html?org/eclipse/microprofile/faulttolerance/Asynchronous.html">org.eclipse.microprofile.faulttolerance.Asynchronous</a></p></li><li><p><a href="https://download.eclipse.org/microprofile/microprofile-fault-tolerance-2.0.2/apidocs/index.html?org/eclipse/microprofile/faulttolerance/Bulkhead.html">org.eclipse.microprofile.faulttolerance.Bulkhead</a></p></li></ul></div>
+<div class="paragraph"><p><a href="https://de.wikipedia.org/wiki/Semaphor_(Informatik)">&#8594; Wikipedia: Semaphor (Informatik)</a></p></div></section>
+<section id="_aufgabe_4_2_lesson04_2_fault_tolerance"><h2>Aufgabe 4.2: lesson04_2-fault-tolerance</h2><div class="paragraph"><p><strong>Aufgabenstellung</strong></p></div>
+<div class="paragraph"><p>Implementieren Sie verschiedene Fault Tolerance Strategien für die <code>Order Resource</code></p></div>
+<div class="ulist"><ul><li><p>Index: Nach einem Timeout von 250ms werden Anfragen abgebrochen. Eine Anfrage wird bis zu 5 mal wiederholt.
+Falls die Anfrage fehl schlägt, wird eine leere Liste zurück gegeben.</p></li><li><p>Create: Falls die Annahme von 3 der 4 letzten Bestellung fehlschlägt: Keine Annahme für 1s - nach 5
+erfolgreichen Annahmen, steht die Annahme wieder voll zur Verfügung.</p></li><li><p>Update: Es gibt 5 Lieferfahrzeuge, d.h. 5 Pizzas im Status <code>IN_DELIVERY</code>. Beschränken Sie die Auslieferung.</p></li></ul></div>
+<div class="paragraph"><p><strong>Hinweise</strong>:</p></div>
+<div class="olist arabic"><ol class="arabic"><li><p>Im Ordner <code>lesson04_2-fault-tolerance/lesson04</code> befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 4.1.</p></li><li><p>Eine Beispiellösung finden Sie im Ordner <code>solutions/lesson04_2-fault-tolerance/lesson04</code></p></li></ol></div></section>
+<section><section id="_4_metrics_api_monitoring_auf_anwendungs_und_fachebene"><h2>4. Metrics API: Monitoring auf Anwendungs- und Fachebene</h2><div class="paragraph"><p><strong>Funktion</strong></p></div><div class="ulist"><ul><li><p>Fachereignisse als Benchmark exportieren</p></li><li><p>Optionen</p><div class="ulist"><ul><li><p><strong>Counter</strong> / <strong>Meter</strong> - Aufrufe zählen</p></li><li><p><strong>Gauge</strong> - "Wasserstands-Anzeiger"; beliebiges Feld</p></li><li><p><strong>Timer</strong> - Ausführungsdauer messen</p></li></ul></div></li></ul></div><div class="paragraph"><p><strong>Dependency</strong></p></div><pre class="CodeRay listingblock"><code class="xml language-xml"><span class="tag">&lt;dependency&gt;</span>
+  <span class="tag">&lt;groupId&gt;</span>io.quarkus<span class="tag">&lt;/groupId&gt;</span>
+  <span class="tag">&lt;artifactId&gt;</span>quarkus-smallrye-metrics<span class="tag">&lt;/artifactId&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre><div class="paragraph"><p><strong>Abfrage</strong></p></div><div class="ulist"><ul><li><p><code>curl -H"Accept: application/json" <a href="http://localhost:8080/q/metrics/application" class="bare">http://localhost:8080/q/metrics/application</a></code></p></li><li><p><code>curl -H"Accept: application/json" <a href="http://localhost:8080/q/metrics" class="bare">http://localhost:8080/q/metrics</a></code> (auch System-Metrics)</p></li></ul></div><div class="paragraph"><p><a href="https://quarkus.io/guides/microprofile-metrics">
+&#8594; Quarkus Metrics</a></p></div></section><section id="_4_metrics_api_monitoring_auf_anwendungs_und_fachebene_2"><h2>4. Metrics API: Monitoring auf Anwendungs- und Fachebene</h2><pre class="CodeRay listingblock"><code class="java language-java"><span class="annotation">@GET</span>
+<span class="annotation">@Timed</span>(name = <span class="string"><span class="delimiter">&quot;</span><span class="content">listenAufruf</span><span class="delimiter">&quot;</span></span>, description = <span class="string"><span class="delimiter">&quot;</span><span class="content">Ladezeit Startseite</span><span class="delimiter">&quot;</span></span>, unit = MetricUnits.MILLISECONDS)
+<span class="directive">public</span> <span class="predefined-type">List</span> get(){
+    <span class="comment">// ....</span>
+}
+<span class="annotation">@Counted</span>(description = <span class="string"><span class="delimiter">&quot;</span><span class="content">Anzahl</span><span class="delimiter">&quot;</span></span>, absolute = <span class="predefined-constant">true</span>)
+<span class="directive">public</span> Response create(<span class="comment">/* ..*/</span>){ {
+    <span class="comment">// ...</span>
+}</code></pre>
+<div class="paragraph"><p>Ergebnis:</p></div>
+<pre class="CodeRay listingblock"><code class="json language-json">    <span class="key"><span class="delimiter">&quot;</span><span class="content">application</span><span class="delimiter">&quot;</span></span>: {
+        <span class="key"><span class="delimiter">&quot;</span><span class="content">net.gfu.quarkus.endpoints.OrderResource.listenAufruf</span><span class="delimiter">&quot;</span></span>: {
+            <span class="key"><span class="delimiter">&quot;</span><span class="content">p99</span><span class="delimiter">&quot;</span></span>: <span class="float">0.0</span>,
+            <span class="key"><span class="delimiter">&quot;</span><span class="content">min</span><span class="delimiter">&quot;</span></span>: <span class="float">0.0</span>,
+            <span class="key"><span class="delimiter">&quot;</span><span class="content">max</span><span class="delimiter">&quot;</span></span>: <span class="float">0.0</span>,
+            <span class="key"><span class="delimiter">&quot;</span><span class="content">mean</span><span class="delimiter">&quot;</span></span>: <span class="float">0.0</span>,
+<span class="error">/</span><span class="error">/</span> <span class="error">W</span><span class="error">e</span><span class="error">i</span><span class="error">t</span><span class="error">e</span><span class="error">r</span><span class="error">e</span> <span class="error">s</span><span class="error">t</span><span class="error">a</span><span class="error">t</span><span class="error">i</span><span class="error">s</span><span class="error">t</span><span class="error">i</span><span class="error">s</span><span class="error">c</span><span class="error">h</span><span class="error">e</span> <span class="error">K</span><span class="error">e</span><span class="error">n</span><span class="error">n</span><span class="error">z</span><span class="error">a</span><span class="error">h</span><span class="error">l</span><span class="error">e</span><span class="error">n</span>
+            <span class="key"><span class="delimiter">&quot;</span><span class="content">meanRate</span><span class="delimiter">&quot;</span></span>: <span class="float">0.0</span>,
+            <span class="key"><span class="delimiter">&quot;</span><span class="content">count</span><span class="delimiter">&quot;</span></span>: <span class="integer">0</span>,
+            <span class="key"><span class="delimiter">&quot;</span><span class="content">oneMinRate</span><span class="delimiter">&quot;</span></span>: <span class="float">0.0</span>
+        },
+        <span class="key"><span class="delimiter">&quot;</span><span class="content">create</span><span class="delimiter">&quot;</span></span>: <span class="integer">0</span>
+    }</code></pre></section></section>
+<section><section id="_4_metrics_api_alternative_micrometer"><h2>4. Metrics API Alternative: Micrometer</h2><div class="imageblock" style=""><img src="images/micrometer.png" alt="micrometer" width="1200"></div><div class="paragraph"><p>Dependency (plattformabhängig)</p></div><pre class="CodeRay listingblock"><code class="xml language-xml"><span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>io.quarkus<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>quarkus-micrometer<span class="tag">&lt;/artifactId&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span>
+<span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>io.micrometer<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>micrometer-registry-prometheus<span class="tag">&lt;/artifactId&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre></section><section id="_verwendung_micrometer"><h2>Verwendung Micrometer</h2><pre class="CodeRay listingblock"><code class="java language-java"><span class="directive">public</span> MyResource(MeterRegistry registry) {
+    <span class="local-variable">this</span>.registry = registry;
+    registry.gauge(<span class="string"><span class="delimiter">&quot;</span><span class="content">wasserstand</span><span class="delimiter">&quot;</span></span>, <span class="local-variable">this</span>, MyResource::getWasserstand);
+}
+
+<span class="directive">public</span> <span class="type">void</span> doSth() {
+    Supplier&lt;<span class="predefined-type">String</span>&gt; supplier = () -&gt; { <span class="comment">// Macht etwas };</span>
+    <span class="keyword">return</span> registry.timer(<span class="string"><span class="delimiter">&quot;</span><span class="content">MyResource.doSth</span><span class="delimiter">&quot;</span></span>).wrap(supplier).get();
+}</code></pre>
+<div class="ulist"><ul><li><p>"Recommended" im Quarkus-Guide, aber nicht Teil von MicroProfile</p></li></ul></div>
+<div class="paragraph"><p><a href="https://quarkus.io/guides/micrometer">&#8594; Guide: Quarkus Micrometer</a></p></div></section></section>
+<section id="_aufgabe_4_3_lesson04_3_metrics"><h2>Aufgabe 4.3: lesson04_3-metrics</h2><div class="paragraph"><p><strong>Aufgabenstellung</strong></p></div>
+<div class="paragraph"><p>Implementieren Sie verschiedene Metriken für die <code>Order Resource</code></p></div>
+<div class="ulist"><ul><li><p>Index:</p><div class="ulist"><ul><li><p>Messung der Ladezeit - wie schnell kann die Seite geladen werden (UX)</p></li></ul></div></li><li><p>Create</p><div class="ulist"><ul><li><p>Umsatz - wie viele Bestellungen gehen ein?</p></li></ul></div></li></ul></div>
+<div class="paragraph"><p><strong>Hinweise</strong></p></div>
+<div class="olist arabic"><ol class="arabic"><li><p>Im Ordner <code>lesson04_3-metrics/lesson04</code> befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 4.1.</p></li><li><p>Eine Beispiellösung finden Sie im Ordner <code>solutions/lesson04_3-metrics/lesson04</code></p></li></ol></div></section>
+<section id="_5_openapi_swagger_ui"><h2>5. OpenAPI / Swagger UI</h2><div class="paragraph center"><p><span class="image"><img src="images/swagger.png" alt="swagger" width="1200"></span></p></div>
+<div class="paragraph"><p><strong>OpenAPI</strong>:</p></div>
+<div class="ulist"><ul><li><p>YAML-basiert</p></li><li><p>Dokumentenformat zur Beschreibung einer öffentlichen API</p></li></ul></div>
+<div class="paragraph"><p><strong>Swagger</strong></p></div>
+<div class="ulist"><ul><li><p>Tool-Sammlung</p></li><li><p>Auf OpenAPI aufbauend</p></li></ul></div></section>
+<section><section id="_openapi_swagger_ui_verwendung"><h2>OpenAPI / Swagger UI: Verwendung</h2><div class="paragraph"><p><strong>Dependency</strong></p></div><pre class="CodeRay listingblock"><code class="xml language-xml"><span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>io.quarkus<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>quarkus-smallrye-openapi<span class="tag">&lt;/artifactId&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre><div class="paragraph"><p><strong>Aufruf</strong></p></div><div class="ulist"><ul><li><p><code>chrome <a href="http://localhost:8080/q/swagger-ui" class="bare">http://localhost:8080/q/swagger-ui</a></code> (GUI)</p></li><li><p><code>curl <a href="http://localhost:8080/q/openapi" class="bare">http://localhost:8080/q/openapi</a></code> (Abruf)</p></li></ul></div><div class="paragraph"><p><strong>Ergebnis</strong></p></div><pre class="CodeRay listingblock"><code class="yaml language-yaml"><span class="key">openapi</span>: <span class="string"><span class="content">3.0.3</span></span>
+<span class="key">info</span>:
+  <span class="key">title</span>: <span class="string"><span class="content">Generated API</span></span>
+  <span class="key">version</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">1.0</span><span class="delimiter">&quot;</span></span>
+<span class="key">paths</span>:
+  <span class="key">/myRessource</span>:
+    <span class="key">get</span>:
+      <span class="key">responses</span>:
+        <span class="key"><span class="delimiter">&quot;</span><span class="content">200</span><span class="delimiter">&quot;</span></span>:
+          <span class="key">description</span>: <span class="string"><span class="content">OK</span></span>
+          <span class="key">content</span>:
+            <span class="key">application/json</span>:
+<span class="comment"># ...</span></code></pre></section><section id="_dokumentation_ausweisen"><h2>Dokumentation ausweisen</h2><pre class="CodeRay listingblock"><code class="java language-java"><span class="annotation">@Tag</span>(name = <span class="string"><span class="delimiter">&quot;</span><span class="content">OpenAPI Beispiel</span><span class="delimiter">&quot;</span></span>, description = <span class="string"><span class="delimiter">&quot;</span><span class="content">Quarkus CRUD Endpunkt</span><span class="delimiter">&quot;</span></span>)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">MyResource</span> {
+
+    <span class="annotation">@Operation</span>(operationId = <span class="string"><span class="delimiter">&quot;</span><span class="content">all</span><span class="delimiter">&quot;</span></span>, description = <span class="string"><span class="delimiter">&quot;</span><span class="content">Alle Ressourcen abrufen</span><span class="delimiter">&quot;</span></span>)
+    <span class="annotation">@APIResponse</span>(responseCode = <span class="string"><span class="delimiter">&quot;</span><span class="content">200</span><span class="delimiter">&quot;</span></span>, description = <span class="string"><span class="delimiter">&quot;</span><span class="content">Erfolgreich</span><span class="delimiter">&quot;</span></span>)
+    <span class="annotation">@GET</span>
+    <span class="directive">public</span> <span class="predefined-type">List</span> getAll() { <span class="comment">/* ..*/</span>  }
+
+    <span class="annotation">@POST</span>
+    <span class="directive">public</span> Response create(
+            <span class="annotation">@Parameter</span>(description = <span class="string"><span class="delimiter">&quot;</span><span class="content">Das Dokument</span><span class="delimiter">&quot;</span></span>, required = <span class="predefined-constant">true</span>) MyDoc doc) { <span class="comment">/* .. */</span>}
+}</code></pre>
+<div class="ulist"><ul><li><p>Weitere Tags, z.B. <code>@OpenAPIDefinition</code> enthalten</p></li><li><p>Export des OpenAPI-YAML nach adoc, pdf, etc. möglich</p></li></ul></div>
+<div class="paragraph"><p><a href="https://quarkus.io/guides/openapi-swaggerui">&#8594; Guide: Quarkus Using OpenAPI and Swagger UI</a></p></div></section></section>
+<section id="_aufgabe_4_4_lesson04_4_openapi"><h2>Aufgabe 4.4: lesson04_4-openapi</h2><div class="paragraph"><p><strong>Aufgabenstellung</strong></p></div>
+<div class="ulist"><ul><li><p>Erstellen Sie ein aussagekräftige Dokumentation für die OrderResource</p></li><li><p>Überprüfen Sie das Ergebnis in der Swagger UI</p></li></ul></div>
+<div class="paragraph"><p><strong>Hinweise</strong></p></div>
+<div class="olist arabic"><ol class="arabic"><li><p>Im Ordner <code>lesson04_4-openapi/lesson04</code> befindet sich bereits ein Skelett. Es entspricht der Beispiellösung aus Aufgabe 4.1.</p></li><li><p>Eine Beispiellösung finden Sie im Ordner <code>solutions/lesson04_4-openapi/lesson04</code></p></li></ol></div></section>
+<section><section id="_6_rest_client"><h2>6. REST Client</h2><div class="paragraph heading"><p>Der Quarkus Rest-Client</p></div><div class="ulist"><ul><li><p>Umsetzung des Microprofile REST client</p></li><li><p>Alternative zum JAX-RS Client</p></li><li><p>Integration in Quarkus</p></li><li><p>Vorteile: Konfiguration, einfache Integration</p></li><li><p>Asynchrone Aufrufe</p></li><li><p>Mock-Server</p></li></ul></div><div class="paragraph"><p>&#160;<br></p></div></section><section id="_maven_dependencies"><h2>Maven Dependencies</h2><pre class="CodeRay listingblock"><code class="xml language-xml"><span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>io.quarkus<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>quarkus-rest-client-reactive-jsonb<span class="tag">&lt;/artifactId&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span>
+
+<span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>io.quarkus<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>quarkus-resteasy-reactive-jsonb<span class="tag">&lt;/artifactId&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre>
+<div class="paragraph"><p><a href="https://quarkus.io/guides/rest-client">&#8594; Guide: Quarkus Rest Client</a> (deprecated)</p></div>
+<div class="paragraph"><p><a href="https://quarkus.io/guides/rest-client-reactive">&#8594; Guide: Quarkus Rest Client Reactive</a></p></div></section></section>
+<section id="_rest_client_verwendung"><h2>Rest Client: Verwendung</h2><pre class="CodeRay listingblock"><code class="java language-java"><span class="keyword">package</span> <span class="namespace">net.gfu.quarkus.client</span>;
+
+<span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">/hw</span><span class="delimiter">&quot;</span></span>)
+<span class="annotation">@RegisterRestClient</span>
+<span class="directive">public</span> <span class="type">interface</span> <span class="class">HelloWordService</span> {
+
+    <span class="annotation">@GET</span>
+    <span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">{name}</span><span class="delimiter">&quot;</span></span>)
+    <span class="annotation">@Produces</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">application/json</span><span class="delimiter">&quot;</span></span>)
+    GreetingMsg getByName(<span class="annotation">@PathParam</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>) <span class="predefined-type">String</span> name);
+
+    <span class="directive">public</span> <span class="directive">static</span> <span class="type">class</span> <span class="class">GreetingMsg</span> {
+        <span class="directive">public</span> <span class="predefined-type">String</span> message;
+    }
+}</code></pre>
+<pre class="CodeRay listingblock"><code class="properties language-properties"># Your configuration properties
+net.gfu.quarkus.client.HelloWordService/mp-rest/url=http://localhost:8081
+net.gfu.quarkus.client.HelloWordService/mp-rest/scope=javax.inject.Singleton</code></pre>
+<pre class="CodeRay listingblock"><code class="java language-java"><span class="annotation">@Path</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">/myRes</span><span class="delimiter">&quot;</span></span>)
+<span class="directive">public</span> <span class="type">class</span> <span class="class">MyResource</span> {
+    <span class="annotation">@RestClient</span>
+    <span class="annotation">@Inject</span>
+    HelloWordService service;
+
+    <span class="annotation">@GET</span> <span class="directive">public</span> <span class="predefined-type">String</span> index() {
+        <span class="keyword">return</span> service.getByName(<span class="string"><span class="delimiter">&quot;</span><span class="content">MyResource</span><span class="delimiter">&quot;</span></span>);
+    }
+}</code></pre></section>
+<section id="_aufgabe_4_5_lesson04_5_restclient"><h2>Aufgabe 4.5: lesson04_5-restclient</h2><div class="paragraph"><p><strong>Aufgabenstellung</strong></p></div>
+<div class="ulist"><ul><li><p>Erstellen Sie einen seperaten Franchise-Service, der auch Pizza-Bestellungen anzeigt.</p><div class="ulist"><ul><li><p>Erstellen Sie ein weiteres Quarkus-Projekt <code>franchise</code>.</p></li><li><p>Der Service hat die Operation <code>index()</code>. Die Rückgabe ist wie folgt:</p></li></ul></div></li></ul></div>
+<pre class="CodeRay listingblock"><code class="json language-json">{
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">pizzaOrders</span><span class="delimiter">&quot;</span></span> : [] <span class="error">/</span><span class="error">*</span> <span class="error">D</span><span class="error">i</span><span class="error">e</span> <span class="error">L</span><span class="error">i</span><span class="error">s</span><span class="error">t</span><span class="error">e</span> <span class="error">d</span><span class="error">e</span><span class="error">s</span> <span class="error">O</span><span class="error">r</span><span class="error">d</span><span class="error">e</span><span class="error">r</span><span class="error">-</span><span class="error">S</span><span class="error">e</span><span class="error">r</span><span class="error">v</span><span class="error">i</span><span class="error">c</span><span class="error">e</span><span class="error">s</span> <span class="error">*</span><span class="error">/</span>
+}</code></pre>
+<div class="paragraph"><p><strong>Hinweise</strong></p></div>
+<div class="olist arabic"><ol class="arabic"><li><p>Der Eintrag <strong><code>quarkus.http.port=8080</code></strong> in der Datei <code>application.properties</code> bestimmt den HTTP-Port ‒
+<strong><code>mvn compile quarkus:dev -Ddebug=5006</code></strong> den Debug-Port.</p></li><li><p>Im Ordner <code>lesson04_5-restclient/lesson04</code> befindet sich bereits ein Skelett, jedoch nur für einen Service</p></li><li><p>Eine Beispiellösung finden Sie im Ordner <code>solutions/lesson04_5-restclient/</code>. Das Beispiel enthält beide Projekte</p></li></ol></div></section>
+<section id="_7_opentracing_api"><h2>7. OpenTracing API</h2><div class="paragraph heading"><p>Warum Tracing?</p></div>
+<div class="paragraph"><p><strong>Herausforderung Verteiltes System</strong></p></div>
+<div class="ulist"><ul><li><p>Requests durchlaufen verschiedene Services</p></li><li><p>Jeder Service führt individuelles Protokoll / Log</p></li><li><p>Welche Protokoll-Einträge gehören zusammen? Was gehört alles zu einem Request?</p></li></ul></div>
+<div class="paragraph"><p><strong>Ansatz: Request correlation</strong></p></div>
+<div class="ulist"><ul><li><p>ID an Requests initial vergeben</p></li><li><p>ID beim Aufruf anderer Services weiterreichen</p></li><li><p>ID loggen</p></li></ul></div>
+<pre class="CodeRay listingblock"><code class="xml language-xml"><span class="tag">&lt;dependency&gt;</span>
+    <span class="tag">&lt;groupId&gt;</span>io.quarkus<span class="tag">&lt;/groupId&gt;</span>
+    <span class="tag">&lt;artifactId&gt;</span>quarkus-smallrye-opentracing<span class="tag">&lt;/artifactId&gt;</span>
+<span class="tag">&lt;/dependency&gt;</span></code></pre>
+<div class="paragraph"><p><a href="https://quarkus.io/guides/opentracing">&#8594; Quarkus - Using OpenTracing</a></p></div></section>
+<section id="_7_opentracing_api_verwendung"><h2>7. OpenTracing API: Verwendung</h2><div class="paragraph"><p><strong>Konfiguration - <code>application.properties</code></strong></p></div>
+<pre class="CodeRay listingblock"><code class="properties language-properties">quarkus.jaeger.service-name=franchise
+quarkus.jaeger.sampler-type=const
+quarkus.jaeger.sampler-param=1
+quarkus.log.console.format=%d{HH:mm:ss} %-5p traceId=%X{traceId}, parentId=%X{parentId}, spanId=%X{spanId}, sampled=%X{sampled} [%c{2.}] (%t) %s%e%n</code></pre>
+<div class="paragraph"><p><strong>Logger mit Trace-Ausgabe</strong></p></div>
+<pre class="CodeRay listingblock"><code class="java language-java"><span class="keyword">import</span> <span class="include">org.jboss.logging.Logger</span>;
+
+<span class="directive">public</span> <span class="type">class</span> <span class="class">FranchiseResource</span> {
+
+    <span class="directive">private</span> <span class="directive">static</span> <span class="directive">final</span> <span class="predefined-type">Logger</span> LOG = <span class="predefined-type">Logger</span>.getLogger(FranchiseResource.class);
+
+    <span class="directive">public</span> <span class="predefined-type">String</span> index() {
+        LOG.info(<span class="string"><span class="delimiter">&quot;</span><span class="content">Index called</span><span class="delimiter">&quot;</span></span>);
+        <span class="keyword">return</span> <span class="string"><span class="delimiter">&quot;</span><span class="content">index</span><span class="delimiter">&quot;</span></span>;
+    }
+}</code></pre>
+<div class="paragraph"><p><strong>Beispiel</strong> (Korrelation während der Auswertung)</p></div>
+<pre class="CodeRay listingblock"><code>13:20:11 INFO  traceId=1336b2b0a76a96a3, parentId=0, spanId=1336b2b0a76a96a3, sampled=true [or.ac.qu.TracedResource] (executor-thread-63) Index called</code></pre></section>
+<section id="_7_opentracing_api_jaeger_ui"><h2>7. OpenTracing API: Jaeger UI</h2><div class="paragraph center"><p><span class="image"><img src="images/jaeger.png" alt="jaeger"></span></p></div>
+<div class="paragraph"><p><strong>Installation</strong></p></div>
+<pre class="CodeRay listingblock"><code>docker run \
+-p 5775:5775/udp -p 6831:6831/udp -p 6832:6832/udp -p 5778:5778 -p 16686:16686 -p 14268:14268 \
+jaegertracing/all-in-one:latest</code></pre>
+<div class="paragraph"><p><a href="http://localhost:16686/">&#8594; Jaeger UI http://localhost:16686/</a></p></div>
+<div class="paragraph"><p><a href="https://www.jaegertracing.io/">&#8594; Jaeger: open source, end-to-end distributed tracing</a></p></div></section>
+<section id="_aufgabe_4_6_lesson04_6_tracing"><h2>Aufgabe 4.6: lesson04_6-tracing</h2><div class="paragraph"><p><strong>Aufgabenstellung</strong></p></div>
+<div class="paragraph"><p>Verfolgen Sie requests zwischen Franchise und Order-Service aus der letzten Ausgabe.</p></div>
+<div class="ulist"><ul><li><p>Erweitern Sie beide Projekte und nutzen Sie die OpenTracing API</p></li><li><p>Loggen Sie, wenn die index-Methode aufgerufen wird. Beobachten Sie die IDs</p></li><li><p>Verfolgen Sie den Franchise-Request in Jaeger</p></li></ul></div>
+<div class="paragraph"><p><strong>Hinweise</strong></p></div>
+<div class="olist arabic"><ol class="arabic"><li><p>Der Eintrag <strong><code>quarkus.http.port=8080</code></strong> in der Datei <code>application.properties</code> bestimmt den HTTP-Port ‒
+<strong><code>mvn compile quarkus:dev -Ddebug=5006</code></strong> den Debug-Port.</p></li><li><p>Im Ordner <code>lesson04_6-tracing/lesson04</code> befindet sich bereits ein Skelett, basierend auf der vorherigen Aufgabe.
+Es enthält den Franchise- und den Order-Service.</p></li><li><p>Eine Beispiellösung finden Sie im Ordner <code>solutions/lesson04_6-tracing/</code>.</p></li><li><p>Integration von Jaeger in Elastic-Search: <a href="https://logz.io/blog/jaeger-and-the-elk-stack/" class="bare">https://logz.io/blog/jaeger-and-the-elk-stack/</a></p></li></ol></div>
+<div class="paragraph"><p><a href="index.html#/_agenda">&#8594; Zurück zur Übersicht</a></p></div></section></div></div><script src="reveal.js-3.9.2/lib/js/head.min.js"></script><script src="reveal.js-3.9.2/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+Reveal.initialize({
+  // Display controls in the bottom right corner
+  controls: true,
+  // Display a presentation progress bar
+  progress: true,
+  // Display the page number of the current slide
+  slideNumber: true,
+  // Push each slide change to the browser history
+  history: true,
+  // Enable keyboard shortcuts for navigation
+  keyboard: true,
+  // Enable the slide overview mode
+  overview: true,
+  // Vertical centering of slides
+  center: true,
+  // Enables touch navigation on devices with touch input
+  touch: true,
+  // Loop the presentation
+  loop: false,
+  // Change the presentation direction to be RTL
+  rtl: false,
+  // Turns fragments on and off globally
+  fragments: true,
+  // Flags if the presentation is running in an embedded mode,
+  // i.e. contained within a limited portion of the screen
+  embedded: false,
+  // Number of milliseconds between automatically proceeding to the
+  // next slide, disabled when set to 0, this value can be overwritten
+  // by using a data-autoslide attribute on your slides
+  autoSlide: 0,
+  // Stop auto-sliding after user input
+  autoSlideStoppable: true,
+  // Enable slide navigation via mouse wheel
+  mouseWheel: true,
+  // Hides the address bar on mobile devices
+  hideAddressBar: true,
+  // Opens links in an iframe preview overlay
+  previewLinks: false,
+  // Theme (e.g., beige, black, league, night, serif, simple, sky, solarized, white)
+  // NOTE setting the theme in the config no longer works in reveal.js 3.x
+  //theme: Reveal.getQueryHash().theme || 'anderscore',
+  // Transition style (e.g., none, fade, slide, convex, concave, zoom)
+  transition: Reveal.getQueryHash().transition || 'linear',
+  // Transition speed (e.g., default, fast, slow)
+  transitionSpeed: 'default',
+  // Transition style for full page slide backgrounds (e.g., none, fade, slide, convex, concave, zoom)
+  backgroundTransition: 'fade',
+  // Number of slides away from the current that are visible
+  viewDistance: 3,
+  // Parallax background image (e.g., "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'")
+  parallaxBackgroundImage: '',
+  // Parallax background size in CSS syntax (e.g., "2100px 900px")
+  parallaxBackgroundSize: '',
+
+  // The "normal" size of the presentation, aspect ratio will be preserved
+  // when the presentation is scaled to fit different resolutions. Can be
+  // specified using percentage units.
+  width: 1728,
+  height: 972,
+
+  // Factor of the display size that should remain empty around the content
+  margin: 0.1,
+
+  // Bounds for smallest/largest possible scale to apply to content
+  minScale: 0.2,
+  maxScale: 1.5,
+
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+      { src: 'reveal.js-3.9.2/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'reveal.js-3.9.2/plugin/title-footer/title-footer.js', async: true, callback: function()
+          {title_footer.initialize('Jakarta EE Microservices mit Quarkus & MicroProfile', 'MJohenneken, ALambertz', 'anderScore GmbH • Frankenwerft 35 • 50667 Köln');}},
+      { src: 'reveal.js-3.9.2/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'reveal.js-3.9.2/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      
+      { src: 'reveal.js-3.9.2/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'reveal.js-3.9.2/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+});</script></body></html>

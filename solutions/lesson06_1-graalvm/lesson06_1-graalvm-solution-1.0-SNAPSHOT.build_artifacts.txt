@@ -1,0 +1,3 @@
+[EXECUTABLE]
+lesson06_1-graalvm-solution-1.0-SNAPSHOT
+

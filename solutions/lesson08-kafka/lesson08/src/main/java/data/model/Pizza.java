@@ -3,7 +3,6 @@ package data.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -18,17 +17,15 @@ public class Pizza implements Serializable {
     private BigDecimal price;
 
 
+    public Pizza(){
+
+    }
+
     public Pizza(Long id, String name, BigDecimal price) {
         this.id = id;
         this.name = name;
         this.price = price;
     }
-
-
-    public Pizza(){
-
-    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -68,6 +65,4 @@ public class Pizza implements Serializable {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
-
-
 }

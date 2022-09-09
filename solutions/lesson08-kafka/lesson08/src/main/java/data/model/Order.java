@@ -11,6 +11,21 @@ import java.util.Objects;
 @Table(name = "pizza_order")
 public class Order implements Serializable {
 
+    @Id
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long orderId;
+
+    private Timestamp orderDateTime;
+
+    private Long customerId;
+
+    private Status status;
+
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    private List<Pizza> pizzaList;
+
+    private BigDecimal totalPrice;
 
     public Order(){
 
@@ -24,21 +39,6 @@ public class Order implements Serializable {
         this.pizzaList = pizzaList;
         this.totalPrice = totalPrice;
     }
-
-    @Id
-    @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderId;
-
-    private Timestamp orderDateTime;
-
-    private Long customerId;
-    private Status status;
-
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    private List<Pizza> pizzaList;
-
-    private BigDecimal totalPrice;
 
     public Long getOrderId() {
         return orderId;
