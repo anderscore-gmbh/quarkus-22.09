@@ -10,27 +10,6 @@ Die Schulung Jakarta EE Microservices mit Quarkus & MicroProfile wurde Stand 01/
 
 Dieses Dokument beschreibt die Durchführung der Schulung und listet bekannte Probleme / Fehler (Errata) auf, die vor einer erneuten Durchführung beachtet und geändert werden sollten.
 
-## Durchführung
-
-Die Schulung basiert auf dem reveal.js Template. Lediglich ein kleiner Theorie-Foliensatz ist - mangels Zeit - in Powerpoint vorhanden.
-Inhaltlich beziehen Sich die Folien auf einen Dienstleister, einen Trainer und ein konkretes Datum. Vor einer erneuten Schulung sind die Angaben anzupassen.
-
-Die Ascii-Doc Folien befinden sich im Ordner https://gitlab.ads.anderscore.com/trainings/quarkus/-/tree/master/presentation und können wie üblich mit
-
-`sh generate.sh` oder `mvn -s .m2/settings.xml clean process-resources` bzw. `sh server.sh` oder `mvn -s .m2/settings.xml revealjs-server:serve`
-
-gerendert bzw. live gerendert werden (da sich Jan den letzteren Befehl nicht merken kann, gibt es ein Script `run.sh`, das diesen ausführt).
-Die fertigen Folien liegen im Ordner `presentation/target/generated-slides`. Die sind im git abgelegt, damit sie von den Teilnehmern beachtet werden können.
-
-Die GfU stellt Workstations für die Teilnehmer zur Verfügung - auch remote. Zuletzt jedoch noch recht kleine Intel NUC Geräte.
-Für die Durchführung wird Docker (bzw. Linux benötigt). Da die GfU gerne RDP verwendet (ist angeblich schneller), gab es auf den Windows-Geräten (wegen RDP)
-eine vmware-VM mit Ubuntu Linux.
-
-Für die Schulung werden gültige TLS-Zertifikate benötigt. Let's encrypt Zertifikate liegen in der Datei certs.zip (Kennwort: GFUquarkus202101) - Ende der Gültigkeit 01/2021.
-
-Da sich Quarkus recht schnell entwickelt, muss vor einer Schulung die Folie mit den Versionsnummern angepasst werden.
-Es bietet sich darüber hinaus an, die Beispiele mit der aktuellen Version zu testen. Da die MicroProfile-API eher konservativ ist, sollte es eher wenig Probleme geben.
-
 ## Übungsaufgaben:
 
 Zu praktisch jeder Übungsaufgabe gibt es ein Skelett in lesson0KAPITEL-NUMMER. Der Pfad ist auf den Folien verlinkt.
@@ -63,12 +42,7 @@ Bei der GfU haben wir die Installation folgender Komponenten angefragt:
 7. git
 8. Postman
 
-Die Teilnehmer haben zuletzt das Buch Beginning "Quarkus Framework: Build Cloud-Native Enterprise Java Applications and Microservices (English Edition) 1. Auflage" bekommen - evtl.
-gibt es beim nächsten Mal aber ein aktuelleres oder schönes Buch auf Deutsch.
-
 Hinweis: Wg. der Aufgabe zu Kubernetes muss die Umgebung VMs starten können. VM-in-VM geht nicht überall.
-Jan weiß nicht, wie zuverlässig Vagrant / Virtualbox da ist: Einerseits hat Jan im Hinterkopf, dass Virtualbox das Feature mitrbringt; andererseits ist die GfU genau deswegen auf VMWare
-auf dem Host ausgewichen.
 
 ## Errata
 
@@ -77,7 +51,6 @@ Vor einer erneuten Durchführung kann die Schulung in diesen Punkten verbessert 
 1. Übungsaufgaben nutzen H2-in-memory, was wegen native-executables eher ungeschickt ist. Gleichzeitig ist es recht aufwändig, einen H2-Server lokal zu installieren.
 Geschickter wäre, die Aufgaben von Anfang an mit Postgres zu machen und die Datenbank über Docker zu starten - die Postgres-Variante ist - Stand 2021/01 - nur für die
 Native-Testing Aufgabe in Kapitel 6 vorgesehen.
-2. Die Kafka-Folien (Powerpoint) nach Reveal-JS übernehmen. Redundanz entfernen.
-3. Das Kapitel zu CDI kann noch ausgebaut werden - insb. zu den Teilen, die von ArC (Build Time CDI) unterstützt werden. Vorlage evtl. nach dem Buch "Quarkus Framework: Build Cloud-Native Enterprise Java Applications and Microservices (English Edition) 1. Auflage" - dort gibt es ein Kapitel zu CDI - oder dem Quarkus Guide: https://quarkus.io/guides/cdi-reference
-4. Auf der Folie Hello World / CDI fehlt eine class-Deklaration mit dem richtigem Pfad
-5. Aufgaben zu Config
+2. Das Kapitel zu CDI kann noch ausgebaut werden - insb. zu den Teilen, die von ArC (Build Time CDI) unterstützt werden. Vorlage evtl. nach dem Buch "Quarkus Framework: Build Cloud-Native Enterprise Java Applications and Microservices (English Edition) 1. Auflage" - dort gibt es ein Kapitel zu CDI - oder dem Quarkus Guide: https://quarkus.io/guides/cdi-reference
+3. Auf der Folie Hello World / CDI fehlt eine class-Deklaration mit dem richtigem Pfad
+4. Aufgaben zu Config
