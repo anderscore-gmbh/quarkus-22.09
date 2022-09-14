@@ -17,7 +17,7 @@
     <properties>
         <presentation.title>Jakarta EE Microservices mit Quarkus &amp; MicroProfile</presentation.title>
         <!-- FIXME Sprecher ändern (angezeigt auf den Folien)-->
-		    <presentation.speaker>MJohenneken, ALambertz</presentation.speaker>
+		    <presentation.speaker>M. Joh., A. Lam.</presentation.speaker>
 		    <!-- FIXME Sprecher (Kurzform) hinzufügen, getrennt durch Komma z.B. vnachname -->
 		    <presentation.speaker.short>mjohenneken, alambertz</presentation.speaker.short>
         <presentation.speaker.jobtitle>Software Engineer</presentation.speaker.jobtitle>

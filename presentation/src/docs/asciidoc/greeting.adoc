@@ -11,7 +11,7 @@
 image::anderscore/GFU.svg[height=300]
 
 
-include::{basedir}/generated-src/speaker.adoc[]
+include::{basedir}/src/docs/asciidoc/speaker.adoc[]
 include::{basedir}/generated-src/anderScore1Slide.adoc[]
 
 == Inhalt und Ziel

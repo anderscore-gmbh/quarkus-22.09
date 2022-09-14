@@ -1,0 +1,41 @@
+[.columns]
+== Vorstellung
+
+[.two-col]
+--
+[.heading]
+Max Johenneken (M.Sc. Informatik)
+
+* seit 9 Jahren Software-Entwickler bei anderScore
+* Schwerpunkte
+** Fullstack Devlopment meist Java
+** Mobile Dev (Android/iOS)
+** Embedded Systems/ Computer Vision
+* Unterwegs in Java, Python, JavaScript/TS, C#, C++
+* Interessiert sich für/arbeitet an
+** Angular IoT Anwendung
+** .NET in Azure Cloud
+** Bildauswertung
+--
+
+image::mjohenneken.jpg[height=600][pdfwidth=7cm]
+[.columns]
+== Vorstellung
+
+[.two-col]
+--
+[.heading]
+André Lambertz (Softwareentwickler)
+
+* Mathematisch-Technischer Softwareentwickler
+* Seit 2 Jahren bei anderScore
+* Schwerpunkte
+** Java Entwicklung
+** Backend-Programmierung
+* Unterwegs in Java, Python, JavaScript
+* Interessiert sich für/arbeitet an
+** Quarkus
+** AI
+--
+
+image::alambertz.png[height=600][pdfwidth=7cm]
